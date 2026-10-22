@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj": {}
+    "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj": {}
   },
   "projects": {
-    "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj": {
+    "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+        "projectUniqueName": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
         "projectName": "LicenseGenerator",
-        "projectPath": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
-        "packagesPath": "C:\\Users\\antnguyen\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Han\\Authentication\\LicenseGenerator\\obj\\",
+        "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\antnguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -34,11 +34,11 @@
             "framework": "net8.0-windows7.0",
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
-                "projectPath": "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj"
+              "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
+                "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj"
               },
-              "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj": {
-                "projectPath": "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj"
+              "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj": {
+                "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj"
               }
             }
           }
@@ -82,20 +82,20 @@
         }
       }
     },
-    "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
+    "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj",
+        "projectUniqueName": "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj",
         "projectName": "LicenseLocalization",
-        "projectPath": "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj",
-        "packagesPath": "C:\\Users\\antnguyen\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Han\\Authentication\\LicenseLocalization\\obj\\",
+        "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\antnguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -112,8 +112,8 @@
             "framework": "net8.0-windows7.0",
             "targetAlias": "net8.0-windows",
             "projectReferences": {
-              "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj": {
-                "projectPath": "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj"
+              "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj": {
+                "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj"
               }
             }
           }
@@ -157,20 +157,20 @@
         }
       }
     },
-    "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj": {
+    "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj",
+        "projectUniqueName": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj",
         "projectName": "LicenseShared",
-        "projectPath": "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj",
-        "packagesPath": "C:\\Users\\antnguyen\\.nuget\\packages\\",
-        "outputPath": "D:\\project\\Han\\Authentication\\LicenseShared\\obj\\",
+        "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj",
+        "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
+        "outputPath": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\antnguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
