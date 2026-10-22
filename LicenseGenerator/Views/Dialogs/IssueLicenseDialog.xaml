@@ -217,6 +217,8 @@
                                         Width="190" Command="{Binding CopyResultCommand}"/>
                                 <Button Content="{DynamicResource S_SaveLicenseFile}" Style="{StaticResource SecondaryButton}"
                                         Width="170" Margin="10,0,0,0" Command="{Binding SaveResultCommand}"/>
+                                <Button Content="{DynamicResource S_SaveOfficeDat}" Style="{StaticResource SecondaryButton}"
+                                        Width="150" Margin="10,0,0,0" Command="{Binding SaveOfficeCommand}"/>
                             </StackPanel>
 
                             <TextBlock Text="{Binding ResultStatus}" Foreground="{StaticResource SuccessBrush}" FontSize="12"

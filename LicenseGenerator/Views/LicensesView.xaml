@@ -140,6 +140,7 @@
                                                 <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                                     <MenuItem Header="{DynamicResource S_InspectLicense}" Command="{Binding InspectCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_SaveLicenseFile}" Command="{Binding SaveFileCommand}"/>
+                                                    <MenuItem Header="{DynamicResource S_SaveOfficeDat}" Command="{Binding SaveOfficeFileCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RenewLicense}" Command="{Binding RenewCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RevokeRestore}" Command="{Binding RevokeCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RemoveFromRegister}" Command="{Binding DeleteCommand}"/>

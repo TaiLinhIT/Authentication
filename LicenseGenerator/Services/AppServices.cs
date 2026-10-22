@@ -22,6 +22,9 @@ public interface IDialogService
     /// <summary>Saves text to a file chosen by the user. Returns the path or null.</summary>
     string? SaveTextFile(string title, string suggestedName, string filter, string content, string defaultExtension);
 
+    /// <summary>Saves binary content to a file chosen by the user. Returns the path or null.</summary>
+    string? SaveBinaryFile(string title, string suggestedName, string filter, byte[] content, string defaultExtension);
+
     /// <summary>Opens a file and returns its content, or null.</summary>
     string? OpenTextFile(string title, string filter);
 
@@ -39,6 +42,7 @@ public sealed class AppServices
         Products = new ProductStore();
         Records = new LicenseRecordStore();
         Keys = new KeyStore();
+        OfficeSecret = new OfficeSecretStore();
         Signing = new SigningSession(Keys);
         Issuer = new IssuerService(Keys, Records);
         Export = new ExportService(Keys);
@@ -48,6 +52,7 @@ public sealed class AppServices
     public ProductStore Products { get; }
     public LicenseRecordStore Records { get; }
     public KeyStore Keys { get; }
+    public OfficeSecretStore OfficeSecret { get; }
     public SigningSession Signing { get; }
     public IssuerService Issuer { get; }
     public ExportService Export { get; }

@@ -14,7 +14,6 @@
     <ProjectReference Include="..\LicenseShared\LicenseShared.csproj" />
     <ProjectReference Include="..\LicenseLocalization\LicenseLocalization.csproj" />
     <ProjectReference Include="..\LicenseGenerator\LicenseGenerator.csproj" />
-    <ProjectReference Include="..\LicenseClientSample\LicenseClientSample.csproj" />
   </ItemGroup>
 
 </Project>

@@ -199,4 +199,12 @@ public static class LicenseDurations
     /// <summary>End-of-day UTC instant for an inclusive expiry date.</summary>
     public static DateTimeOffset EndOfDayUtc(DateOnly date) =>
         new DateTimeOffset(date.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)).AddDays(1).AddTicks(-1);
+
+    /// <summary>
+    /// UTC instant at which the license expires. When <paramref name="time"/> is null the license
+    /// stays valid through the end of the expiry date (23:59:59 UTC); otherwise it expires at the
+    /// exact minute entered.
+    /// </summary>
+    public static DateTimeOffset ExpiryInstantUtc(DateOnly date, TimeOnly? time) =>
+        time is null ? EndOfDayUtc(date) : new DateTimeOffset(date.ToDateTime(time.Value, DateTimeKind.Utc));
 }

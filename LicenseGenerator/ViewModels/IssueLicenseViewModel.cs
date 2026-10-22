@@ -94,6 +94,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
         GenerateCommand = new RelayCommand(Generate);
         CopyResultCommand = new RelayCommand(CopyResult);
         SaveResultCommand = new RelayCommand(SaveResult);
+        SaveOfficeCommand = new RelayCommand(SaveOffice);
         ResetCommand = new RelayCommand(Reset);
         PasteDeviceCommand = new RelayCommand(PasteDevice);
 
@@ -239,6 +240,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
     public ICommand GenerateCommand { get; }
     public ICommand CopyResultCommand { get; }
     public ICommand SaveResultCommand { get; }
+    public ICommand SaveOfficeCommand { get; }
     public ICommand ResetCommand { get; }
     public ICommand PasteDeviceCommand { get; }
 
@@ -271,11 +273,13 @@ public sealed class IssueLicenseViewModel : ObservableObject
 
             bool perpetual = IsPerpetual;
             DateOnly expiry = start;
+            TimeOnly? expiryTime = null;
             if (!perpetual)
             {
-                if (!TryParseDate(ExpiryDateText, out expiry))
+                if (!TryParseExpiry(ExpiryDateText, out expiry, out expiryTime))
                     throw new InvalidOperationException(L.T("S_ErrExpiryDate"));
-                if (expiry < start)
+                if (LicenseDurations.ExpiryInstantUtc(expiry, expiryTime) <
+                    new DateTimeOffset(start.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)))
                     throw new InvalidOperationException(L.T("S_ErrExpiryOrder"));
             }
 
@@ -291,6 +295,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
                 LicenseType = SelectedType?.Type ?? LicenseType.Days90,
                 StartDate = start,
                 ExpiryDate = expiry,
+                ExpiryTime = expiryTime,
                 Perpetual = perpetual
             };
 
@@ -329,7 +334,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
         ResultCode = code;
         ResultCodeLength = code.Length;
         ResultAlgorithm = record.Algorithm;
-        ResultExpiry = record.IsPerpetual ? L.T("S_Never") : record.ExpiresAtUtc.ToLocalTime().ToString("yyyy-MM-dd");
+        ResultExpiry = record.IsPerpetual ? L.T("S_Never") : LicenseFormatting.Expiry(record.ExpiresAtUtc);
         ResultStation = string.IsNullOrWhiteSpace(record.StationName) ? "—" : record.StationName;
         ResultFileName = $"{LicenseStore.SafeName(record.LicenseId)}.license.json";
         OnPropertyChanged(nameof(ResultDeliveryHint));
@@ -356,6 +361,31 @@ public sealed class IssueLicenseViewModel : ObservableObject
             "license.json");
 
         if (path is not null) SetResultStatus("S_SavedTo", path);
+    }
+
+    private void SaveOffice()
+    {
+        if (GeneratedRecord is null) return;
+
+        try
+        {
+            byte[] secret = _services.OfficeSecret.LoadOrCreate();
+            byte[] blob = _services.Export.BuildOfficeFile(GeneratedRecord, secret);
+
+            string? path = _services.Dialogs.SaveBinaryFile(
+                L.T("S_SaveOfficeDat"),
+                OfficeLicenseFile.DefaultFileName,
+                L.T("S_FilterOfficeDat"),
+                blob,
+                "dat");
+
+            if (path is not null) SetResultStatus("S_SavedTo", path);
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or CryptographicException or ArgumentException)
+        {
+            SetResultStatus(null);
+            ErrorMessage = ex.Message;
+        }
     }
 
     private void Reset()
@@ -479,5 +509,42 @@ public sealed class IssueLicenseViewModel : ObservableObject
         return DateOnly.TryParseExact(value, "yyyy-MM-dd", CultureInfo.InvariantCulture, DateTimeStyles.None, out date)
                || DateOnly.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out date)
                || DateOnly.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.None, out date);
+    }
+
+    /// <summary>
+    /// Parses an expiry that may carry a time of day: <c>yyyy-MM-dd</c>, <c>yyyy-MM-dd HH:mm</c>
+    /// or <c>yyyy-MM-dd HH:mm:ss</c> (UTC). A date-only value leaves <paramref name="time"/> null
+    /// so the license expires at the end of that day.
+    /// </summary>
+    private static bool TryParseExpiry(string? text, out DateOnly date, out TimeOnly? time)
+    {
+        date = default;
+        time = null;
+        if (string.IsNullOrWhiteSpace(text)) return false;
+
+        string value = text.Trim();
+        if (value.Equals("Never", StringComparison.OrdinalIgnoreCase)) return false;
+
+        string[] exactFormats = { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM-dd" };
+        if (DateTimeOffset.TryParseExact(value, exactFormats, CultureInfo.InvariantCulture,
+                DateTimeStyles.None, out var stamp))
+        {
+            date = DateOnly.FromDateTime(stamp.DateTime);
+            // A date-only entry (10 characters, "yyyy-MM-dd") keeps the end-of-day default.
+            time = value.Length == 10 ? null : new TimeOnly(stamp.Hour, stamp.Minute, stamp.Second);
+            return true;
+        }
+
+        // Lenient fallbacks (culture formats, extra whitespace) — accept a date with or without time.
+        if (DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out stamp)
+            || DateTimeOffset.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.None, out stamp))
+        {
+            date = DateOnly.FromDateTime(stamp.DateTime);
+            var tod = stamp.TimeOfDay;
+            time = tod == TimeSpan.Zero ? null : new TimeOnly(tod.Hours, tod.Minutes, tod.Seconds);
+            return true;
+        }
+
+        return false;
     }
 }

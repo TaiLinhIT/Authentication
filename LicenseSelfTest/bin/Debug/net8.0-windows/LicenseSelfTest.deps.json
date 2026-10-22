@@ -10,9 +10,7 @@
         "dependencies": {
           "LicenseGenerator": "1.0.0",
           "LicenseLocalization": "1.0.0",
-          "LicenseShared": "1.0.0",
-          "WarehouseLabelCompareMaterial": "1.0.0",
-          "WarehouseLabelCompareMaterial.Reference": "1.0.0.0"
+          "LicenseShared": "1.0.0"
         },
         "runtime": {
           "LicenseSelfTest.dll": {}
@@ -48,25 +46,6 @@
             "fileVersion": "1.0.0.0"
           }
         }
-      },
-      "WarehouseLabelCompareMaterial/1.0.0": {
-        "dependencies": {
-          "LicenseLocalization": "1.0.0",
-          "LicenseShared": "1.0.0"
-        },
-        "runtime": {
-          "WarehouseLabelCompareMaterial.dll": {
-            "fileVersion": "0.0.0.0"
-          }
-        }
-      },
-      "WarehouseLabelCompareMaterial.Reference/1.0.0.0": {
-        "runtime": {
-          "WarehouseLabelCompareMaterial.dll": {
-            "assemblyVersion": "1.0.0.0",
-            "fileVersion": "1.0.0.0"
-          }
-        }
       }
     }
   },
@@ -88,16 +67,6 @@
     },
     "LicenseShared/1.0.0": {
       "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "WarehouseLabelCompareMaterial/1.0.0": {
-      "type": "project",
-      "serviceable": false,
-      "sha512": ""
-    },
-    "WarehouseLabelCompareMaterial.Reference/1.0.0.0": {
-      "type": "reference",
       "serviceable": false,
       "sha512": ""
     }

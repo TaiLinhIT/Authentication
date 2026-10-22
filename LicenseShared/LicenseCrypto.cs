@@ -14,7 +14,9 @@ public static class LicenseCrypto
     public const int MinimumPasswordLength = 12;
     public const int KeyIdHexLength = 16;
 
-    private const int PbeIterations = 200_000;
+    /// <summary>PBKDF2 iterations for new private keys (OWASP 2023+ guidance for PBKDF2-HMAC-SHA256).
+    /// Existing key files carry their own iteration count, so older keys still open unchanged.</summary>
+    private const int PbeIterations = 600_000;
     private const int MaxEnvelopeChars = 128 * 1024;
     private const string RsaLabel = "RSA-{0}-PSS-SHA256";
     private const string EcdsaLabel = "ECDSA-P{0}-SHA{1}";

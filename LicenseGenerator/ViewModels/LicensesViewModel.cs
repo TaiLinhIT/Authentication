@@ -3,6 +3,7 @@ using LicenseGenerator.Localization;
 using LicenseGenerator.Services;
 using LicenseShared;
 using System.Collections.ObjectModel;
+using System.Security.Cryptography;
 using System.Windows.Input;
 
 namespace LicenseGenerator.ViewModels;
@@ -44,6 +45,7 @@ public sealed class LicenseRowViewModel
 
         CopyCodeCommand = new RelayCommand(CopyCode);
         SaveFileCommand = new RelayCommand(SaveFile);
+        SaveOfficeFileCommand = new RelayCommand(SaveOfficeFile);
         InspectCommand = new RelayCommand(Inspect);
         RenewCommand = new RelayCommand(Renew);
         RevokeCommand = new RelayCommand(Revoke);
@@ -62,8 +64,8 @@ public sealed class LicenseRowViewModel
     public string TypeLabel => L.TypeName(Record.LicenseType);
     public string BindingLabel => L.Binding(Record.BindingMode);
     public string AlgorithmLabel => Record.Algorithm;
-    public string IssuedLabel => Record.IssuedAtUtc.ToLocalTime().ToString("yyyy-MM-dd");
-    public string ExpiresLabel => Record.IsPerpetual ? L.T("S_Never") : Record.ExpiresAtUtc.ToLocalTime().ToString("yyyy-MM-dd");
+    public string IssuedLabel => Record.IssuedAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+    public string ExpiresLabel => Record.IsPerpetual ? L.T("S_Never") : LicenseFormatting.Expiry(Record.ExpiresAtUtc);
     public LicenseRecordState State { get; }
     public string StateLabel => L.RecordState(State);
     public string StatusKind { get; }
@@ -71,6 +73,7 @@ public sealed class LicenseRowViewModel
 
     public ICommand CopyCodeCommand { get; }
     public ICommand SaveFileCommand { get; }
+    public ICommand SaveOfficeFileCommand { get; }
     public ICommand InspectCommand { get; }
     public ICommand RenewCommand { get; }
     public ICommand RevokeCommand { get; }
@@ -110,6 +113,26 @@ public sealed class LicenseRowViewModel
     }
 
     private void Inspect() => _services.Dialogs.ShowLicenseDetails(Record.LicenseText);
+
+    private void SaveOfficeFile()
+    {
+        try
+        {
+            byte[] secret = _services.OfficeSecret.LoadOrCreate();
+            byte[] blob = _services.Export.BuildOfficeFile(Record, secret);
+
+            _services.Dialogs.SaveBinaryFile(
+                L.T("S_SaveOfficeDat"),
+                OfficeLicenseFile.DefaultFileName,
+                L.T("S_FilterOfficeDat"),
+                blob,
+                "dat");
+        }
+        catch (Exception ex) when (ex is InvalidOperationException or CryptographicException or ArgumentException)
+        {
+            _services.Dialogs.ShowError(L.T("S_CouldNotSaveFile"), ex.Message);
+        }
+    }
 
     private void Renew()
     {

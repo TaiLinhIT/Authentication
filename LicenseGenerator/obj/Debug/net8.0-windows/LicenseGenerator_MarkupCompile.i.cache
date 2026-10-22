@@ -12,7 +12,7 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR
 E:\MyProject\HAN\Authentication\LicenseGenerator\App.xaml
 12-2129739071
 
-30-1779571644
+31-1244493385
 200-210241436
 MainWindow.xaml;Theme.xaml;Views\DashboardView.xaml;Views\Dialogs\AddProductDialog.xaml;Views\Dialogs\ConfirmDialog.xaml;Views\Dialogs\IssueLicenseDialog.xaml;Views\Dialogs\LicenseDetailsDialog.xaml;Views\Dialogs\MessageDialog.xaml;Views\Dialogs\PasswordPromptDialog.xaml;Views\LicensesView.xaml;Views\ProductsView.xaml;Views\SettingsView.xaml;
 

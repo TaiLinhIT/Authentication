@@ -257,6 +257,13 @@ public sealed class IssueRequest
     public LicenseType LicenseType { get; set; } = LicenseType.Days90;
     public DateOnly StartDate { get; set; }
     public DateOnly ExpiryDate { get; set; }
+
+    /// <summary>
+    /// Optional time of day for the expiry (UTC). Null keeps the historical behaviour of
+    /// expiring at the end of <see cref="ExpiryDate"/> (23:59:59 UTC).
+    /// </summary>
+    public TimeOnly? ExpiryTime { get; set; }
+
     public bool Perpetual { get; set; }
 }
 
@@ -285,7 +292,8 @@ public sealed class IssuerService
                     ? L.T("S_IssuerPasteFingerprint")
                     : L.T("S_IssuerEnterDeviceId"));
 
-        if (!request.Perpetual && request.ExpiryDate < request.StartDate)
+        if (!request.Perpetual && LicenseDurations.ExpiryInstantUtc(request.ExpiryDate, request.ExpiryTime) <
+            new DateTimeOffset(request.StartDate.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)))
             throw new InvalidOperationException(L.T("S_ErrExpiryOrder"));
 
         var startUtc = new DateTimeOffset(
@@ -293,7 +301,7 @@ public sealed class IssuerService
 
         var expiresUtc = request.Perpetual
             ? DateTimeOffset.MaxValue
-            : LicenseDurations.EndOfDayUtc(request.ExpiryDate);
+            : LicenseDurations.ExpiryInstantUtc(request.ExpiryDate, request.ExpiryTime);
 
         var payload = new LicensePayload
         {
@@ -390,6 +398,21 @@ public sealed class ExportService
         }
 
         return PublicKeyBundleSerializer.Serialize(bundle);
+    }
+
+    /// <summary>
+    /// Seals an issued license into an encrypted office.dat blob bound to the machine the
+    /// license was issued for. Requires the vendor secret that ships inside the client app.
+    /// </summary>
+    public byte[] BuildOfficeFile(LicenseRecord record, byte[] secret)
+    {
+        ArgumentNullException.ThrowIfNull(record);
+
+        if (!LicenseCodec.TryParseLicenseText(record.LicenseText, out var envelope, out string error))
+            throw new InvalidOperationException($"The stored license text is unreadable: {error}");
+
+        string json = LicenseCrypto.SerializeEnvelope(envelope!);
+        return OfficeLicenseFile.Create(json, record.ProductId, record.DeviceId.Trim(), secret);
     }
 
     public static string BuildCsv(IEnumerable<LicenseRecord> records)

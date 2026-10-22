@@ -7,9 +7,9 @@ using System.Windows.Controls;
 namespace LicenseSelfTest;
 
 /// <summary>
-/// Exercises the WPF surface: loads both themes and language catalogs, materializes the real
-/// windows and views, and switches English → Vietnamese → English to prove that DynamicResource
-/// text, code-built labels and the language toggle all update at runtime.
+/// Exercises the WPF surface: loads the issuer theme and language catalogs, materializes the
+/// real issuer windows and views, and switches English → Vietnamese → English to prove that
+/// DynamicResource text, code-built labels and the language toggle all update at runtime.
 /// </summary>
 internal static class UiSmokeTests
 {
@@ -23,7 +23,6 @@ internal static class UiSmokeTests
             {
                 _ = new Application { ShutdownMode = ShutdownMode.OnExplicitShutdown };
                 CheckTheme(check, "LicenseGenerator", "generator");
-                CheckTheme(check, "WarehouseLabelCompareMaterial", "client");
                 CheckLocalization(check);
                 CheckWindows(check);
             }
@@ -119,22 +118,6 @@ internal static class UiSmokeTests
                 vm.Dashboard.Stats.Count > 0 && vm.Dashboard.Stats[0].Label == "PRODUCTS",
                 vm.Dashboard.Stats.Count > 0 ? vm.Dashboard.Stats[0].Label : "no stats");
 
-            var payload = new LicensePayload
-            {
-                ProductId = "X",
-                LicenseType = LicenseType.Days90,
-                NotBeforeUtc = new DateTimeOffset(2026, 1, 1, 0, 0, 0, TimeSpan.Zero),
-                ExpiresAtUtc = new DateTimeOffset(2026, 2, 1, 0, 0, 0, TimeSpan.Zero)
-            };
-            var expired = LicenseValidationResult.Fail(LicenseStatus.Expired, "expired", payload);
-
-            check("client type label starts in English",
-                LicenseClientSample.Localization.L.TypeName(LicenseType.Days90) == "90 days",
-                LicenseClientSample.Localization.L.TypeName(LicenseType.Days90));
-            check("client status message starts in English",
-                LicenseClientSample.Localization.L.Describe(expired, "X").Contains("expired", StringComparison.Ordinal),
-                LicenseClientSample.Localization.L.Describe(expired, "X"));
-
             check("DynamicResource resolves English at runtime",
                 block.Text == "Dashboard", block.Text);
 
@@ -151,12 +134,6 @@ internal static class UiSmokeTests
             check("Issuer computed counts switch at runtime",
                 vm.Products.CountText.Contains("sản phẩm", StringComparison.Ordinal),
                 vm.Products.CountText);
-            check("client type label switches at runtime",
-                LicenseClientSample.Localization.L.TypeName(LicenseType.Days90) == "90 ngày",
-                LicenseClientSample.Localization.L.TypeName(LicenseType.Days90));
-            check("client status message switches at runtime",
-                LicenseClientSample.Localization.L.Describe(expired, "X").Contains("hết hạn", StringComparison.Ordinal),
-                LicenseClientSample.Localization.L.Describe(expired, "X"));
 
             LanguageManager.SetLanguage(AppLanguage.English);
             check("DynamicResource switches back to English at runtime",
@@ -168,9 +145,6 @@ internal static class UiSmokeTests
             check("Issuer computed counts switch back at runtime",
                 vm.Products.CountText.Contains("product", StringComparison.Ordinal),
                 vm.Products.CountText);
-            check("client status message switches back at runtime",
-                LicenseClientSample.Localization.L.Describe(expired, "X").Contains("expired", StringComparison.Ordinal),
-                LicenseClientSample.Localization.L.Describe(expired, "X"));
 
             host.Close();
         }
@@ -214,93 +188,6 @@ internal static class UiSmokeTests
             check("issuer language toggle switches back to VI",
                 issuerToggle?.Content as string == "VI", issuerToggle?.Content as string);
 
-            Application.Current.Resources.MergedDictionaries.Add(new ResourceDictionary
-            {
-                Source = new Uri("pack://application:,,,/WarehouseLabelCompareMaterial;component/Theme.xaml")
-            });
-
-            var config = new LicenseClientSample.Models.ClientConfig
-            {
-                ProductId = "SelfTestProduct",
-                ProductName = "Self Test",
-                Vendor = "Vendor",
-                Version = "1.0.0"
-            };
-            var validator = new LicenseClientSample.Services.LicenseValidator(
-                config, LicenseClientSample.Security.PublicKeyProvider.LoadDefault());
-
-            var activation = new LicenseClientSample.Views.ActivationWindow(
-                config, validator, LicenseValidationResult.Fail(LicenseStatus.Missing, "missing"));
-
-            check("client activation window materializes", activation.Content is not null, null);
-
-            var activationToggle = FindLogical<Button>(activation)
-                .FirstOrDefault(b => b.Content as string == "VI");
-            check("client language toggle is present in English", activationToggle is not null, null);
-
-            string englishTitle = activation.Title;
-            LanguageManager.SetLanguage(AppLanguage.Vietnamese);
-            check("client activation window title switches",
-                activation.Title != englishTitle, activation.Title);
-            check("client language toggle switches to EN",
-                activationToggle?.Content as string == "EN", activationToggle?.Content as string);
-
-            LanguageManager.SetLanguage(AppLanguage.English);
-            check("client activation window title switches back",
-                activation.Title == englishTitle, activation.Title);
-            check("client language toggle switches back to VI",
-                activationToggle?.Content as string == "VI", activationToggle?.Content as string);
-
-            var now = DateTimeOffset.UtcNow;
-            var payload = new LicensePayload
-            {
-                LicenseId = "WLC-TEST-000001",
-                ProductId = config.ProductId,
-                ProductName = config.ProductName,
-                CustomerName = "Test Customer",
-                StationName = "Test Station",
-                DeviceId = "DEV-0123456789ABCDEF",
-                BindingMode = DeviceBindingMode.MachineFingerprint,
-                LicenseType = LicenseType.Days90,
-                IssuedAtUtc = now,
-                NotBeforeUtc = now.AddMinutes(-1),
-                ExpiresAtUtc = now.AddDays(90),
-                KeyId = "TESTKEY"
-            };
-
-            var clientMain = new LicenseClientSample.Views.MainWindow(
-                config, validator, LicenseValidationResult.Valid(payload));
-
-            check("client main window materializes", clientMain.Content is not null, null);
-
-            var mainToggle = FindLogical<Button>(clientMain)
-                .FirstOrDefault(b => b.Content as string == "VI");
-            check("client main language toggle is present in English", mainToggle is not null, null);
-
-            var pill = FindLogical<ContentControl>(clientMain)
-                .FirstOrDefault(c => c.Content as string == "License active");
-            check("client license pill starts in English", pill is not null, null);
-
-            LanguageManager.SetLanguage(AppLanguage.Vietnamese);
-            check("client main language toggle switches to EN",
-                mainToggle?.Content as string == "EN", mainToggle?.Content as string);
-            check("client license pill switches to Vietnamese",
-                pill?.Content as string == "License đang hiệu lực", pill?.Content as string);
-
-            LanguageManager.SetLanguage(AppLanguage.English);
-            check("client main language toggle switches back to VI",
-                mainToggle?.Content as string == "VI", mainToggle?.Content as string);
-            check("client license pill switches back to English",
-                pill?.Content as string == "License active", pill?.Content as string);
-
-            var info = new LicenseClientSample.Views.LicenseInfoDialog(
-                config, validator, LicenseValidationResult.Valid(payload));
-            check("client license information dialog materializes", info.Content is not null, null);
-            try { info.Close(); } catch (InvalidOperationException) { }
-
-            try { clientMain.Close(); } catch (InvalidOperationException) { }
-
-            try { activation.Close(); } catch (InvalidOperationException) { }
             try { issuer.Close(); } catch (InvalidOperationException) { }
         }
         catch (Exception ex)

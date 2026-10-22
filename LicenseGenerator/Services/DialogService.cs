@@ -57,6 +57,19 @@ public sealed class DialogService : IDialogService
 
     public string? SaveTextFile(string title, string suggestedName, string filter, string content, string defaultExtension)
     {
+        return SaveFile(title, suggestedName, filter, defaultExtension,
+            path => File.WriteAllText(path, content, new UTF8Encoding(false)));
+    }
+
+    public string? SaveBinaryFile(string title, string suggestedName, string filter, byte[] content, string defaultExtension)
+    {
+        return SaveFile(title, suggestedName, filter, defaultExtension,
+            path => File.WriteAllBytes(path, content));
+    }
+
+    private string? SaveFile(
+        string title, string suggestedName, string filter, string defaultExtension, Action<string> write)
+    {
         var dialog = new SaveFileDialog
         {
             Title = title,
@@ -75,7 +88,7 @@ public sealed class DialogService : IDialogService
             string? directory = Path.GetDirectoryName(dialog.FileName);
             if (!string.IsNullOrEmpty(directory)) Directory.CreateDirectory(directory);
 
-            File.WriteAllText(dialog.FileName, content, new UTF8Encoding(false));
+            write(dialog.FileName);
             return dialog.FileName;
         }
         catch (Exception ex)

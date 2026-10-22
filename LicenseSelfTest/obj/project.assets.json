@@ -63,23 +63,6 @@
         "runtime": {
           "bin/placeholder/LicenseShared.dll": {}
         }
-      },
-      "WarehouseLabelCompareMaterial/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v8.0",
-        "dependencies": {
-          "LicenseLocalization": "1.0.0",
-          "LicenseShared": "1.0.0"
-        },
-        "compile": {
-          "bin/placeholder/WarehouseLabelCompareMaterial.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/WarehouseLabelCompareMaterial.dll": {}
-        },
-        "frameworkReferences": [
-          "Microsoft.WindowsDesktop.App.WPF"
-        ]
       }
     }
   },
@@ -134,19 +117,13 @@
       "type": "project",
       "path": "../LicenseShared/LicenseShared.csproj",
       "msbuildProject": "../LicenseShared/LicenseShared.csproj"
-    },
-    "WarehouseLabelCompareMaterial/1.0.0": {
-      "type": "project",
-      "path": "../LicenseClientSample/LicenseClientSample.csproj",
-      "msbuildProject": "../LicenseClientSample/LicenseClientSample.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net8.0-windows": [
       "LicenseGenerator >= 1.0.0",
       "LicenseLocalization >= 1.0.0",
-      "LicenseShared >= 1.0.0",
-      "WarehouseLabelCompareMaterial >= 1.0.0"
+      "LicenseShared >= 1.0.0"
     ]
   },
   "packageFolders": {
@@ -183,9 +160,6 @@
           "framework": "net8.0-windows7.0",
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "E:\\MyProject\\HAN\\Authentication\\LicenseClientSample\\LicenseClientSample.csproj": {
-              "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseClientSample\\LicenseClientSample.csproj"
-            },
             "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj": {
               "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj"
             },

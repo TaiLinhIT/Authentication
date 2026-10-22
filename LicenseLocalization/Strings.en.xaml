@@ -198,7 +198,7 @@
     <sys:String x:Key="S_DurationU">LICENSE DURATION</sys:String>
     <sys:String x:Key="S_DeviceBindingU">DEVICE BINDING</sys:String>
     <sys:String x:Key="S_StationU">STATION</sys:String>
-    <sys:String x:Key="S_DatesHint">Dates use yyyy-MM-dd. The license stays valid until 23:59:59 UTC on the expiry date.</sys:String>
+    <sys:String x:Key="S_DatesHint">Dates use yyyy-MM-dd, optionally with the expiry time as yyyy-MM-dd HH:mm (UTC). Without a time the license stays valid until 23:59:59 UTC on the expiry date.</sys:String>
     <sys:String x:Key="S_GenerateSignedLicense">Generate signed license</sys:String>
     <sys:String x:Key="S_SignLocalHint">The license is signed with the product's private key on this PC. Nothing is sent over the network.</sys:String>
     <sys:String x:Key="S_ConfigPreview">CONFIGURATION PREVIEW</sys:String>
@@ -227,7 +227,7 @@
     <sys:String x:Key="S_ErrDeviceRequired">Enter the target machine fingerprint or device ID.</sys:String>
     <sys:String x:Key="S_ErrFingerprint">The machine fingerprint must be the 64-character hexadecimal value copied from the client.</sys:String>
     <sys:String x:Key="S_ErrStartDate">Start date must use yyyy-MM-dd.</sys:String>
-    <sys:String x:Key="S_ErrExpiryDate">Expiry date must use yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Expiry must use yyyy-MM-dd or yyyy-MM-dd HH:mm (UTC).</sys:String>
     <sys:String x:Key="S_ErrExpiryOrder">The expiry date must be on or after the start date.</sys:String>
     <sys:String x:Key="S_SaveSignedLicense">Save signed license</sys:String>
     <sys:String x:Key="S_SaveLicenseFileTitle">Save license file</sys:String>
@@ -402,5 +402,16 @@
     <sys:String x:Key="S_SigningKeyMissing">The signing key for '{0}' is missing. It cannot be recreated without invalidating existing licenses.</sys:String>
     <sys:String x:Key="S_IssuerPasteFingerprint">Paste the fingerprint copied from the target machine.</sys:String>
     <sys:String x:Key="S_IssuerEnterDeviceId">Enter the device ID displayed by the client on the target machine.</sys:String>
+
+    <!-- encrypted office.dat license file -->
+    <sys:String x:Key="S_SaveOfficeDat">Save office.dat</sys:String>
+    <sys:String x:Key="S_FilterOfficeDat">License file (*.dat)|*.dat|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterText">Text file (*.txt)|*.txt|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_OfficeDatCard">Encrypted license file (office.dat)</sys:String>
+    <sys:String x:Key="S_OfficeDatCardHint">Licenses can be saved as office.dat: the signed license sealed with AES-256-GCM, bound to the target machine. The client needs the secret below to open the file — embed it in your application.</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecret">Export client secret</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecretTitle">Export client secret</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedTitle">Client secret exported</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedMessage">Secret saved to:\n{0}\n\nKeep it out of reach of your customers: it is required to open office.dat files. Embed it in the application you ship.</sys:String>
 
 </ResourceDictionary>

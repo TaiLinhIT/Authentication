@@ -52,7 +52,7 @@ namespace LicenseGenerator.Views {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/LicenseGenerator;component/views/productsview.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/LicenseGenerator;V1.0.0.0;component/views/productsview.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Views\ProductsView.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

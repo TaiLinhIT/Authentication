@@ -93,13 +93,13 @@ public partial class LicenseDetailsDialog : Window
         var now = DateTimeOffset.UtcNow;
         string status;
         if (now < payload.NotBeforeUtc)
-            status = L.F("S_StatusCodeNotActive", payload.NotBeforeUtc.ToString("yyyy-MM-dd"));
+            status = L.F("S_StatusCodeNotActive", payload.NotBeforeUtc.ToString("yyyy-MM-dd HH:mm"));
         else if (!payload.IsPerpetual && now > payload.ExpiresAtUtc)
-            status = L.F("S_StatusCodeExpired", payload.ExpiresAtUtc.ToString("yyyy-MM-dd"));
+            status = L.F("S_StatusCodeExpired", payload.ExpiresAtUtc.ToString("yyyy-MM-dd HH:mm"));
         else
             status = payload.IsPerpetual
                 ? L.T("S_StatusCodeActivePerpetual")
-                : L.F("S_StatusCodeActiveUntil", payload.ExpiresAtUtc.ToString("yyyy-MM-dd"));
+                : L.F("S_StatusCodeActiveUntil", payload.ExpiresAtUtc.ToString("yyyy-MM-dd HH:mm"));
 
         try
         {

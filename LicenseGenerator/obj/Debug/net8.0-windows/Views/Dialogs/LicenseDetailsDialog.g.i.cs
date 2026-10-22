@@ -180,7 +180,7 @@ namespace LicenseGenerator.Views.Dialogs {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/LicenseGenerator;component/views/dialogs/licensedetailsdialog.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/LicenseGenerator;V1.0.0.0;component/views/dialogs/licensedetailsdialog.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\..\Views\Dialogs\LicenseDetailsDialog.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

@@ -198,7 +198,7 @@
     <sys:String x:Key="S_DurationU">THỜI HẠN LICENSE</sys:String>
     <sys:String x:Key="S_DeviceBindingU">RÀNG BUỘC THIẾT BỊ</sys:String>
     <sys:String x:Key="S_StationU">TRẠM</sys:String>
-    <sys:String x:Key="S_DatesHint">Ngày dùng định dạng yyyy-MM-dd. License có hiệu lực đến 23:59:59 UTC của ngày hết hạn.</sys:String>
+    <sys:String x:Key="S_DatesHint">Ngày dùng định dạng yyyy-MM-dd, có thể kèm giờ hết hạn dạng yyyy-MM-dd HH:mm (UTC). Nếu không nhập giờ, license có hiệu lực đến 23:59:59 UTC của ngày hết hạn.</sys:String>
     <sys:String x:Key="S_GenerateSignedLicense">Tạo license đã ký</sys:String>
     <sys:String x:Key="S_SignLocalHint">License được ký bằng private key của sản phẩm ngay trên máy này. Không có dữ liệu nào gửi qua mạng.</sys:String>
     <sys:String x:Key="S_ConfigPreview">XEM TRƯỚC CẤU HÌNH</sys:String>
@@ -227,7 +227,7 @@
     <sys:String x:Key="S_ErrDeviceRequired">Nhập fingerprint hoặc device ID của máy đích.</sys:String>
     <sys:String x:Key="S_ErrFingerprint">Fingerprint máy phải là chuỗi 64 ký tự hex sao chép từ client.</sys:String>
     <sys:String x:Key="S_ErrStartDate">Ngày bắt đầu phải dùng định dạng yyyy-MM-dd.</sys:String>
-    <sys:String x:Key="S_ErrExpiryDate">Ngày hết hạn phải dùng định dạng yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Ngày hết hạn phải dùng định dạng yyyy-MM-dd hoặc yyyy-MM-dd HH:mm (UTC).</sys:String>
     <sys:String x:Key="S_ErrExpiryOrder">Ngày hết hạn phải bằng hoặc sau ngày bắt đầu.</sys:String>
     <sys:String x:Key="S_SaveSignedLicense">Lưu license đã ký</sys:String>
     <sys:String x:Key="S_SaveLicenseFileTitle">Lưu file license</sys:String>
@@ -402,5 +402,16 @@
     <sys:String x:Key="S_SigningKeyMissing">Không tìm thấy khóa ký của '{0}'. Không thể tạo lại mà không làm mất hiệu lực các license đã cấp.</sys:String>
     <sys:String x:Key="S_IssuerPasteFingerprint">Dán fingerprint đã sao chép từ máy đích.</sys:String>
     <sys:String x:Key="S_IssuerEnterDeviceId">Nhập Device ID hiển thị trên client của máy đích.</sys:String>
+
+    <!-- encrypted office.dat license file -->
+    <sys:String x:Key="S_SaveOfficeDat">Lưu office.dat</sys:String>
+    <sys:String x:Key="S_FilterOfficeDat">File license (*.dat)|*.dat|Tất cả file (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterText">File văn bản (*.txt)|*.txt|Tất cả file (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_OfficeDatCard">File license mã hóa (office.dat)</sys:String>
+    <sys:String x:Key="S_OfficeDatCardHint">License có thể được lưu thành office.dat: license đã ký được niêm phong bằng AES-256-GCM, buộc theo máy đích. App khách cần secret bên dưới để mở file — hãy nhúng secret này vào phần mềm bạn bán.</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecret">Xuất secret cho app khách</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecretTitle">Xuất secret cho app khách</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedTitle">Đã xuất secret</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedMessage">Secret đã lưu tại:\n{0}\n\nGiữ secret tránh xa khách hàng: đây là khóa cần để mở file office.dat. Hãy nhúng nó vào phần mềm bạn bán.</sys:String>
 
 </ResourceDictionary>

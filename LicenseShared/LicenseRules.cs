@@ -37,13 +37,13 @@ public static class LicenseRules
         if (nowUtc < payload.NotBeforeUtc - NotBeforeTolerance)
             return LicenseValidationResult.Fail(
                 LicenseStatus.NotYetValid,
-                $"This license becomes active on {payload.NotBeforeUtc:yyyy-MM-dd} (UTC).",
+                $"This license becomes active on {payload.NotBeforeUtc:yyyy-MM-dd HH:mm} (UTC).",
                 payload);
 
         if (!payload.IsPerpetual && nowUtc > payload.ExpiresAtUtc)
             return LicenseValidationResult.Fail(
                 LicenseStatus.Expired,
-                $"This license expired on {payload.ExpiresAtUtc:yyyy-MM-dd} (UTC).",
+                $"This license expired on {payload.ExpiresAtUtc:yyyy-MM-dd HH:mm} (UTC).",
                 payload);
 
         return LicenseValidationResult.Valid(payload);

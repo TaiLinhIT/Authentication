@@ -85,6 +85,37 @@ internal static class Program
             var expired = LicenseRules.Evaluate(verified!, product, fingerprint, deviceId, new DateTimeOffset(2027, 1, 20, 0, 0, 0, TimeSpan.Zero));
             Check("Expired license rejected", expired.Status == LicenseStatus.Expired, expired.Message);
 
+            // Expiry down to the minute
+            var preciseDate = new DateOnly(2027, 1, 19);
+            var preciseTime = new TimeOnly(20, 30);
+            var preciseInstant = LicenseDurations.ExpiryInstantUtc(preciseDate, preciseTime);
+            Check("Minute-precision expiry instant",
+                preciseInstant == new DateTimeOffset(2027, 1, 19, 20, 30, 0, TimeSpan.Zero), preciseInstant.ToString("O"));
+            Check("Date-only expiry still ends the day",
+                LicenseDurations.ExpiryInstantUtc(preciseDate, null) == LicenseDurations.EndOfDayUtc(preciseDate));
+
+            var precise = Clone(payload);
+            precise.ExpiresAtUtc = preciseInstant;
+            var preciseEnvelope = LicenseCrypto.Sign(precise, rsaPrivate, password, SigningAlgorithm.Rsa);
+            LicenseCrypto.Verify(preciseEnvelope, publicPem, out var precisePayload, out _);
+            var oneMinuteBefore = LicenseRules.Evaluate(
+                precisePayload!, product, fingerprint, deviceId,
+                new DateTimeOffset(2027, 1, 19, 20, 29, 0, TimeSpan.Zero));
+            Check("License valid one minute before the precise expiry", oneMinuteBefore.IsValid, oneMinuteBefore.Message);
+            var oneMinuteAfter = LicenseRules.Evaluate(
+                precisePayload!, product, fingerprint, deviceId,
+                new DateTimeOffset(2027, 1, 19, 20, 31, 0, TimeSpan.Zero));
+            Check("License expired one minute after the precise expiry",
+                oneMinuteAfter.Status == LicenseStatus.Expired, oneMinuteAfter.Message);
+
+            // Display helper: date-only for end-of-day, HH:mm for a chosen time.
+            Check("Expiry display keeps end-of-day as a date",
+                LicenseFormatting.Expiry(LicenseDurations.EndOfDayUtc(preciseDate), toLocal: false) == "2027-01-19",
+                LicenseFormatting.Expiry(LicenseDurations.EndOfDayUtc(preciseDate), toLocal: false));
+            Check("Expiry display shows the chosen minute",
+                LicenseFormatting.Expiry(preciseInstant, toLocal: false) == "2027-01-19 20:30",
+                LicenseFormatting.Expiry(preciseInstant, toLocal: false));
+
             var notYet = LicenseRules.Evaluate(verified!, product, fingerprint, deviceId, now.AddDays(-30));
             Check("Future license rejected", notYet.Status == LicenseStatus.NotYetValid, notYet.Message);
 
@@ -207,6 +238,49 @@ internal static class Program
             var parsedBundle = PublicKeyBundleSerializer.Deserialize(bundleJson);
             Check("Public key bundle round trips", parsedBundle?.Keys.Count == 1 && parsedBundle.Keys[0].KeyId == rsaKeyId);
 
+            // Encrypted office.dat license file
+            byte[] officeSecret = OfficeLicenseFile.CreateSecret();
+            Check("office.dat secret size", officeSecret.Length == OfficeLicenseFile.SecretSizeBytes);
+
+            string officeJson = LicenseCrypto.SerializeEnvelope(envelope);
+            byte[] officeBlob = OfficeLicenseFile.Create(officeJson, product, fingerprint, officeSecret);
+            Check("office.dat has magic header", officeBlob.AsSpan(0, 5).SequenceEqual("OFFC1"u8));
+            Check("office.dat is not plaintext",
+                !Encoding.UTF8.GetString(officeBlob).Contains("WarehouseLabelCompareMaterial", StringComparison.Ordinal));
+
+            Check("office.dat opens on the bound machine",
+                OfficeLicenseFile.TryOpen(officeBlob, product, fingerprint, officeSecret,
+                    out string officeOpened, out string officeError), officeError);
+            Check("office.dat restores the signed envelope",
+                LicenseCodec.TryParseLicenseText(officeOpened, out var officeEnvelope, out officeError)
+                && LicenseCrypto.Verify(officeEnvelope!, publicPem, out _, out officeError), officeError);
+
+            Check("office.dat refuses another machine",
+                !OfficeLicenseFile.TryOpen(officeBlob, product, new string('A', 64), officeSecret, out _, out _));
+            Check("office.dat refuses a wrong product",
+                !OfficeLicenseFile.TryOpen(officeBlob, "OtherProduct", fingerprint, officeSecret, out _, out _));
+            Check("office.dat refuses a wrong secret",
+                !OfficeLicenseFile.TryOpen(officeBlob, product, fingerprint,
+                    OfficeLicenseFile.CreateSecret(), out _, out _));
+            Check("office.dat refuses a modified file",
+                !OfficeLicenseFile.TryOpen(Tamper(officeBlob), product, fingerprint, officeSecret, out _, out _));
+
+            byte[] secondBlob = OfficeLicenseFile.Create(officeJson, product, fingerprint, officeSecret);
+            Check("office.dat uses a fresh salt and nonce per file",
+                !officeBlob.AsSpan(6, 28).SequenceEqual(secondBlob.AsSpan(6, 28)));
+
+            // Manually registered licenses seal against the short device id.
+            string manualJson = LicenseCrypto.SerializeEnvelope(manualEnvelope);
+            byte[] manualBlob = OfficeLicenseFile.Create(manualJson, product, deviceId, officeSecret);
+            Check("office.dat opens a manual license with the device id",
+                OfficeLicenseFile.TryOpen(manualBlob, product, deviceId, officeSecret, out _, out _));
+
+            // HKDF binding: same secret, different machine -> different key.
+            byte[] keyA = OfficeLicenseFile.DeriveKey(officeSecret, new byte[16], product, fingerprint);
+            byte[] keyB = OfficeLicenseFile.DeriveKey(officeSecret, new byte[16], product, new string('A', 64));
+            Check("office.dat keys differ per machine",
+                keyA.Length == 32 && !keyA.SequenceEqual(keyB));
+
             // End-to-end: real issuer services -> real client validator
             EndToEnd.Run(_root, password, Check);
 
@@ -244,6 +318,14 @@ internal static class Program
         ExpiresAtUtc = source.ExpiresAtUtc,
         KeyId = source.KeyId
     };
+
+    private static byte[] Tamper(byte[] data)
+    {
+        byte[] copy = (byte[])data.Clone();
+        int index = copy.Length - 1;
+        copy[index] ^= 0xFF;
+        return copy;
+    }
 
     private static void Check(string name, bool condition, string? detail = null)
     {

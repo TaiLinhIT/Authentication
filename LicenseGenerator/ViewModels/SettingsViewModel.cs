@@ -21,6 +21,7 @@ public sealed class SettingsViewModel : ObservableObject
         UnlockCommand = new RelayCommand(Unlock);
         LockCommand = new RelayCommand(Lock);
         ExportBundleCommand = new RelayCommand(ExportBundle);
+        ExportOfficeSecretCommand = new RelayCommand(ExportOfficeSecret);
         OpenDataFolderCommand = new RelayCommand(() => OpenFolder(LicensePaths.Data));
         OpenKeysFolderCommand = new RelayCommand(() => OpenFolder(LicensePaths.Keys));
         CopyRootCommand = new RelayCommand(() => _services.Dialogs.CopyToClipboard(LicensePaths.Root));
@@ -64,6 +65,7 @@ public sealed class SettingsViewModel : ObservableObject
     public ICommand UnlockCommand { get; }
     public ICommand LockCommand { get; }
     public ICommand ExportBundleCommand { get; }
+    public ICommand ExportOfficeSecretCommand { get; }
     public ICommand OpenDataFolderCommand { get; }
     public ICommand OpenKeysFolderCommand { get; }
     public ICommand CopyRootCommand { get; }
@@ -120,6 +122,23 @@ public sealed class SettingsViewModel : ObservableObject
             _services.Dialogs.ShowInfo(
                 L.T("S_PublicKeysExportedTitle"),
                 L.F("S_PublicKeysExportedMessage", path));
+    }
+
+    private void ExportOfficeSecret()
+    {
+        string base64 = _services.OfficeSecret.ExportBase64();
+
+        string? path = _services.Dialogs.SaveTextFile(
+            L.T("S_ExportOfficeSecretTitle"),
+            "office-secret.txt",
+            L.T("S_FilterText"),
+            base64,
+            "txt");
+
+        if (path is not null)
+            _services.Dialogs.ShowInfo(
+                L.T("S_OfficeSecretExportedTitle"),
+                L.F("S_OfficeSecretExportedMessage", path));
     }
 
     private void OpenFolder(string path)
