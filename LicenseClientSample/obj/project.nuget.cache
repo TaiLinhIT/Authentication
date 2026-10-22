@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "A+9stjtct78=",
+  "success": true,
+  "projectFilePath": "D:\\project\\Han\\Authentication\\LicenseClientSample\\LicenseClientSample.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\antnguyen\\.nuget\\packages\\system.security.cryptography.protecteddata\\8.0.0\\system.security.cryptography.protecteddata.8.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}

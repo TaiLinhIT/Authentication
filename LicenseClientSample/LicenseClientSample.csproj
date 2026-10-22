@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <AssemblyName>WarehouseLabelCompareMaterial</AssemblyName>
+    <RootNamespace>LicenseClientSample</RootNamespace>
+    <ApplicationIcon />
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LicenseShared\LicenseShared.csproj" />
+    <ProjectReference Include="..\LicenseLocalization\LicenseLocalization.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="appsettings.json" CopyToOutputDirectory="PreserveNewest" />
+    <None Include="Keys\public-keys.json" CopyToOutputDirectory="PreserveNewest" Condition="Exists('Keys\public-keys.json')" />
+    <EmbeddedResource Include="Keys\public-keys.json" LogicalName="LicenseClientSample.PublicKeys.json" Condition="Exists('Keys\public-keys.json')" />
+    <None Include="Keys\README.txt" CopyToOutputDirectory="PreserveNewest" Condition="Exists('Keys\README.txt')" />
+  </ItemGroup>
+
+</Project>

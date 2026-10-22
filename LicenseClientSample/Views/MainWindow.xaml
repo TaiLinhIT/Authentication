@@ -1,0 +1,201 @@
+<Window x:Class="LicenseClientSample.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="WarehouseLabelCompareMaterial" Width="1220" Height="800" MinWidth="1020" MinHeight="700"
+        Background="{StaticResource WindowBrush}" WindowStartupLocation="CenterScreen">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <!-- header -->
+        <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1" Padding="28,18">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <StackPanel Orientation="Horizontal">
+                    <Border Width="38" Height="38" CornerRadius="10" Background="{StaticResource AccentBrush}">
+                        <TextBlock Text="W" FontSize="18" FontWeight="Bold" Foreground="White"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    </Border>
+                    <StackPanel Margin="12,1,0,0">
+                        <TextBlock x:Name="ProductNameText" FontSize="15" FontWeight="SemiBold"/>
+                        <TextBlock x:Name="LicensedToText" Style="{StaticResource Muted}" FontSize="11" Margin="0,3,0,0"/>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                    <Button Content="{DynamicResource S_LanguageToggle}" ToolTip="{DynamicResource S_LanguageToggleTip}"
+                            Style="{StaticResource GhostButton}" Height="34" Width="44" FontSize="11"
+                            Margin="0,0,8,0" Click="Language_Click"/>
+                    <ContentControl x:Name="LicensePill" Style="{StaticResource StatusPill}" Content="{DynamicResource S_LicenseActive}"
+                                    Tag="success" VerticalAlignment="Center"/>
+                    <Button x:Name="RecheckButton" Content="{DynamicResource S_ReCheck}" Style="{StaticResource GhostButton}"
+                            Height="34" Margin="8,0,0,0" Click="Recheck_Click"/>
+                    <Button x:Name="LicenseButton" Content="{DynamicResource S_License}" Style="{StaticResource SecondaryButton}"
+                            Height="36" Margin="8,0,0,0" Click="License_Click"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+
+        <!-- workspace -->
+        <Grid Grid.Row="1" Margin="28,24,28,20">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1.65*"/>
+                <ColumnDefinition Width="18"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+
+            <!-- demo protected module -->
+            <Border Style="{StaticResource Card}" Padding="26">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_LabelComparison}" Style="{StaticResource H2}" FontSize="18"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" Margin="0,5,0,0"
+                                       Text="{DynamicResource S_CompareLabelsHint}"/>
+                        </StackPanel>
+                        <ContentControl Style="{StaticResource StatusPill}" Content="{DynamicResource S_DemoModule}" Tag="accent"
+                                        HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    </Grid>
+
+                    <Grid Grid.Row="1" Margin="0,22,0,0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="16"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_LabelA}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="LabelA" Style="{StaticResource CodeTextBox}" Height="88"
+                                     Text="STEEL PLATE 3.0 x 1200 x 2400"/>
+                        </StackPanel>
+
+                        <StackPanel Grid.Column="2">
+                            <TextBlock Text="{DynamicResource S_LabelB}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox x:Name="LabelB" Style="{StaticResource CodeTextBox}" Height="88"
+                                     Text="STEEL PLATE 3.0 x 1200 x 2400"/>
+                        </StackPanel>
+                    </Grid>
+
+                    <Button Grid.Row="2" Content="{DynamicResource S_CompareLabels}" Style="{StaticResource PrimaryButton}" Width="170"
+                            HorizontalAlignment="Left" Margin="0,18,0,0" Click="Compare_Click"/>
+
+                    <Border x:Name="CompareResultBorder" Grid.Row="3" Style="{StaticResource SubtleCard}"
+                            Margin="0,18,0,0" Padding="18,15">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_ResultU}" FontSize="9.5" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextMutedBrush}"/>
+                            <TextBlock x:Name="CompareResult" Text="{DynamicResource S_EnterTwoLabels}"
+                                       FontSize="13" TextWrapping="Wrap" Margin="0,6,0,0"/>
+                        </StackPanel>
+                    </Border>
+
+                    <TextBlock Grid.Row="4" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap"
+                               VerticalAlignment="Bottom" Margin="0,20,0,0" LineHeight="17"
+                               Text="{DynamicResource S_DemoPanelHint}"/>
+                </Grid>
+            </Border>
+
+            <!-- license status -->
+            <StackPanel Grid.Column="2">
+                <Border Style="{StaticResource Card}" Padding="22">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource S_LicenseStatus}" Style="{StaticResource H2}"/>
+                        <Border Style="{StaticResource Divider}" Margin="0,14,0,4"/>
+
+                        <Grid Margin="0,10,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="92"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Text="{DynamicResource S_StationLabel}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="StationValue" Grid.Column="1" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                            <TextBlock Grid.Row="1" Text="{DynamicResource S_CustomerLabel}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="CustomerValue" Grid.Row="1" Grid.Column="1" FontSize="12" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                            <TextBlock Grid.Row="2" Text="{DynamicResource S_ValidUntil}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="ExpiryValue" Grid.Row="2" Grid.Column="1" FontSize="12" Margin="0,0,0,12"/>
+
+                            <TextBlock Grid.Row="3" Text="{DynamicResource S_Remaining}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="RemainingValue" Grid.Row="3" Grid.Column="1" FontSize="12" Margin="0,0,0,12"/>
+
+                            <TextBlock Grid.Row="4" Text="{DynamicResource S_DeviceLabel}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="DeviceValue" Grid.Row="4" Grid.Column="1" FontFamily="{StaticResource MonoFont}"
+                                       FontSize="10.5" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                            <TextBlock Grid.Row="5" Text="{DynamicResource S_LastCheck}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock x:Name="LastCheckValue" Grid.Row="5" Grid.Column="1" FontSize="11.5"/>
+                        </Grid>
+
+                        <Button x:Name="CheckNowButton" Content="{DynamicResource S_ReCheckLicense}" Style="{StaticResource SecondaryButton}"
+                                Height="34" Margin="0,18,0,0" Click="Recheck_Click"/>
+                    </StackPanel>
+                </Border>
+
+                <Border Style="{StaticResource Card}" Padding="22" Margin="0,18,0,0">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource S_HowProtected}" Style="{StaticResource H3}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
+                            <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="11"
+                                       Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Width="250"
+                                       Text="{DynamicResource S_ProtSignatureClient}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="11"
+                                       Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Width="250"
+                                       Text="{DynamicResource S_ProtBindingClient}"/>
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal" Margin="0,10,0,0">
+                            <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="11"
+                                       Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Width="250"
+                                       Text="{DynamicResource S_ProtRecheck}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+            </StackPanel>
+        </Grid>
+
+        <!-- footer -->
+        <Border Grid.Row="2" BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,1,0,0" Padding="28,12">
+            <Grid>
+                <TextBlock Style="{StaticResource Muted}" FontSize="10.5" VerticalAlignment="Center"
+                           Text="{DynamicResource S_OfflineFooter}"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <TextBlock x:Name="VendorText" Style="{StaticResource Muted}" FontSize="10.5"
+                               VerticalAlignment="Center"/>
+                    <TextBlock x:Name="VersionText" Style="{StaticResource Muted}" FontSize="10.5"
+                               VerticalAlignment="Center" Margin="10,0,0,0"/>
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

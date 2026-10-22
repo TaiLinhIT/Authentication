@@ -1,0 +1,406 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- ============================ common ============================ -->
+    <sys:String x:Key="S_Cancel">Cancel</sys:String>
+    <sys:String x:Key="S_Close">Close</sys:String>
+    <sys:String x:Key="S_Copy">Copy</sys:String>
+    <sys:String x:Key="S_OK">OK</sys:String>
+    <sys:String x:Key="S_Confirm">Confirm</sys:String>
+    <sys:String x:Key="S_Done">Done</sys:String>
+    <sys:String x:Key="S_Paste">Paste</sys:String>
+    <sys:String x:Key="S_Unlock">Unlock</sys:String>
+    <sys:String x:Key="S_Issue">Issue</sys:String>
+    <sys:String x:Key="S_Activate">Activate</sys:String>
+    <sys:String x:Key="S_Exit">Exit</sys:String>
+    <sys:String x:Key="S_LanguageToggle">VI</sys:String>
+    <sys:String x:Key="S_LanguageToggleTip">Switch to Vietnamese</sys:String>
+
+    <!-- ============================ issuer main window ============================ -->
+    <sys:String x:Key="S_AppTitle">Warehouse License Studio</sys:String>
+    <sys:String x:Key="S_UnlockSigningKey">Unlock signing key</sys:String>
+    <sys:String x:Key="S_OfflineIssuance">v1.0 · offline issuance</sys:String>
+    <sys:String x:Key="S_IssueLicense">Issue license</sys:String>
+    <sys:String x:Key="S_AddProduct">Add product</sys:String>
+
+    <sys:String x:Key="S_NavDashboard">Dashboard</sys:String>
+    <sys:String x:Key="S_NavProducts">Products</sys:String>
+    <sys:String x:Key="S_NavLicenses">Licenses</sys:String>
+    <sys:String x:Key="S_NavSettings">Settings</sys:String>
+    <sys:String x:Key="S_NavDashboardSub">Overview of products, issued keys and expiring licenses</sys:String>
+    <sys:String x:Key="S_NavProductsSub">Manage signing keys and license products</sys:String>
+    <sys:String x:Key="S_NavLicensesSub">Every license issued from this workstation</sys:String>
+    <sys:String x:Key="S_NavSettingsSub">Signing key, storage and client distribution</sys:String>
+
+    <sys:String x:Key="S_KeyUnlocked">Signing key unlocked</sys:String>
+    <sys:String x:Key="S_KeyLocked">Signing key locked</sys:String>
+    <sys:String x:Key="S_ReadyToIssue">Ready to issue</sys:String>
+    <sys:String x:Key="S_UnlockToSign">Unlock to sign</sys:String>
+
+    <!-- ============================ dashboard ============================ -->
+    <sys:String x:Key="S_RecentLicenses">Recent licenses</sys:String>
+    <sys:String x:Key="S_LatestKeys">The latest keys issued from this workstation</sys:String>
+    <sys:String x:Key="S_LocalRegister">Local register</sys:String>
+    <sys:String x:Key="S_NoLicensesYet">No licenses issued yet. Use “Issue license” to create the first one.</sys:String>
+    <sys:String x:Key="S_QuickActions">Quick actions</sys:String>
+    <sys:String x:Key="S_AddAProduct">Add a product</sys:String>
+    <sys:String x:Key="S_IssueALicense">Issue a license</sys:String>
+    <sys:String x:Key="S_ExportClientPublicKeys">Export client public keys</sys:String>
+    <sys:String x:Key="S_ProtectionLayers">Protection layers</sys:String>
+    <sys:String x:Key="S_WhatClientEnforces">What the client enforces on every launch</sys:String>
+    <sys:String x:Key="S_ProtSignature">RSA or ECDSA signature over every license field</sys:String>
+    <sys:String x:Key="S_ProtBinding">Machine fingerprint binding; license cannot move to another PC</sys:String>
+    <sys:String x:Key="S_ProtDpapi">License cached with Windows DPAPI, bound to product and machine</sys:String>
+    <sys:String x:Key="S_ProtClock">Clock-rollback detection and periodic re-validation</sys:String>
+
+    <sys:String x:Key="S_StatProducts">PRODUCTS</sys:String>
+    <sys:String x:Key="S_StatProductsCaption">registered products</sys:String>
+    <sys:String x:Key="S_StatLicenses">LICENSES</sys:String>
+    <sys:String x:Key="S_StatLicensesCaption">issued in total</sys:String>
+    <sys:String x:Key="S_StatActive">ACTIVE</sys:String>
+    <sys:String x:Key="S_StatActiveCaption">valid right now</sys:String>
+    <sys:String x:Key="S_StatExpiring">EXPIRING</sys:String>
+    <sys:String x:Key="S_StatExpiringCaption">within 30 days</sys:String>
+
+    <!-- ============================ products ============================ -->
+    <sys:String x:Key="S_SearchProducts">Search products</sys:String>
+    <sys:String x:Key="S_ProductU">PRODUCT</sys:String>
+    <sys:String x:Key="S_AlgorithmU">ALGORITHM</sys:String>
+    <sys:String x:Key="S_KeygenModeU">KEYGEN MODE</sys:String>
+    <sys:String x:Key="S_IssuedU">ISSUED</sys:String>
+    <sys:String x:Key="S_NoProductsYet">No products yet</sys:String>
+    <sys:String x:Key="S_NoProductsHint">Create a product to generate its signing key. Every license you issue afterwards is bound to that product.</sys:String>
+    <sys:String x:Key="S_CreateFirstProduct">Create your first product</sys:String>
+    <sys:String x:Key="S_EditProduct">Edit product</sys:String>
+    <sys:String x:Key="S_ExportPublicKey">Export public key</sys:String>
+    <sys:String x:Key="S_DeleteProduct">Delete product</sys:String>
+    <sys:String x:Key="S_ProductCountOne">1 product</sys:String>
+    <sys:String x:Key="S_ProductCountMany">{0} products</sys:String>
+    <sys:String x:Key="S_LicenseCountOne">1 license</sys:String>
+    <sys:String x:Key="S_LicenseCountMany">{0} licenses</sys:String>
+    <sys:String x:Key="S_NoKey">no key</sys:String>
+    <sys:String x:Key="S_LicenseIsValid">License is valid.</sys:String>
+    <sys:String x:Key="S_AlgorithmKey">{0} · key {1}</sys:String>
+    <sys:String x:Key="S_KeyPrefix">key {0}</sys:String>
+
+    <!-- ============================ licenses ============================ -->
+    <sys:String x:Key="S_SearchSerial">Search serial, customer, device…</sys:String>
+    <sys:String x:Key="S_ExportCsv">Export CSV</sys:String>
+    <sys:String x:Key="S_LicenseU">LICENSE</sys:String>
+    <sys:String x:Key="S_CustomerStationU">CUSTOMER · STATION</sys:String>
+    <sys:String x:Key="S_DeviceU">DEVICE</sys:String>
+    <sys:String x:Key="S_TypeU">TYPE</sys:String>
+    <sys:String x:Key="S_ExpiresU">EXPIRES</sys:String>
+    <sys:String x:Key="S_StatusU">STATUS</sys:String>
+    <sys:String x:Key="S_NoLicensesHere">No licenses here</sys:String>
+    <sys:String x:Key="S_NoLicensesHereHint">Issue a license for a product and bind it to the customer machine. You can copy the activation key or export the signed file from here at any time.</sys:String>
+    <sys:String x:Key="S_CopyActivationCode">Copy activation code</sys:String>
+    <sys:String x:Key="S_SaveLicenseFile">Save .license file</sys:String>
+    <sys:String x:Key="S_MoreActions">More actions</sys:String>
+    <sys:String x:Key="S_InspectLicense">Inspect license</sys:String>
+    <sys:String x:Key="S_RenewLicense">Renew license</sys:String>
+    <sys:String x:Key="S_RevokeRestore">Revoke / restore</sys:String>
+    <sys:String x:Key="S_RemoveFromRegister">Remove from register</sys:String>
+    <sys:String x:Key="S_FilterAll">All</sys:String>
+    <sys:String x:Key="S_FilterActive">Active</sys:String>
+    <sys:String x:Key="S_FilterExpiring">Expiring soon</sys:String>
+    <sys:String x:Key="S_FilterExpired">Expired</sys:String>
+    <sys:String x:Key="S_FilterScheduled">Scheduled</sys:String>
+    <sys:String x:Key="S_FilterRevoked">Revoked</sys:String>
+    <sys:String x:Key="S_TypeTrial">Trial</sys:String>
+    <sys:String x:Key="S_TypeDays30">30 days</sys:String>
+    <sys:String x:Key="S_TypeDays90">90 days</sys:String>
+    <sys:String x:Key="S_TypeOneYear">1 year</sys:String>
+    <sys:String x:Key="S_TypePerpetual">Perpetual</sys:String>
+    <sys:String x:Key="S_TypeCustom">Custom dates</sys:String>
+    <sys:String x:Key="S_KeygenSerial">Serial Numbers</sys:String>
+    <sys:String x:Key="S_KeygenCodes">Activation Codes</sys:String>
+    <sys:String x:Key="S_AlgRsa">RSA</sys:String>
+    <sys:String x:Key="S_AlgEcdsa">ECDSA</sys:String>
+    <sys:String x:Key="S_Summary">{0} active · {1} expiring · {2} expired</sys:String>
+    <sys:String x:Key="S_Never">Never</sys:String>
+    <sys:String x:Key="S_Revoke">Revoke</sys:String>
+    <sys:String x:Key="S_Unrevoke">Un-revoke</sys:String>
+    <sys:String x:Key="S_StatusActive">Active</sys:String>
+    <sys:String x:Key="S_StatusPerpetual">Perpetual</sys:String>
+    <sys:String x:Key="S_StatusExpiringSoon">Expiring soon</sys:String>
+    <sys:String x:Key="S_StatusScheduled">Scheduled</sys:String>
+    <sys:String x:Key="S_StatusExpired">Expired</sys:String>
+    <sys:String x:Key="S_StatusRevoked">Revoked</sys:String>
+    <sys:String x:Key="S_BindingFingerprint">Fingerprint</sys:String>
+    <sys:String x:Key="S_BindingDeviceId">Device ID</sys:String>
+
+    <!-- ============================ settings ============================ -->
+    <sys:String x:Key="S_SigningKeyVault">Signing key vault</sys:String>
+    <sys:String x:Key="S_KeyMaterial">Key material:</sys:String>
+    <sys:String x:Key="S_LockSession">Lock session</sys:String>
+    <sys:String x:Key="S_ClientDistribution">Client distribution</sys:String>
+    <sys:String x:Key="S_ClientDistributionHint">Export the public key bundle and place it next to the client executable in a folder named Keys. The client loads it at startup to verify signatures. Public keys are safe to distribute.</sys:String>
+    <sys:String x:Key="S_ExportPublicKeys">Export public keys</sys:String>
+    <sys:String x:Key="S_OpenKeysFolder">Open keys folder</sys:String>
+    <sys:String x:Key="S_StorageLocations">Storage locations</sys:String>
+    <sys:String x:Key="S_CopyRoot">Copy root</sys:String>
+    <sys:String x:Key="S_DataFiles">DATA FILES</sys:String>
+    <sys:String x:Key="S_SigningKeysU">SIGNING KEYS</sys:String>
+    <sys:String x:Key="S_LocalLicenseCache">LOCAL LICENSE CACHE</sys:String>
+    <sys:String x:Key="S_OpenDataFolder">Open data folder</sys:String>
+    <sys:String x:Key="S_SecurityNotes">Security notes</sys:String>
+    <sys:String x:Key="S_SecurityNotesHint">Read this before handing the client to a customer.</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">The private key file is encrypted with AES-256 (PBKDF2, 200 000 iterations). Back it up separately from the password, and never ship it with the licensed application.</sys:String>
+    <sys:String x:Key="S_SecNoteDpapi">The client stores the license with DPAPI and additional entropy derived from the machine fingerprint. The clock state is protected the same way, so moving the license file or the clock state to another PC fails.</sys:String>
+    <sys:String x:Key="S_SecNoteOffline">A fully offline application cannot reliably enforce revocation or resist clock tampering if the local state is deleted. Keep this model for convenience and add periodic server validation when the commercial value justifies it.</sys:String>
+    <sys:String x:Key="S_SecNoteObfuscation">Use obfuscation and code signing for release builds. They raise the cost of tampering but do not replace cryptographic verification.</sys:String>
+    <sys:String x:Key="S_UnlockedSession">Unlocked for this session</sys:String>
+    <sys:String x:Key="S_Locked">Locked</sys:String>
+    <sys:String x:Key="S_UnlockedCaption">Licenses can be created and signed. The password is held in memory and cleared when the app closes or you lock it.</sys:String>
+    <sys:String x:Key="S_LockedCaption">Unlock with the issuer password to create products or issue licenses.</sys:String>
+    <sys:String x:Key="S_ProductNoLongerExists">The product no longer exists.</sys:String>
+    <sys:String x:Key="S_RecordNoLongerExists">The license record no longer exists.</sys:String>
+    <sys:String x:Key="S_ProductKeyOne">1 product key</sys:String>
+    <sys:String x:Key="S_ProductKeyMany">{0} product keys</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedOne">1 public key will be included.</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedMany">{0} public keys will be included.</sys:String>
+
+    <!-- ============================ add / edit product ============================ -->
+    <sys:String x:Key="S_AddNewProduct">Add New Product</sys:String>
+    <sys:String x:Key="S_EditProductTitle">Edit Product</sys:String>
+    <sys:String x:Key="S_ProductName">Product Name</sys:String>
+    <sys:String x:Key="S_ProductNameHint">The name shown in the studio and in license records.</sys:String>
+    <sys:String x:Key="S_AddProductIntro">A dedicated signing key is generated for this product. The private key stays on this workstation.</sys:String>
+    <sys:String x:Key="S_EditProductIntro">Update how this product appears in the studio. Existing licenses are not affected.</sys:String>
+    <sys:String x:Key="S_Bits">Bits</sys:String>
+    <sys:String x:Key="S_KeygenMode">Keygen mode</sys:String>
+    <sys:String x:Key="S_KeygenHintCodes">Activation codes are one pasteable WLC1 key. ECDSA P-256 keeps them around 500 characters; RSA codes are much longer but still work. The client verifies them offline.</sys:String>
+    <sys:String x:Key="S_KeygenHintSerials">Serial-number mode delivers each license as a signed .license.json file (plus an activation code for convenience). Recommended for RSA keys and email delivery.</sys:String>
+    <sys:String x:Key="S_EditProductNote">The algorithm, key size and signing key are fixed once created. Renaming the product does not change its product id, so existing client builds keep working.</sys:String>
+    <sys:String x:Key="S_SaveChanges">Save changes</sys:String>
+    <sys:String x:Key="S_ErrProductNameShort">Enter a product name with at least 2 characters.</sys:String>
+    <sys:String x:Key="S_ErrProductNameLong">Keep the product name under 80 characters.</sys:String>
+    <sys:String x:Key="S_ErrProductDuplicate">A product with this name already exists.</sys:String>
+    <sys:String x:Key="S_ErrProductIdDuplicate">A product id with this name already exists. Adjust the name slightly.</sys:String>
+    <sys:String x:Key="S_PasswordPromptNewProduct">Choose the issuer password that protects this product's private key (minimum 12 characters). The same password unlocks every product key on this workstation.</sys:String>
+    <sys:String x:Key="S_PasswordPromptSign">Enter the issuer password to sign this license.</sys:String>
+    <sys:String x:Key="S_PasswordPromptUnlock">Enter the issuer password to unlock the signing keys for this session.</sys:String>
+    <sys:String x:Key="S_PwdTooShort">Use at least {0} characters.</sys:String>
+    <sys:String x:Key="S_PwdWrong">This password does not unlock the existing signing key.</sys:String>
+
+    <!-- ============================ issue license ============================ -->
+    <sys:String x:Key="S_IssueLicenseTitle">Issue License</sys:String>
+    <sys:String x:Key="S_IssueLicenseIntro">Bind a signed license to one machine and choose how long it stays valid.</sys:String>
+    <sys:String x:Key="S_OfflineSigned">Offline signed</sys:String>
+    <sys:String x:Key="S_CustomerU">CUSTOMER</sys:String>
+    <sys:String x:Key="S_StationPcU">STATION / PC</sys:String>
+    <sys:String x:Key="S_DeviceIdFingerprintU">DEVICE ID / FINGERPRINT</sys:String>
+    <sys:String x:Key="S_StartDateU">START DATE (UTC)</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">EXPIRY DATE (INCLUSIVE)</sys:String>
+    <sys:String x:Key="S_LicenseTypeU">LICENSE TYPE</sys:String>
+    <sys:String x:Key="S_DurationU">LICENSE DURATION</sys:String>
+    <sys:String x:Key="S_DeviceBindingU">DEVICE BINDING</sys:String>
+    <sys:String x:Key="S_StationU">STATION</sys:String>
+    <sys:String x:Key="S_DatesHint">Dates use yyyy-MM-dd. The license stays valid until 23:59:59 UTC on the expiry date.</sys:String>
+    <sys:String x:Key="S_GenerateSignedLicense">Generate signed license</sys:String>
+    <sys:String x:Key="S_SignLocalHint">The license is signed with the product's private key on this PC. Nothing is sent over the network.</sys:String>
+    <sys:String x:Key="S_ConfigPreview">CONFIGURATION PREVIEW</sys:String>
+    <sys:String x:Key="S_NotSignedYet">Not signed yet</sys:String>
+    <sys:String x:Key="S_Delivery">DELIVERY</sys:String>
+    <sys:String x:Key="S_LicenseGenerated">License generated</sys:String>
+    <sys:String x:Key="S_Signed">Signed</sys:String>
+    <sys:String x:Key="S_ActivationKeyU">ACTIVATION KEY</sys:String>
+    <sys:String x:Key="S_CopyActivationKey">Copy activation key</sys:String>
+    <sys:String x:Key="S_IssueAnother">Issue another</sys:String>
+    <sys:String x:Key="S_DeliveryResultHint">Deliver the activation key or the .license file. The client verifies the signature and machine binding offline before opening its main window.</sys:String>
+    <sys:String x:Key="S_NotSelected">Not selected</sys:String>
+    <sys:String x:Key="S_NotSet">Not set</sys:String>
+    <sys:String x:Key="S_NoExpiry">No expiry</sys:String>
+    <sys:String x:Key="S_Perpetual">Perpetual</sys:String>
+    <sys:String x:Key="S_CustomExpiry">Custom expiry</sys:String>
+    <sys:String x:Key="S_BindingFingerprintLabel">Machine fingerprint</sys:String>
+    <sys:String x:Key="S_BindingFingerprintHint">Paste the 64-character fingerprint copied from the client's activation window.</sys:String>
+    <sys:String x:Key="S_BindingDeviceIdHint">Paste the DEV-… ID shown by the client on the target machine.</sys:String>
+    <sys:String x:Key="S_CompactCodeHint">Compact activation code (about 500 characters) or a .license file.</sys:String>
+    <sys:String x:Key="S_RsaCodeHint">License file recommended. The activation code is long (about 1,100 characters) because of the RSA signature.</sys:String>
+    <sys:String x:Key="S_ResultCodeHint">{0} characters · paste into the client's activation window, or deliver the .license file.</sys:String>
+    <sys:String x:Key="S_CodeCopied">Activation code copied to the clipboard.</sys:String>
+    <sys:String x:Key="S_SavedTo">Saved to {0}</sys:String>
+    <sys:String x:Key="S_ErrSelectProduct">Select the product this license belongs to.</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">Enter the target machine fingerprint or device ID.</sys:String>
+    <sys:String x:Key="S_ErrFingerprint">The machine fingerprint must be the 64-character hexadecimal value copied from the client.</sys:String>
+    <sys:String x:Key="S_ErrStartDate">Start date must use yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Expiry date must use yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryOrder">The expiry date must be on or after the start date.</sys:String>
+    <sys:String x:Key="S_SaveSignedLicense">Save signed license</sys:String>
+    <sys:String x:Key="S_SaveLicenseFileTitle">Save license file</sys:String>
+    <sys:String x:Key="S_ExportLicenseRegister">Export license register</sys:String>
+    <sys:String x:Key="S_FilterLicenseFile">License file (*.license.json)|*.license.json|JSON (*.json)|*.json|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterJson">JSON (*.json)|*.json|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterCsv">CSV (*.csv)|*.csv|All files (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterPem">PEM public key (*.pem)|*.pem|All files (*.*)|*.*</sys:String>
+
+    <!-- ============================ license details ============================ -->
+    <sys:String x:Key="S_LicenseDetails">License details</sys:String>
+    <sys:String x:Key="S_Checking">Checking</sys:String>
+    <sys:String x:Key="S_Unreadable">Unreadable</sys:String>
+    <sys:String x:Key="S_Malformed">Malformed</sys:String>
+    <sys:String x:Key="S_PublicKeyMissing">Public key missing</sys:String>
+    <sys:String x:Key="S_SignatureValid">Signature valid</sys:String>
+    <sys:String x:Key="S_InvalidSignaturePill">Invalid signature</sys:String>
+    <sys:String x:Key="S_UnrecognizedLicense">Unrecognized license</sys:String>
+    <sys:String x:Key="S_SignatureNoteValid">The digital signature and key id are valid. The license was issued by this workstation.</sys:String>
+    <sys:String x:Key="S_SignatureNoteMissingKey">The public key for this license is not present on this workstation, so the signature could not be checked.</sys:String>
+    <sys:String x:Key="S_SignatureNoteMalformed">The signed payload cannot be decoded.</sys:String>
+    <sys:String x:Key="S_StatusCodeNotActive">Not active yet — starts {0} (UTC).</sys:String>
+    <sys:String x:Key="S_StatusCodeExpired">Expired on {0} (UTC).</sys:String>
+    <sys:String x:Key="S_StatusCodeActivePerpetual">Active — no expiry.</sys:String>
+    <sys:String x:Key="S_StatusCodeActiveUntil">Active until {0} (UTC).</sys:String>
+    <sys:String x:Key="S_BindingMatches">This workstation matches the binding.</sys:String>
+    <sys:String x:Key="S_BindingMismatch">This workstation does not match the binding.</sys:String>
+    <sys:String x:Key="S_CopiedToClipboard">Copied to the clipboard.</sys:String>
+    <sys:String x:Key="S_CouldNotRebuildCode">Could not rebuild the activation code: {0}</sys:String>
+    <sys:String x:Key="S_ProductLabel">Product</sys:String>
+    <sys:String x:Key="S_CustomerLabel">Customer</sys:String>
+    <sys:String x:Key="S_StationLabel">Station</sys:String>
+    <sys:String x:Key="S_DeviceBindingLabel">Device binding</sys:String>
+    <sys:String x:Key="S_DeviceLabel">Device</sys:String>
+    <sys:String x:Key="S_LicenseTypeLabel">License type</sys:String>
+    <sys:String x:Key="S_IssuedLabel">Issued</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">Expires</sys:String>
+    <sys:String x:Key="S_AlgorithmLabel">Algorithm</sys:String>
+    <sys:String x:Key="S_KeyIdLabel">Key id</sys:String>
+    <sys:String x:Key="S_StatusLabel">Status</sys:String>
+
+    <!-- ============================ password prompt ============================ -->
+    <sys:String x:Key="S_IssuerPasswordU">ISSUER PASSWORD</sys:String>
+    <sys:String x:Key="S_PasswordMemoryHint">The password is cached in memory only while this window is open. It is never written to disk or to logs.</sys:String>
+
+    <!-- ============================ message dialogs ============================ -->
+    <sys:String x:Key="S_Message">Message</sys:String>
+
+    <!-- ============================ client activation ============================ -->
+    <sys:String x:Key="S_SoftwareActivation">Software Activation</sys:String>
+    <sys:String x:Key="S_ActivateYourSoftware">Activate your software</sys:String>
+    <sys:String x:Key="S_ThisMachineU">THIS MACHINE</sys:String>
+    <sys:String x:Key="S_SendDeviceHint">Send the device ID or fingerprint to your vendor when requesting a license. It stays the same on this PC.</sys:String>
+    <sys:String x:Key="S_LicenseKeyU">LICENSE KEY</sys:String>
+    <sys:String x:Key="S_ImportFile">Import file</sys:String>
+    <sys:String x:Key="S_ShowKey">Show key</sys:String>
+    <sys:String x:Key="S_HideKey">Hide key</sys:String>
+    <sys:String x:Key="S_OrDropFile">or drop a .license.json file here</sys:String>
+    <sys:String x:Key="S_KeyVerifiedHint">The key is verified offline against the vendor's public key and this machine's fingerprint. The license is stored protected with Windows DPAPI.</sys:String>
+    <sys:String x:Key="S_ActivationWindowTitle">{0} — Activation</sys:String>
+    <sys:String x:Key="S_ActivationIntro">Enter the license key supplied by {0} to activate {1} on this computer.</sys:String>
+    <sys:String x:Key="S_KeyMissingWarning">This build does not contain the vendor's public key (Keys/public-keys.json is missing). Contact the vendor for a correctly provisioned installer.</sys:String>
+    <sys:String x:Key="S_MachineIdentityUnavailable">This machine identity could not be read. Run the application on Windows with access to the registry, then try again.</sys:String>
+    <sys:String x:Key="S_ClipboardEmpty">The clipboard does not contain text.</sys:String>
+    <sys:String x:Key="S_ClipboardBusy">The clipboard is being used by another application. Try again.</sys:String>
+    <sys:String x:Key="S_SelectLicenseFile">Select license file</sys:String>
+    <sys:String x:Key="S_ReadFileError">The license file could not be read: {0}</sys:String>
+    <sys:String x:Key="S_EnterKeyFirst">Paste the license key or import a license file first.</sys:String>
+    <sys:String x:Key="S_ActivationFailed">Activation failed: {0}</sys:String>
+    <sys:String x:Key="S_DroppedFileError">The dropped file could not be read: {0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckFailed">The license could not be checked: {0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckTitle">License check</sys:String>
+    <sys:String x:Key="S_ReplacementNotice">Enter the replacement license key. The current license stays active until the new key is verified on this machine.</sys:String>
+    <sys:String x:Key="S_StartupError" xml:space="preserve">The application could not start.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StudioStartupError" xml:space="preserve">The license studio could not start.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_UnexpectedError" xml:space="preserve">An unexpected error occurred.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StartupErrorTitle">Startup error</sys:String>
+
+    <!-- ============================ client main window ============================ -->
+    <sys:String x:Key="S_LicenseActive">License active</sys:String>
+    <sys:String x:Key="S_ReCheck">Re-check</sys:String>
+    <sys:String x:Key="S_License">License</sys:String>
+    <sys:String x:Key="S_LabelComparison">Label comparison</sys:String>
+    <sys:String x:Key="S_CompareLabelsHint">Compare the material description printed on two labels.</sys:String>
+    <sys:String x:Key="S_DemoModule">Demo module</sys:String>
+    <sys:String x:Key="S_LabelA">LABEL A</sys:String>
+    <sys:String x:Key="S_LabelB">LABEL B</sys:String>
+    <sys:String x:Key="S_CompareLabels">Compare labels</sys:String>
+    <sys:String x:Key="S_ResultU">RESULT</sys:String>
+    <sys:String x:Key="S_EnterTwoLabels">Enter two labels and press Compare.</sys:String>
+    <sys:String x:Key="S_DemoPanelHint">This panel stands in for your real business modules. In your production application, place the license check in App startup and re-check it before opening protected features.</sys:String>
+    <sys:String x:Key="S_LicenseStatus">License status</sys:String>
+    <sys:String x:Key="S_ValidUntil">Valid until</sys:String>
+    <sys:String x:Key="S_Remaining">Remaining</sys:String>
+    <sys:String x:Key="S_LastCheck">Last check</sys:String>
+    <sys:String x:Key="S_ReCheckLicense">Re-check license</sys:String>
+    <sys:String x:Key="S_HowProtected">How this build is protected</sys:String>
+    <sys:String x:Key="S_ProtSignatureClient">Signature and product id are verified before this window is created.</sys:String>
+    <sys:String x:Key="S_ProtBindingClient">The key is bound to this machine fingerprint and stored with DPAPI.</sys:String>
+    <sys:String x:Key="S_ProtRecheck">The license is re-verified every 30 minutes and before a new session.</sys:String>
+    <sys:String x:Key="S_OfflineFooter">Offline verification · DPAPI-protected storage · fingerprint binding</sys:String>
+    <sys:String x:Key="S_LicenseInformation">License information</sys:String>
+    <sys:String x:Key="S_VerifiedOffline">Verified offline</sys:String>
+    <sys:String x:Key="S_StoredAt">Stored at</sys:String>
+    <sys:String x:Key="S_CopyDeviceId">Copy device ID</sys:String>
+    <sys:String x:Key="S_EnterNewLicense">Enter new license</sys:String>
+    <sys:String x:Key="S_LicenseInfoHint">This key was verified offline against the vendor public key embedded in this build. The stored copy is protected with Windows DPAPI and bound to this machine, so it cannot be copied to another PC.</sys:String>
+    <sys:String x:Key="S_PerpetualNoExpiry">Perpetual — no expiry</sys:String>
+    <sys:String x:Key="S_PerpetualLicense">Perpetual license</sys:String>
+    <sys:String x:Key="S_Unavailable">Unavailable</sys:String>
+    <sys:String x:Key="S_MachineIdentityReadError">The Windows machine identity could not be read.</sys:String>
+    <sys:String x:Key="S_NoLicenseInstalled">No license installed</sys:String>
+    <sys:String x:Key="S_DaysRemaining">{0} days</sys:String>
+    <sys:String x:Key="S_LicensedTo">Licensed to {0}</sys:String>
+    <sys:String x:Key="S_ExpiredLabel">Expired</sys:String>
+    <sys:String x:Key="S_JustNow">(just now)</sys:String>
+    <sys:String x:Key="S_ThisMachineLabel">This machine</sys:String>
+    <sys:String x:Key="S_CompareEmpty">Enter text in both labels before comparing.</sys:String>
+    <sys:String x:Key="S_CompareMatch">MATCH — both labels describe the same material.</sys:String>
+    <sys:String x:Key="S_CompareDifferent">DIFFERENT — the two labels do not match. Hold the material and check the source documents.</sys:String>
+
+    <!-- ============================ client validation messages ============================ -->
+    <sys:String x:Key="S_NoLicenseInstalledMessage">No license is installed for this machine.</sys:String>
+    <sys:String x:Key="S_LicenseInvalid">The license key or file is not valid. Check that you copied all of it.</sys:String>
+    <sys:String x:Key="S_UnknownKey">The vendor public key for this license is not installed in this build. Contact the vendor.</sys:String>
+    <sys:String x:Key="S_InvalidSignatureMessage">The license signature could not be verified. Check that you copied the entire key.</sys:String>
+    <sys:String x:Key="S_WrongProductMessage">This license belongs to '{0}', not '{1}'.</sys:String>
+    <sys:String x:Key="S_WrongMachineIdMessage">This license is registered to a different device ID.</sys:String>
+    <sys:String x:Key="S_WrongMachineFpMessage">This license is bound to a different machine fingerprint.</sys:String>
+    <sys:String x:Key="S_NotYetValidMessage">This license becomes active on {0} (UTC).</sys:String>
+    <sys:String x:Key="S_ExpiredMessage">This license expired on {0} (UTC).</sys:String>
+    <sys:String x:Key="S_ClockRollbackMessage">The system clock appears to have been moved backwards. Correct the clock and try again.</sys:String>
+    <sys:String x:Key="S_DeviceIdentityUnavailableMessage">This machine identity could not be read. Run the application on Windows with access to the registry.</sys:String>
+    <sys:String x:Key="S_StoreFailedMessage">The license is valid but could not be stored on this machine: {0}</sys:String>
+
+    <!-- ============================ issuer messages ============================ -->
+    <sys:String x:Key="S_CouldNotSaveProduct">Could not save the product</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateProduct">Could not update the product</sys:String>
+    <sys:String x:Key="S_CouldNotDeleteProduct">Could not delete the product</sys:String>
+    <sys:String x:Key="S_DeleteProductTitle">Delete product?</sys:String>
+    <sys:String x:Key="S_DeleteProductMessage" xml:space="preserve">'{0}' will be removed from the catalog. Licenses already issued for this product stay valid on customer machines, but you will no longer be able to issue or renew them.&#x0a;&#x0a;The key files are kept in the keys folder.</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingTitle">Public key missing</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingMessage">No public key file exists for this product.</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateRecord">Could not update the license record</sys:String>
+    <sys:String x:Key="S_CouldNotRemoveRecord">Could not remove the record</sys:String>
+    <sys:String x:Key="S_LicenseTextUnreadable">License text is unreadable</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedTitle">Activation code copied</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedMessage" xml:space="preserve">The activation code for {0} is on the clipboard.&#x0a;&#x0a;{1} characters — deliver it by email, chat or your ticketing system.</sys:String>
+    <sys:String x:Key="S_CouldNotBuildCode">Could not build the activation code</sys:String>
+    <sys:String x:Key="S_ProductNotFoundTitle">Product not found</sys:String>
+    <sys:String x:Key="S_ProductNotFoundMessage">'{0}' is no longer in the catalog, so its signing key cannot be used for a renewal.</sys:String>
+    <sys:String x:Key="S_RevokeLicenseTitle">Revoke license?</sys:String>
+    <sys:String x:Key="S_UnrevokeLicenseTitle">Un-revoke license?</sys:String>
+    <sys:String x:Key="S_RevokeMessage" xml:space="preserve">Mark {0} as revoked in the register.&#x0a;&#x0a;This is a local record only: an offline client cannot see it. It is useful for your own tracking and for refusing renewals.</sys:String>
+    <sys:String x:Key="S_UnrevokeMessage">Mark {0} as active again in the register.</sys:String>
+    <sys:String x:Key="S_RemoveRecordTitle">Remove license record?</sys:String>
+    <sys:String x:Key="S_RemoveRecordMessage">Remove {0} from the register. The signed license on the customer machine keeps working; this only deletes your local record.</sys:String>
+    <sys:String x:Key="S_RemoveRecordLabel">Remove record</sys:String>
+    <sys:String x:Key="S_NoProductsTitle">No products yet</sys:String>
+    <sys:String x:Key="S_NoProductsBeforeExport">Create a product before exporting public keys.</sys:String>
+    <sys:String x:Key="S_ExportClientKeysTitle">Export client public keys</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedTitle">Public keys exported</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedMessage" xml:space="preserve">Copy the file into the client's 'Keys' folder (next to the .exe):&#x0a;&#x0a;{0}&#x0a;&#x0a;The file contains public keys only and is safe to distribute.</sys:String>
+    <sys:String x:Key="S_NothingToExportTitle">Nothing to export</sys:String>
+    <sys:String x:Key="S_NothingToExportMessage">No licenses have been issued yet.</sys:String>
+    <sys:String x:Key="S_ExportRegisterTitle">Export license register</sys:String>
+    <sys:String x:Key="S_CouldNotOpenFolder">Could not open the folder</sys:String>
+    <sys:String x:Key="S_CouldNotSaveFile">Could not save the file</sys:String>
+    <sys:String x:Key="S_CouldNotReadFile">Could not read the file</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailable">Clipboard unavailable</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailableMessage">Another application is holding the clipboard. Try again.</sys:String>
+    <sys:String x:Key="S_SigningKeyMissing">The signing key for '{0}' is missing. It cannot be recreated without invalidating existing licenses.</sys:String>
+    <sys:String x:Key="S_IssuerPasteFingerprint">Paste the fingerprint copied from the target machine.</sys:String>
+    <sys:String x:Key="S_IssuerEnterDeviceId">Enter the device ID displayed by the client on the target machine.</sys:String>
+
+</ResourceDictionary>

@@ -1,0 +1,99 @@
+<Window x:Class="LicenseGenerator.Views.Dialogs.LicenseDetailsDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S_LicenseDetails}" Width="700" Height="800" MinHeight="620"
+        Style="{StaticResource DialogWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="CanResize">
+
+    <Grid Margin="28,22,28,24">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <StackPanel>
+                <TextBlock Text="{DynamicResource S_LicenseDetails}" Style="{StaticResource DialogTitle}"/>
+                <TextBlock x:Name="SerialText" Style="{StaticResource Muted}" FontFamily="{StaticResource MonoFont}"
+                           Margin="0,6,0,0"/>
+            </StackPanel>
+            <ContentControl x:Name="SignaturePill" Style="{StaticResource StatusPill}" Content="{DynamicResource S_Checking}"
+                            Tag="accent" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+        </Grid>
+
+        <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,20,0,0">
+            <StackPanel>
+                <Border Style="{StaticResource Card}" Padding="22">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.Row="0" Text="{DynamicResource S_ProductLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="ProductValue" Grid.Row="0" Grid.Column="1" FontWeight="SemiBold" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="1" Text="{DynamicResource S_CustomerLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="CustomerValue" Grid.Row="1" Grid.Column="1" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="2" Text="{DynamicResource S_StationLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="StationValue" Grid.Row="2" Grid.Column="1" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="3" Text="{DynamicResource S_DeviceBindingLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="BindingValue" Grid.Row="3" Grid.Column="1" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="4" Text="{DynamicResource S_DeviceLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="DeviceValue" Grid.Row="4" Grid.Column="1" FontFamily="{StaticResource MonoFont}"
+                                   FontSize="11.5" TextWrapping="Wrap" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="5" Text="{DynamicResource S_LicenseTypeLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="TypeValue" Grid.Row="5" Grid.Column="1" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="6" Text="{DynamicResource S_IssuedLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="IssuedValue" Grid.Row="6" Grid.Column="1" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="7" Text="{DynamicResource S_ExpiresLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="ExpiresValue" Grid.Row="7" Grid.Column="1" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="8" Text="{DynamicResource S_AlgorithmLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="AlgorithmValue" Grid.Row="8" Grid.Column="1" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="9" Text="{DynamicResource S_KeyIdLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="KeyIdValue" Grid.Row="9" Grid.Column="1" FontFamily="{StaticResource MonoFont}"
+                                   FontSize="11.5" Margin="0,0,0,12"/>
+
+                        <TextBlock Grid.Row="10" Text="{DynamicResource S_StatusLabel}" Style="{StaticResource Muted}"/>
+                        <TextBlock x:Name="StatusValue" Grid.Row="10" Grid.Column="1" TextWrapping="Wrap"/>
+                    </Grid>
+                </Border>
+
+                <Border x:Name="SignatureNoteBorder" Style="{StaticResource SubtleCard}" Margin="0,14,0,0" Padding="16,13">
+                    <TextBlock x:Name="SignatureNote" Style="{StaticResource Muted}" FontSize="12" TextWrapping="Wrap"/>
+                </Border>
+
+                <TextBlock Text="{DynamicResource S_ActivationKeyU}" Style="{StaticResource FieldLabel}" Margin="0,20,0,6"/>
+                <TextBox x:Name="CodeValue" Style="{StaticResource CodeTextBox}" IsReadOnly="True" Height="150"/>
+            </StackPanel>
+        </ScrollViewer>
+
+        <Grid Grid.Row="2" Margin="0,18,0,0">
+            <Button Content="{DynamicResource S_CopyActivationKey}" Style="{StaticResource SecondaryButton}" Width="180"
+                    HorizontalAlignment="Left" Click="Copy_Click"/>
+            <Button Content="{DynamicResource S_Close}" Style="{StaticResource PrimaryButton}" Width="110" HorizontalAlignment="Right"
+                    IsDefault="True" IsCancel="True"/>
+        </Grid>
+    </Grid>
+</Window>

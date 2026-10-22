@@ -1,0 +1,207 @@
+<UserControl x:Class="LicenseGenerator.Views.DashboardView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+
+            <!-- stat cards -->
+            <ItemsControl ItemsSource="{Binding Stats}" Margin="0,0,-14,0">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <UniformGrid Columns="4"/>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Border Style="{StaticResource Card}" Margin="0,0,14,0" Padding="18">
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+
+                                <StackPanel>
+                                    <TextBlock Text="{Binding Label}" FontSize="10" FontWeight="SemiBold"
+                                               Foreground="{StaticResource TextMutedBrush}"/>
+                                    <TextBlock Text="{Binding Value}" FontSize="30" FontWeight="SemiBold"
+                                               Margin="0,6,0,2"/>
+                                    <TextBlock Text="{Binding Caption}" Style="{StaticResource Muted}" FontSize="11"/>
+                                </StackPanel>
+
+                                <Border Grid.Column="1" Width="36" Height="36" CornerRadius="10" VerticalAlignment="Top">
+                                    <Border.Style>
+                                        <Style TargetType="Border">
+                                            <Setter Property="Background" Value="{StaticResource AccentSoftBrush}"/>
+                                            <Style.Triggers>
+                                                <DataTrigger Binding="{Binding Kind}" Value="success">
+                                                    <Setter Property="Background" Value="{StaticResource SuccessSoftBrush}"/>
+                                                </DataTrigger>
+                                                <DataTrigger Binding="{Binding Kind}" Value="warning">
+                                                    <Setter Property="Background" Value="{StaticResource WarningSoftBrush}"/>
+                                                </DataTrigger>
+                                            </Style.Triggers>
+                                        </Style>
+                                    </Border.Style>
+                                    <TextBlock Text="{Binding Icon}" FontFamily="{StaticResource IconFont}" FontSize="15"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <TextBlock.Style>
+                                            <Style TargetType="TextBlock">
+                                                <Setter Property="Foreground" Value="{StaticResource AccentHoverBrush}"/>
+                                                <Style.Triggers>
+                                                    <DataTrigger Binding="{Binding Kind}" Value="success">
+                                                        <Setter Property="Foreground" Value="{StaticResource SuccessBrush}"/>
+                                                    </DataTrigger>
+                                                    <DataTrigger Binding="{Binding Kind}" Value="warning">
+                                                        <Setter Property="Foreground" Value="{StaticResource WarningBrush}"/>
+                                                    </DataTrigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </TextBlock.Style>
+                                    </TextBlock>
+                                </Border>
+                            </Grid>
+                        </Border>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.7*"/>
+                    <ColumnDefinition Width="18"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- recent licenses -->
+                <Border Style="{StaticResource Card}" Padding="22">
+                    <StackPanel>
+                        <Grid>
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource S_RecentLicenses}" Style="{StaticResource H2}"/>
+                                <TextBlock Text="{DynamicResource S_LatestKeys}"
+                                           Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
+                            </StackPanel>
+                            <ContentControl Style="{StaticResource StatusPill}" Content="{DynamicResource S_LocalRegister}"
+                                            Tag="accent" HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                        </Grid>
+
+                        <Border Style="{StaticResource Divider}" Margin="0,16,0,4"/>
+
+                        <ItemsControl ItemsSource="{Binding Recent}" Margin="0,0,0,4">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border BorderBrush="{StaticResource BorderBrush}" BorderThickness="0,0,0,1"
+                                            Padding="0,12">
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackPanel>
+                                                <TextBlock Text="{Binding LicenseId}" FontFamily="{StaticResource MonoFont}"
+                                                           FontSize="12" Foreground="{StaticResource TextPrimaryBrush}"/>
+                                                <TextBlock FontSize="11" Foreground="{StaticResource TextSecondaryBrush}"
+                                                           Margin="0,4,0,0" TextTrimming="CharacterEllipsis">
+                                                    <Run Text="{Binding ProductName, Mode=OneWay}"/>
+                                                    <Run Text=" · "/>
+                                                    <Run Text="{Binding StationName, Mode=OneWay}"/>
+                                                </TextBlock>
+                                            </StackPanel>
+
+                                            <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding ExpiresLabel}" Style="{StaticResource Muted}"
+                                                           FontSize="11" Margin="0,0,12,0" VerticalAlignment="Center"/>
+                                                <ContentControl Style="{StaticResource StatusPill}"
+                                                                Content="{Binding StateLabel}" Tag="{Binding StatusKind}"/>
+                                            </StackPanel>
+                                        </Grid>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+
+                        <TextBlock Text="{DynamicResource S_NoLicensesYet}"
+                                   Style="{StaticResource Muted}" FontSize="12" TextWrapping="Wrap" Margin="0,10,0,0"
+                                   Visibility="{Binding HasRecent, Converter={StaticResource InverseBoolToVis}}"/>
+                    </StackPanel>
+                </Border>
+
+                <StackPanel Grid.Column="2">
+                    <!-- quick actions -->
+                    <Border Style="{StaticResource Card}" Padding="20">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_QuickActions}" Style="{StaticResource H2}"/>
+
+                            <Button Style="{StaticResource SecondaryButton}" Height="38" Margin="0,16,0,0"
+                                    Command="{Binding AddProductCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE710;" FontFamily="{StaticResource IconFont}" FontSize="11"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource S_AddAProduct}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource SecondaryButton}" Height="38" Margin="0,8,0,0"
+                                    Command="{Binding IssueLicenseCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8A5;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                               VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource S_IssueALicense}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+
+                            <Button Style="{StaticResource PrimaryButton}" Height="38" Margin="0,8,0,0"
+                                    Command="{Binding ExportBundleCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8B7;" FontFamily="{StaticResource IconFont}" FontSize="13"
+                                               Foreground="White" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource S_ExportClientPublicKeys}" Margin="8,0,0,0" VerticalAlignment="Center"/>
+                                </StackPanel>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+
+                    <!-- protection layers -->
+                    <Border Style="{StaticResource Card}" Padding="20" Margin="0,18,0,0">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_ProtectionLayers}" Style="{StaticResource H2}"/>
+                            <TextBlock Text="{DynamicResource S_WhatClientEnforces}" Style="{StaticResource Muted}"
+                                       FontSize="11" Margin="0,4,0,0"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                                           Text="{DynamicResource S_ProtSignature}" Width="230"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                                           Text="{DynamicResource S_ProtBinding}" Width="230"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                                           Text="{DynamicResource S_ProtDpapi}" Width="230"/>
+                            </StackPanel>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
+                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
+                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                                           Text="{DynamicResource S_ProtClock}" Width="230"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </Grid>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

@@ -1,0 +1,66 @@
+<Window x:Class="LicenseGenerator.Views.Dialogs.AddProductDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S_AddNewProduct}" Width="570" SizeToContent="Height"
+        Style="{StaticResource DialogWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner">
+
+    <StackPanel Margin="28,24,28,26">
+        <TextBlock x:Name="HeaderText" Text="{DynamicResource S_AddNewProduct}" Style="{StaticResource DialogTitle}"/>
+        <TextBlock x:Name="SubHeaderText" Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,7,0,0"
+                   Text="{DynamicResource S_AddProductIntro}"/>
+
+        <Grid Margin="0,22,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="132"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Grid.Row="0" Text="{DynamicResource S_ProductName}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,0,10"/>
+            <TextBox x:Name="NameBox" Grid.Row="0" Grid.Column="1" Style="{StaticResource InputTextBox}" Margin="0,0,0,10"
+                     ToolTip="{DynamicResource S_ProductNameHint}"/>
+
+            <TextBlock Grid.Row="1" Text="{DynamicResource S_AlgorithmLabel}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,0,10"/>
+            <ComboBox x:Name="AlgorithmBox" Grid.Row="1" Grid.Column="1" Style="{StaticResource DarkComboBox}" Margin="0,0,0,10"
+                      SelectionChanged="AlgorithmBox_SelectionChanged"/>
+
+            <TextBlock Grid.Row="2" Text="{DynamicResource S_Bits}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,0,10"/>
+            <ComboBox x:Name="BitsBox" Grid.Row="2" Grid.Column="1" Style="{StaticResource DarkComboBox}" Margin="0,0,0,10"
+                      SelectionChanged="BitsBox_SelectionChanged"/>
+
+            <TextBlock Grid.Row="3" Text="{DynamicResource S_KeygenMode}" Style="{StaticResource FieldLabel}" VerticalAlignment="Center" Margin="0,0,0,4"/>
+            <ComboBox x:Name="KeygenBox" Grid.Row="3" Grid.Column="1" Style="{StaticResource DarkComboBox}" Margin="0,0,0,4"
+                      SelectionChanged="KeygenBox_SelectionChanged"/>
+        </Grid>
+
+        <Border Style="{StaticResource SubtleCard}" Margin="0,16,0,0" Padding="14,12">
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Text="&#xE946;" FontFamily="{StaticResource IconFont}" FontSize="14"
+                           Foreground="{StaticResource AccentHoverBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                <TextBlock x:Name="KeygenHint" Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                           MaxWidth="440" LineHeight="18"/>
+            </StackPanel>
+        </Border>
+
+        <Border x:Name="EditNote" Style="{StaticResource SubtleCard}" Margin="0,10,0,0" Padding="14,12"
+                Visibility="Collapsed" Background="{StaticResource WarningSoftBrush}" BorderBrush="#3A2E15">
+            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
+                       Text="{DynamicResource S_EditProductNote}"/>
+        </Border>
+
+        <TextBlock x:Name="ErrorText" Foreground="{StaticResource DangerBrush}" FontSize="12" TextWrapping="Wrap"
+                   Margin="0,14,0,0" Visibility="Collapsed"/>
+
+        <Grid Margin="0,20,0,0">
+            <Button x:Name="SaveButton" Content="{DynamicResource S_AddProduct}" Style="{StaticResource PrimaryButton}" Width="150"
+                    HorizontalAlignment="Left" IsDefault="True" Click="Save_Click"/>
+            <Button Content="{DynamicResource S_Cancel}" Style="{StaticResource SecondaryButton}" Width="100" HorizontalAlignment="Right"
+                    IsCancel="True"/>
+        </Grid>
+    </StackPanel>
+</Window>

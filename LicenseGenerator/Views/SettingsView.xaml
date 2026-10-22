@@ -1,0 +1,139 @@
+<UserControl x:Class="LicenseGenerator.Views.SettingsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             Background="Transparent">
+
+    <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+        <StackPanel>
+
+            <!-- signing key vault -->
+            <Border Style="{StaticResource Card}" Padding="24">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="Auto"/>
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="{DynamicResource S_SigningKeyVault}" Style="{StaticResource H2}"/>
+                            <ContentControl Style="{StaticResource StatusPill}" Content="{Binding StatusText}"
+                                            Tag="{Binding StatusKind}" Margin="12,0,0,0"/>
+                        </StackPanel>
+                        <TextBlock Text="{Binding StatusCaption}" Style="{StaticResource Muted}" TextWrapping="Wrap"
+                                   MaxWidth="660" Margin="0,9,0,0" LineHeight="18"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                            <TextBlock Text="{DynamicResource S_KeyMaterial}" Style="{StaticResource Muted}" FontSize="11.5"/>
+                            <TextBlock Text="{Binding KeyCountText}" FontSize="11.5" FontWeight="SemiBold"
+                                       Margin="6,0,0,0"/>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">
+                        <Button Content="{DynamicResource S_Unlock}" Style="{StaticResource SecondaryButton}" Width="100"
+                                Command="{Binding UnlockCommand}"
+                                IsEnabled="{Binding IsUnlocked, Converter={StaticResource InverseBool}}"/>
+                        <Button Content="{DynamicResource S_LockSession}" Style="{StaticResource PrimaryButton}" Width="124"
+                                Margin="10,0,0,0" Command="{Binding LockCommand}"
+                                IsEnabled="{Binding IsUnlocked}"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Margin="0,18,0,0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="18"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <!-- client distribution -->
+                <Border Style="{StaticResource Card}" Padding="24">
+                    <StackPanel>
+                        <TextBlock Text="{DynamicResource S_ClientDistribution}" Style="{StaticResource H2}"/>
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,9,0,0" LineHeight="18"
+                                   Text="{DynamicResource S_ClientDistributionHint}"/>
+
+                        <TextBlock Text="{Binding BundleInfo}" FontSize="11.5" Foreground="{StaticResource AccentHoverBrush}"
+                                   Margin="0,14,0,0"/>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                            <Button Content="{DynamicResource S_ExportPublicKeys}" Style="{StaticResource PrimaryButton}" Width="170"
+                                    Command="{Binding ExportBundleCommand}"/>
+                            <Button Content="{DynamicResource S_OpenKeysFolder}" Style="{StaticResource SecondaryButton}" Width="150"
+                                    Margin="10,0,0,0" Command="{Binding OpenKeysFolderCommand}"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+
+                <!-- storage -->
+                <Border Grid.Column="2" Style="{StaticResource Card}" Padding="24">
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Text="{DynamicResource S_StorageLocations}" Style="{StaticResource H2}"/>
+                            <Button Content="{DynamicResource S_CopyRoot}" Style="{StaticResource GhostButton}" HorizontalAlignment="Right"
+                                    Command="{Binding CopyRootCommand}"/>
+                        </Grid>
+
+                        <TextBlock Text="{DynamicResource S_DataFiles}" FontSize="9.5" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,5"/>
+                        <TextBlock Text="{Binding ProductsFile}" Style="{StaticResource Mono}" FontSize="10.5"
+                                   TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding RecordsFile}" Style="{StaticResource Mono}" FontSize="10.5"
+                                   TextWrapping="Wrap" Margin="0,3,0,0"/>
+
+                        <TextBlock Text="{DynamicResource S_SigningKeysU}" FontSize="9.5" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextMutedBrush}" Margin="0,14,0,5"/>
+                        <TextBlock Text="{Binding KeysRoot}" Style="{StaticResource Mono}" FontSize="10.5"
+                                   TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{DynamicResource S_LocalLicenseCache}" FontSize="9.5" FontWeight="SemiBold"
+                                   Foreground="{StaticResource TextMutedBrush}" Margin="0,14,0,5"/>
+                        <TextBlock Text="{Binding LicensesRoot}" Style="{StaticResource Mono}" FontSize="10.5"
+                                   TextWrapping="Wrap"/>
+
+                        <Button Content="{DynamicResource S_OpenDataFolder}" Style="{StaticResource SecondaryButton}" Width="150"
+                                HorizontalAlignment="Left" Margin="0,18,0,0" Command="{Binding OpenDataFolderCommand}"/>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- security checklist -->
+            <Border Style="{StaticResource Card}" Padding="24" Margin="0,18,0,0">
+                <StackPanel>
+                    <TextBlock Text="{DynamicResource S_SecurityNotes}" Style="{StaticResource H2}"/>
+                    <TextBlock Text="{DynamicResource S_SecurityNotesHint}" Style="{StaticResource Muted}"
+                               FontSize="11" Margin="0,4,0,0"/>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
+                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
+                                   Text="{DynamicResource S_SecNotePrivateKey}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
+                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
+                                   Text="{DynamicResource S_SecNoteDpapi}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
+                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
+                                   Text="{DynamicResource S_SecNoteOffline}"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
+                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
+                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
+                                   Text="{DynamicResource S_SecNoteObfuscation}"/>
+                    </StackPanel>
+                </StackPanel>
+            </Border>
+        </StackPanel>
+    </ScrollViewer>
+</UserControl>

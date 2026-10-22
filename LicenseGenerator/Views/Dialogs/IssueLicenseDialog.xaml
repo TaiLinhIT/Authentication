@@ -1,0 +1,263 @@
+<Window x:Class="LicenseGenerator.Views.Dialogs.IssueLicenseDialog"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="{DynamicResource S_IssueLicenseTitle}" Width="1000" Height="780" MinWidth="920" MinHeight="680"
+        Style="{StaticResource DialogWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="CanResize">
+
+    <Grid Margin="28,22,28,26">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <StackPanel>
+                <TextBlock Text="{DynamicResource S_IssueLicense}" Style="{StaticResource DialogTitle}"/>
+                <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,6,0,0"
+                           Text="{DynamicResource S_IssueLicenseIntro}"/>
+            </StackPanel>
+
+            <ContentControl Grid.Column="1" Style="{StaticResource StatusPill}" Content="{DynamicResource S_OfflineSigned}"
+                            Tag="accent" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Grid Grid.Row="1" Margin="0,20,0,0">
+
+            <!-- ================= setup ================= -->
+            <Grid Visibility="{Binding HasResult, Converter={StaticResource InverseBoolToVis}}">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="1.4*"/>
+                    <ColumnDefinition Width="22"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+
+                <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+                    <StackPanel Margin="0,0,6,0">
+                        <TextBlock Text="{DynamicResource S_ProductU}" Style="{StaticResource FieldLabel}"/>
+                        <ComboBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}"
+                                  DisplayMemberPath="ProductName" Style="{StaticResource DarkComboBox}"
+                                  IsEnabled="{Binding IsProductLocked, Converter={StaticResource InverseBool}}"/>
+
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="14"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource S_CustomerU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox Text="{Binding CustomerName, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputTextBox}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="{DynamicResource S_StationPcU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox Text="{Binding StationName, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputTextBox}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <TextBlock Text="{DynamicResource S_DeviceBindingU}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
+                        <ComboBox ItemsSource="{Binding BindingOptions}" SelectedItem="{Binding SelectedBinding}"
+                                  DisplayMemberPath="Label" Style="{StaticResource DarkComboBox}"/>
+                        <TextBlock Text="{Binding DeviceHint}" Style="{StaticResource Muted}" FontSize="11" Margin="0,6,0,0"
+                                   TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{DynamicResource S_DeviceIdFingerprintU}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding DeviceId, UpdateSourceTrigger=PropertyChanged}"
+                                     Style="{StaticResource MonoTextBox}"/>
+                            <Button Grid.Column="1" Content="{DynamicResource S_Paste}" Style="{StaticResource SecondaryButton}"
+                                    Height="40" Width="78" Margin="8,0,0,0" Command="{Binding PasteDeviceCommand}"/>
+                        </Grid>
+
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="14"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource S_LicenseTypeU}" Style="{StaticResource FieldLabel}"/>
+                                <ComboBox ItemsSource="{Binding TypeOptions}" SelectedItem="{Binding SelectedType}"
+                                          DisplayMemberPath="Label" Style="{StaticResource DarkComboBox}"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2">
+                                <TextBlock Text="{DynamicResource S_StartDateU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox Text="{Binding StartDateText, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputTextBox}"/>
+                            </StackPanel>
+                        </Grid>
+
+                        <Grid Margin="0,16,0,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="14"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource S_ExpiryDateU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBox Text="{Binding ExpiryDateText, UpdateSourceTrigger=PropertyChanged}"
+                                         Style="{StaticResource InputTextBox}"
+                                         IsEnabled="{Binding IsPerpetual, Converter={StaticResource InverseBool}}"/>
+                            </StackPanel>
+
+                            <TextBlock Grid.Column="2" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap"
+                                       VerticalAlignment="Bottom" Margin="0,0,0,11"
+                                       Text="{DynamicResource S_DatesHint}"/>
+                        </Grid>
+
+                        <Border Style="{StaticResource SubtleCard}" Margin="0,18,0,0" Padding="14,12"
+                                Background="{StaticResource DangerSoftBrush}" BorderBrush="#3A1C27"
+                                Visibility="{Binding HasError, Converter={StaticResource BoolToVis}}">
+                            <TextBlock Text="{Binding ErrorMessage}" Foreground="{StaticResource DangerBrush}"
+                                       FontSize="12" TextWrapping="Wrap"/>
+                        </Border>
+
+                        <Button Content="{DynamicResource S_GenerateSignedLicense}" Style="{StaticResource PrimaryButton}"
+                                Height="44" Margin="0,20,0,0" Command="{Binding GenerateCommand}"/>
+                        <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,10,0,0"
+                                   Text="{DynamicResource S_SignLocalHint}"/>
+                    </StackPanel>
+                </ScrollViewer>
+
+                <!-- preview -->
+                <Border Grid.Column="2" Style="{StaticResource Card}" VerticalAlignment="Top" Padding="22">
+                    <StackPanel>
+                        <Grid>
+                            <TextBlock Text="{DynamicResource S_ConfigPreview}" FontSize="10" FontWeight="SemiBold"
+                                       Foreground="{StaticResource TextMutedBrush}" VerticalAlignment="Center"/>
+                            <ContentControl Style="{StaticResource StatusPill}" Content="{DynamicResource S_NotSignedYet}" Tag="warning"
+                                            HorizontalAlignment="Right"/>
+                        </Grid>
+
+                        <Border Style="{StaticResource Divider}" Margin="0,16,0,4"/>
+
+                        <TextBlock Text="{DynamicResource S_ProductU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,14,0,4"/>
+                        <TextBlock Text="{Binding PreviewProduct}" FontSize="14" FontWeight="SemiBold" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{DynamicResource S_CustomerU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
+                        <TextBlock Text="{Binding PreviewCustomer}" FontSize="13" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{DynamicResource S_DeviceU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
+                        <TextBlock Text="{Binding PreviewDevice}" FontFamily="{StaticResource MonoFont}" FontSize="12"
+                                   Foreground="{StaticResource TextSecondaryBrush}" TextWrapping="Wrap"/>
+
+                        <TextBlock Text="{DynamicResource S_DurationU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
+                        <TextBlock Text="{Binding PreviewDuration}" FontSize="13"/>
+
+                        <TextBlock Text="{DynamicResource S_DeviceBindingU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
+                        <TextBlock Text="{Binding PreviewBinding}" FontSize="13"/>
+
+                        <TextBlock Text="{DynamicResource S_ExpiresU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
+                        <TextBlock Text="{Binding PreviewExpiry}" FontSize="13"/>
+
+                        <Border Style="{StaticResource SubtleCard}" Margin="0,22,0,0" Padding="14,12">
+                            <StackPanel>
+                                <TextBlock Text="{DynamicResource S_Delivery}" FontSize="10" FontWeight="SemiBold"
+                                           Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,6"/>
+                                <TextBlock Text="{Binding PreviewKeyHint}" Style="{StaticResource Muted}" FontSize="11"
+                                           TextWrapping="Wrap" LineHeight="17"/>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </Border>
+            </Grid>
+
+            <!-- ================= result ================= -->
+            <Border Style="{StaticResource Card}" Padding="28"
+                    Visibility="{Binding HasResult, Converter={StaticResource BoolToVis}}">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="44" Height="44" CornerRadius="22" Background="{StaticResource SuccessSoftBrush}">
+                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="18"
+                                           Foreground="{StaticResource SuccessBrush}"
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                            <StackPanel Margin="14,2,0,0">
+                                <TextBlock Text="{DynamicResource S_LicenseGenerated}" FontSize="19" FontWeight="SemiBold"/>
+                                <TextBlock Text="{Binding ResultSerial}" FontFamily="{StaticResource MonoFont}"
+                                           FontSize="12" Foreground="{StaticResource TextSecondaryBrush}" Margin="0,4,0,0"/>
+                            </StackPanel>
+                        </StackPanel>
+                        <ContentControl Style="{StaticResource StatusPill}" Content="{DynamicResource S_Signed}" Tag="success"
+                                        HorizontalAlignment="Right" VerticalAlignment="Top"/>
+                    </Grid>
+
+                    <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,22,0,0">
+                        <StackPanel>
+                            <TextBlock Text="{DynamicResource S_ActivationKeyU}" Style="{StaticResource FieldLabel}"/>
+                            <TextBox Style="{StaticResource CodeTextBox}" Text="{Binding ResultCode, Mode=OneWay}"
+                                     IsReadOnly="True" Height="178"/>
+                            <TextBlock Text="{Binding ResultDeliveryHint}" Style="{StaticResource Muted}" FontSize="11"
+                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
+
+                            <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                                <Button Content="{DynamicResource S_CopyActivationKey}" Style="{StaticResource PrimaryButton}"
+                                        Width="190" Command="{Binding CopyResultCommand}"/>
+                                <Button Content="{DynamicResource S_SaveLicenseFile}" Style="{StaticResource SecondaryButton}"
+                                        Width="170" Margin="10,0,0,0" Command="{Binding SaveResultCommand}"/>
+                            </StackPanel>
+
+                            <TextBlock Text="{Binding ResultStatus}" Foreground="{StaticResource SuccessBrush}" FontSize="12"
+                                       TextWrapping="Wrap" Margin="0,12,0,0"
+                                       Visibility="{Binding ResultStatus, Converter={StaticResource NonEmptyToVis}}"/>
+
+                            <Border Style="{StaticResource SubtleCard}" Margin="0,20,0,0" Padding="16,14">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <StackPanel>
+                                        <TextBlock Text="{DynamicResource S_AlgorithmU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}"/>
+                                        <TextBlock Text="{Binding ResultAlgorithm}" FontSize="12" Margin="0,5,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="1">
+                                        <TextBlock Text="{DynamicResource S_ExpiresU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}"/>
+                                        <TextBlock Text="{Binding ResultExpiry}" FontSize="12" Margin="0,5,0,0"/>
+                                    </StackPanel>
+                                    <StackPanel Grid.Column="2">
+                                        <TextBlock Text="{DynamicResource S_StationU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}"/>
+                                        <TextBlock Text="{Binding ResultStation}" FontSize="12" Margin="0,5,0,0" TextTrimming="CharacterEllipsis"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+
+                            <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,16,0,0"
+                                       Text="{DynamicResource S_DeliveryResultHint}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+
+                    <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,18,0,0">
+                        <Button Content="{DynamicResource S_IssueAnother}" Style="{StaticResource SecondaryButton}" Width="130"
+                                Command="{Binding ResetCommand}"/>
+                        <Button Content="{DynamicResource S_Done}" Style="{StaticResource PrimaryButton}" Width="110" Margin="10,0,0,0"
+                                IsDefault="True" Click="Done_Click"/>
+                    </StackPanel>
+                </Grid>
+            </Border>
+        </Grid>
+    </Grid>
+</Window>

@@ -1,0 +1,406 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- ============================ common ============================ -->
+    <sys:String x:Key="S_Cancel">Hủy</sys:String>
+    <sys:String x:Key="S_Close">Đóng</sys:String>
+    <sys:String x:Key="S_Copy">Sao chép</sys:String>
+    <sys:String x:Key="S_OK">OK</sys:String>
+    <sys:String x:Key="S_Confirm">Xác nhận</sys:String>
+    <sys:String x:Key="S_Done">Xong</sys:String>
+    <sys:String x:Key="S_Paste">Dán</sys:String>
+    <sys:String x:Key="S_Unlock">Mở khóa</sys:String>
+    <sys:String x:Key="S_Issue">Cấp</sys:String>
+    <sys:String x:Key="S_Activate">Kích hoạt</sys:String>
+    <sys:String x:Key="S_Exit">Thoát</sys:String>
+    <sys:String x:Key="S_LanguageToggle">EN</sys:String>
+    <sys:String x:Key="S_LanguageToggleTip">Chuyển sang tiếng Anh</sys:String>
+
+    <!-- ============================ issuer main window ============================ -->
+    <sys:String x:Key="S_AppTitle">Warehouse License Studio</sys:String>
+    <sys:String x:Key="S_UnlockSigningKey">Mở khóa khóa ký</sys:String>
+    <sys:String x:Key="S_OfflineIssuance">v1.0 · cấp phép ngoại tuyến</sys:String>
+    <sys:String x:Key="S_IssueLicense">Cấp license</sys:String>
+    <sys:String x:Key="S_AddProduct">Thêm sản phẩm</sys:String>
+
+    <sys:String x:Key="S_NavDashboard">Tổng quan</sys:String>
+    <sys:String x:Key="S_NavProducts">Sản phẩm</sys:String>
+    <sys:String x:Key="S_NavLicenses">License</sys:String>
+    <sys:String x:Key="S_NavSettings">Cài đặt</sys:String>
+    <sys:String x:Key="S_NavDashboardSub">Tổng quan sản phẩm, khóa đã cấp và license sắp hết hạn</sys:String>
+    <sys:String x:Key="S_NavProductsSub">Quản lý khóa ký và sản phẩm license</sys:String>
+    <sys:String x:Key="S_NavLicensesSub">Toàn bộ license đã cấp từ máy này</sys:String>
+    <sys:String x:Key="S_NavSettingsSub">Khóa ký, lưu trữ và phân phối client</sys:String>
+
+    <sys:String x:Key="S_KeyUnlocked">Đã mở khóa khóa ký</sys:String>
+    <sys:String x:Key="S_KeyLocked">Khóa ký đang khóa</sys:String>
+    <sys:String x:Key="S_ReadyToIssue">Sẵn sàng cấp license</sys:String>
+    <sys:String x:Key="S_UnlockToSign">Mở khóa để ký</sys:String>
+
+    <!-- ============================ dashboard ============================ -->
+    <sys:String x:Key="S_RecentLicenses">License gần đây</sys:String>
+    <sys:String x:Key="S_LatestKeys">Các khóa mới nhất được cấp từ máy này</sys:String>
+    <sys:String x:Key="S_LocalRegister">Sổ đăng ký cục bộ</sys:String>
+    <sys:String x:Key="S_NoLicensesYet">Chưa cấp license nào. Dùng “Cấp license” để tạo license đầu tiên.</sys:String>
+    <sys:String x:Key="S_QuickActions">Thao tác nhanh</sys:String>
+    <sys:String x:Key="S_AddAProduct">Thêm sản phẩm</sys:String>
+    <sys:String x:Key="S_IssueALicense">Cấp một license</sys:String>
+    <sys:String x:Key="S_ExportClientPublicKeys">Xuất public key cho client</sys:String>
+    <sys:String x:Key="S_ProtectionLayers">Các lớp bảo vệ</sys:String>
+    <sys:String x:Key="S_WhatClientEnforces">Những gì client kiểm tra mỗi lần chạy</sys:String>
+    <sys:String x:Key="S_ProtSignature">Chữ ký RSA hoặc ECDSA trên mọi trường của license</sys:String>
+    <sys:String x:Key="S_ProtBinding">Ràng buộc fingerprint máy; license không thể chuyển sang PC khác</sys:String>
+    <sys:String x:Key="S_ProtDpapi">License lưu bằng Windows DPAPI, gắn với sản phẩm và máy</sys:String>
+    <sys:String x:Key="S_ProtClock">Phát hiện lùi đồng hồ và kiểm tra lại định kỳ</sys:String>
+
+    <sys:String x:Key="S_StatProducts">SẢN PHẨM</sys:String>
+    <sys:String x:Key="S_StatProductsCaption">sản phẩm đã đăng ký</sys:String>
+    <sys:String x:Key="S_StatLicenses">LICENSE</sys:String>
+    <sys:String x:Key="S_StatLicensesCaption">tổng số đã cấp</sys:String>
+    <sys:String x:Key="S_StatActive">ĐANG HIỆU LỰC</sys:String>
+    <sys:String x:Key="S_StatActiveCaption">còn hiệu lực ngay lúc này</sys:String>
+    <sys:String x:Key="S_StatExpiring">SẮP HẾT HẠN</sys:String>
+    <sys:String x:Key="S_StatExpiringCaption">trong vòng 30 ngày</sys:String>
+
+    <!-- ============================ products ============================ -->
+    <sys:String x:Key="S_SearchProducts">Tìm sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductU">SẢN PHẨM</sys:String>
+    <sys:String x:Key="S_AlgorithmU">THUẬT TOÁN</sys:String>
+    <sys:String x:Key="S_KeygenModeU">KIỂU SINH KHÓA</sys:String>
+    <sys:String x:Key="S_IssuedU">ĐÃ CẤP</sys:String>
+    <sys:String x:Key="S_NoProductsYet">Chưa có sản phẩm</sys:String>
+    <sys:String x:Key="S_NoProductsHint">Tạo sản phẩm để sinh khóa ký. Mọi license bạn cấp sau đó đều gắn với sản phẩm này.</sys:String>
+    <sys:String x:Key="S_CreateFirstProduct">Tạo sản phẩm đầu tiên</sys:String>
+    <sys:String x:Key="S_EditProduct">Sửa sản phẩm</sys:String>
+    <sys:String x:Key="S_ExportPublicKey">Xuất public key</sys:String>
+    <sys:String x:Key="S_DeleteProduct">Xóa sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductCountOne">1 sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductCountMany">{0} sản phẩm</sys:String>
+    <sys:String x:Key="S_LicenseCountOne">1 license</sys:String>
+    <sys:String x:Key="S_LicenseCountMany">{0} license</sys:String>
+    <sys:String x:Key="S_NoKey">chưa có khóa</sys:String>
+    <sys:String x:Key="S_LicenseIsValid">License hợp lệ.</sys:String>
+    <sys:String x:Key="S_AlgorithmKey">{0} · khóa {1}</sys:String>
+    <sys:String x:Key="S_KeyPrefix">khóa {0}</sys:String>
+
+    <!-- ============================ licenses ============================ -->
+    <sys:String x:Key="S_SearchSerial">Tìm serial, khách hàng, thiết bị…</sys:String>
+    <sys:String x:Key="S_ExportCsv">Xuất CSV</sys:String>
+    <sys:String x:Key="S_LicenseU">LICENSE</sys:String>
+    <sys:String x:Key="S_CustomerStationU">KHÁCH HÀNG · TRẠM</sys:String>
+    <sys:String x:Key="S_DeviceU">THIẾT BỊ</sys:String>
+    <sys:String x:Key="S_TypeU">LOẠI</sys:String>
+    <sys:String x:Key="S_ExpiresU">HẾT HẠN</sys:String>
+    <sys:String x:Key="S_StatusU">TRẠNG THÁI</sys:String>
+    <sys:String x:Key="S_NoLicensesHere">Chưa có license nào</sys:String>
+    <sys:String x:Key="S_NoLicensesHereHint">Cấp license cho một sản phẩm và gắn với máy khách. Bạn có thể sao chép activation key hoặc xuất file đã ký bất cứ lúc nào.</sys:String>
+    <sys:String x:Key="S_CopyActivationCode">Sao chép mã kích hoạt</sys:String>
+    <sys:String x:Key="S_SaveLicenseFile">Lưu file .license</sys:String>
+    <sys:String x:Key="S_MoreActions">Thao tác khác</sys:String>
+    <sys:String x:Key="S_InspectLicense">Kiểm tra license</sys:String>
+    <sys:String x:Key="S_RenewLicense">Gia hạn license</sys:String>
+    <sys:String x:Key="S_RevokeRestore">Thu hồi / khôi phục</sys:String>
+    <sys:String x:Key="S_RemoveFromRegister">Xóa khỏi sổ đăng ký</sys:String>
+    <sys:String x:Key="S_FilterAll">Tất cả</sys:String>
+    <sys:String x:Key="S_FilterActive">Đang hiệu lực</sys:String>
+    <sys:String x:Key="S_FilterExpiring">Sắp hết hạn</sys:String>
+    <sys:String x:Key="S_FilterExpired">Đã hết hạn</sys:String>
+    <sys:String x:Key="S_FilterScheduled">Chưa tới hạn</sys:String>
+    <sys:String x:Key="S_FilterRevoked">Đã thu hồi</sys:String>
+    <sys:String x:Key="S_TypeTrial">Dùng thử</sys:String>
+    <sys:String x:Key="S_TypeDays30">30 ngày</sys:String>
+    <sys:String x:Key="S_TypeDays90">90 ngày</sys:String>
+    <sys:String x:Key="S_TypeOneYear">1 năm</sys:String>
+    <sys:String x:Key="S_TypePerpetual">Vĩnh viễn</sys:String>
+    <sys:String x:Key="S_TypeCustom">Tùy chọn ngày</sys:String>
+    <sys:String x:Key="S_KeygenSerial">Serial</sys:String>
+    <sys:String x:Key="S_KeygenCodes">Mã kích hoạt</sys:String>
+    <sys:String x:Key="S_AlgRsa">RSA</sys:String>
+    <sys:String x:Key="S_AlgEcdsa">ECDSA</sys:String>
+    <sys:String x:Key="S_Summary">{0} đang hiệu lực · {1} sắp hết hạn · {2} đã hết hạn</sys:String>
+    <sys:String x:Key="S_Never">Không bao giờ</sys:String>
+    <sys:String x:Key="S_Revoke">Thu hồi</sys:String>
+    <sys:String x:Key="S_Unrevoke">Khôi phục</sys:String>
+    <sys:String x:Key="S_StatusActive">Đang hiệu lực</sys:String>
+    <sys:String x:Key="S_StatusPerpetual">Vĩnh viễn</sys:String>
+    <sys:String x:Key="S_StatusExpiringSoon">Sắp hết hạn</sys:String>
+    <sys:String x:Key="S_StatusScheduled">Chưa tới hạn</sys:String>
+    <sys:String x:Key="S_StatusExpired">Đã hết hạn</sys:String>
+    <sys:String x:Key="S_StatusRevoked">Đã thu hồi</sys:String>
+    <sys:String x:Key="S_BindingFingerprint">Fingerprint</sys:String>
+    <sys:String x:Key="S_BindingDeviceId">Device ID</sys:String>
+
+    <!-- ============================ settings ============================ -->
+    <sys:String x:Key="S_SigningKeyVault">Kho khóa ký</sys:String>
+    <sys:String x:Key="S_KeyMaterial">Khóa hiện có:</sys:String>
+    <sys:String x:Key="S_LockSession">Khóa phiên</sys:String>
+    <sys:String x:Key="S_ClientDistribution">Phân phối client</sys:String>
+    <sys:String x:Key="S_ClientDistributionHint">Xuất bundle public key và đặt cạnh file .exe của client trong thư mục Keys. Client nạp file này khi khởi động để kiểm tra chữ ký. Public key an toàn để phân phối.</sys:String>
+    <sys:String x:Key="S_ExportPublicKeys">Xuất public key</sys:String>
+    <sys:String x:Key="S_OpenKeysFolder">Mở thư mục khóa</sys:String>
+    <sys:String x:Key="S_StorageLocations">Vị trí lưu trữ</sys:String>
+    <sys:String x:Key="S_CopyRoot">Sao chép thư mục gốc</sys:String>
+    <sys:String x:Key="S_DataFiles">FILE DỮ LIỆU</sys:String>
+    <sys:String x:Key="S_SigningKeysU">KHÓA KÝ</sys:String>
+    <sys:String x:Key="S_LocalLicenseCache">CACHE LICENSE CỤC BỘ</sys:String>
+    <sys:String x:Key="S_OpenDataFolder">Mở thư mục dữ liệu</sys:String>
+    <sys:String x:Key="S_SecurityNotes">Ghi chú bảo mật</sys:String>
+    <sys:String x:Key="S_SecurityNotesHint">Đọc trước khi giao client cho khách hàng.</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">File private key được mã hóa AES-256 (PBKDF2, 200.000 vòng lặp). Hãy sao lưu riêng, tách khỏi mật khẩu và tuyệt đối không gửi kèm ứng dụng cho khách.</sys:String>
+    <sys:String x:Key="S_SecNoteDpapi">Client lưu license bằng DPAPI kèm entropy sinh từ fingerprint máy. Trạng thái đồng hồ cũng được bảo vệ tương tự, nên chép file license hoặc trạng thái đồng hồ sang PC khác sẽ không dùng được.</sys:String>
+    <sys:String x:Key="S_SecNoteOffline">Ứng dụng hoàn toàn offline không thể chặn thu hồi hoặc chống sửa đồng hồ nếu dữ liệu cục bộ bị xóa. Hãy dùng mô hình này cho tiện lợi và bổ sung kiểm tra máy chủ định kỳ khi giá trị thương mại đủ lớn.</sys:String>
+    <sys:String x:Key="S_SecNoteObfuscation">Dùng obfuscation và ký code cho bản phát hành. Chúng làm tăng chi phí can thiệp nhưng không thay thế kiểm tra bằng mật mã.</sys:String>
+    <sys:String x:Key="S_UnlockedSession">Đã mở khóa cho phiên này</sys:String>
+    <sys:String x:Key="S_Locked">Đang khóa</sys:String>
+    <sys:String x:Key="S_UnlockedCaption">Có thể tạo và ký license. Mật khẩu chỉ giữ trong bộ nhớ và bị xóa khi đóng ứng dụng hoặc khóa phiên.</sys:String>
+    <sys:String x:Key="S_LockedCaption">Mở khóa bằng mật khẩu issuer để tạo sản phẩm hoặc cấp license.</sys:String>
+    <sys:String x:Key="S_ProductNoLongerExists">Sản phẩm không còn tồn tại.</sys:String>
+    <sys:String x:Key="S_RecordNoLongerExists">Hồ sơ license không còn tồn tại.</sys:String>
+    <sys:String x:Key="S_ProductKeyOne">1 khóa sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductKeyMany">{0} khóa sản phẩm</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedOne">Sẽ đưa vào 1 public key.</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedMany">Sẽ đưa vào {0} public key.</sys:String>
+
+    <!-- ============================ add / edit product ============================ -->
+    <sys:String x:Key="S_AddNewProduct">Thêm sản phẩm mới</sys:String>
+    <sys:String x:Key="S_EditProductTitle">Sửa sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductName">Tên sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductNameHint">Tên hiển thị trong studio và trong hồ sơ license.</sys:String>
+    <sys:String x:Key="S_AddProductIntro">Mỗi sản phẩm có một khóa ký riêng. Private key chỉ nằm trên máy này.</sys:String>
+    <sys:String x:Key="S_EditProductIntro">Cập nhật cách sản phẩm hiển thị trong studio. License đã cấp không bị ảnh hưởng.</sys:String>
+    <sys:String x:Key="S_Bits">Độ dài khóa</sys:String>
+    <sys:String x:Key="S_KeygenMode">Kiểu sinh khóa</sys:String>
+    <sys:String x:Key="S_KeygenHintCodes">Activation code là một khóa WLC1 có thể dán. ECDSA P-256 cho mã khoảng 500 ký tự; mã RSA dài hơn nhiều nhưng vẫn dùng được. Client kiểm tra hoàn toàn offline.</sys:String>
+    <sys:String x:Key="S_KeygenHintSerials">Kiểu serial giao license dưới dạng file .license.json đã ký (kèm activation code cho tiện). Phù hợp với khóa RSA và gửi qua email.</sys:String>
+    <sys:String x:Key="S_EditProductNote">Thuật toán, độ dài khóa và khóa ký được cố định sau khi tạo. Đổi tên sản phẩm không làm thay đổi product id nên các bản client đã phát hành vẫn hoạt động.</sys:String>
+    <sys:String x:Key="S_SaveChanges">Lưu thay đổi</sys:String>
+    <sys:String x:Key="S_ErrProductNameShort">Nhập tên sản phẩm có ít nhất 2 ký tự.</sys:String>
+    <sys:String x:Key="S_ErrProductNameLong">Tên sản phẩm không vượt quá 80 ký tự.</sys:String>
+    <sys:String x:Key="S_ErrProductDuplicate">Đã có sản phẩm trùng tên.</sys:String>
+    <sys:String x:Key="S_ErrProductIdDuplicate">Đã có sản phẩm với product id này. Hãy đổi tên một chút.</sys:String>
+    <sys:String x:Key="S_PasswordPromptNewProduct">Chọn mật khẩu issuer bảo vệ private key của sản phẩm (tối thiểu 12 ký tự). Cùng mật khẩu này mở khóa mọi khóa sản phẩm trên máy.</sys:String>
+    <sys:String x:Key="S_PasswordPromptSign">Nhập mật khẩu issuer để ký license này.</sys:String>
+    <sys:String x:Key="S_PasswordPromptUnlock">Nhập mật khẩu issuer để mở khóa khóa ký cho phiên này.</sys:String>
+    <sys:String x:Key="S_PwdTooShort">Dùng ít nhất {0} ký tự.</sys:String>
+    <sys:String x:Key="S_PwdWrong">Mật khẩu này không mở được khóa ký hiện có.</sys:String>
+
+    <!-- ============================ issue license ============================ -->
+    <sys:String x:Key="S_IssueLicenseTitle">Cấp license</sys:String>
+    <sys:String x:Key="S_IssueLicenseIntro">Gắn license đã ký với một máy và chọn thời hạn hiệu lực.</sys:String>
+    <sys:String x:Key="S_OfflineSigned">Ký offline</sys:String>
+    <sys:String x:Key="S_CustomerU">KHÁCH HÀNG</sys:String>
+    <sys:String x:Key="S_StationPcU">TRẠM / PC</sys:String>
+    <sys:String x:Key="S_DeviceIdFingerprintU">DEVICE ID / FINGERPRINT</sys:String>
+    <sys:String x:Key="S_StartDateU">NGÀY BẮT ĐẦU (UTC)</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">NGÀY HẾT HẠN (BAO GỒM)</sys:String>
+    <sys:String x:Key="S_LicenseTypeU">LOẠI LICENSE</sys:String>
+    <sys:String x:Key="S_DurationU">THỜI HẠN LICENSE</sys:String>
+    <sys:String x:Key="S_DeviceBindingU">RÀNG BUỘC THIẾT BỊ</sys:String>
+    <sys:String x:Key="S_StationU">TRẠM</sys:String>
+    <sys:String x:Key="S_DatesHint">Ngày dùng định dạng yyyy-MM-dd. License có hiệu lực đến 23:59:59 UTC của ngày hết hạn.</sys:String>
+    <sys:String x:Key="S_GenerateSignedLicense">Tạo license đã ký</sys:String>
+    <sys:String x:Key="S_SignLocalHint">License được ký bằng private key của sản phẩm ngay trên máy này. Không có dữ liệu nào gửi qua mạng.</sys:String>
+    <sys:String x:Key="S_ConfigPreview">XEM TRƯỚC CẤU HÌNH</sys:String>
+    <sys:String x:Key="S_NotSignedYet">Chưa ký</sys:String>
+    <sys:String x:Key="S_Delivery">GIAO HÀNG</sys:String>
+    <sys:String x:Key="S_LicenseGenerated">Đã tạo license</sys:String>
+    <sys:String x:Key="S_Signed">Đã ký</sys:String>
+    <sys:String x:Key="S_ActivationKeyU">MÃ KÍCH HOẠT</sys:String>
+    <sys:String x:Key="S_CopyActivationKey">Sao chép activation key</sys:String>
+    <sys:String x:Key="S_IssueAnother">Cấp license khác</sys:String>
+    <sys:String x:Key="S_DeliveryResultHint">Giao activation key hoặc file .license. Client kiểm tra chữ ký và ràng buộc máy offline trước khi mở cửa sổ chính.</sys:String>
+    <sys:String x:Key="S_NotSelected">Chưa chọn</sys:String>
+    <sys:String x:Key="S_NotSet">Chưa đặt</sys:String>
+    <sys:String x:Key="S_NoExpiry">Không hết hạn</sys:String>
+    <sys:String x:Key="S_Perpetual">Vĩnh viễn</sys:String>
+    <sys:String x:Key="S_CustomExpiry">Tùy chọn ngày hết hạn</sys:String>
+    <sys:String x:Key="S_BindingFingerprintLabel">Fingerprint máy</sys:String>
+    <sys:String x:Key="S_BindingFingerprintHint">Dán fingerprint 64 ký tự đã sao chép từ cửa sổ kích hoạt của client.</sys:String>
+    <sys:String x:Key="S_BindingDeviceIdHint">Dán Device ID dạng DEV-… hiển thị trên máy khách.</sys:String>
+    <sys:String x:Key="S_CompactCodeHint">Activation code gọn (khoảng 500 ký tự) hoặc file .license.</sys:String>
+    <sys:String x:Key="S_RsaCodeHint">Nên dùng file license. Activation code khá dài (khoảng 1.100 ký tự) do chữ ký RSA.</sys:String>
+    <sys:String x:Key="S_ResultCodeHint">{0} ký tự · dán vào cửa sổ kích hoạt của client hoặc giao file .license.</sys:String>
+    <sys:String x:Key="S_CodeCopied">Đã sao chép activation code vào clipboard.</sys:String>
+    <sys:String x:Key="S_SavedTo">Đã lưu vào {0}</sys:String>
+    <sys:String x:Key="S_ErrSelectProduct">Chọn sản phẩm mà license này thuộc về.</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">Nhập fingerprint hoặc device ID của máy đích.</sys:String>
+    <sys:String x:Key="S_ErrFingerprint">Fingerprint máy phải là chuỗi 64 ký tự hex sao chép từ client.</sys:String>
+    <sys:String x:Key="S_ErrStartDate">Ngày bắt đầu phải dùng định dạng yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Ngày hết hạn phải dùng định dạng yyyy-MM-dd.</sys:String>
+    <sys:String x:Key="S_ErrExpiryOrder">Ngày hết hạn phải bằng hoặc sau ngày bắt đầu.</sys:String>
+    <sys:String x:Key="S_SaveSignedLicense">Lưu license đã ký</sys:String>
+    <sys:String x:Key="S_SaveLicenseFileTitle">Lưu file license</sys:String>
+    <sys:String x:Key="S_ExportLicenseRegister">Xuất sổ license</sys:String>
+    <sys:String x:Key="S_FilterLicenseFile">File license (*.license.json)|*.license.json|JSON (*.json)|*.json|Tất cả file (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterJson">JSON (*.json)|*.json|Tất cả file (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterCsv">CSV (*.csv)|*.csv|Tất cả file (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterPem">Public key PEM (*.pem)|*.pem|Tất cả file (*.*)|*.*</sys:String>
+
+    <!-- ============================ license details ============================ -->
+    <sys:String x:Key="S_LicenseDetails">Chi tiết license</sys:String>
+    <sys:String x:Key="S_Checking">Đang kiểm tra</sys:String>
+    <sys:String x:Key="S_Unreadable">Không đọc được</sys:String>
+    <sys:String x:Key="S_Malformed">Sai định dạng</sys:String>
+    <sys:String x:Key="S_PublicKeyMissing">Thiếu public key</sys:String>
+    <sys:String x:Key="S_SignatureValid">Chữ ký hợp lệ</sys:String>
+    <sys:String x:Key="S_InvalidSignaturePill">Chữ ký không hợp lệ</sys:String>
+    <sys:String x:Key="S_UnrecognizedLicense">License không nhận dạng được</sys:String>
+    <sys:String x:Key="S_SignatureNoteValid">Chữ ký số và key id hợp lệ. License được cấp từ máy này.</sys:String>
+    <sys:String x:Key="S_SignatureNoteMissingKey">Không có public key của license này trên máy nên không thể kiểm tra chữ ký.</sys:String>
+    <sys:String x:Key="S_SignatureNoteMalformed">Không giải mã được payload đã ký.</sys:String>
+    <sys:String x:Key="S_StatusCodeNotActive">Chưa có hiệu lực — bắt đầu {0} (UTC).</sys:String>
+    <sys:String x:Key="S_StatusCodeExpired">Đã hết hạn ngày {0} (UTC).</sys:String>
+    <sys:String x:Key="S_StatusCodeActivePerpetual">Đang hiệu lực — không hết hạn.</sys:String>
+    <sys:String x:Key="S_StatusCodeActiveUntil">Đang hiệu lực đến {0} (UTC).</sys:String>
+    <sys:String x:Key="S_BindingMatches">Máy này khớp với ràng buộc.</sys:String>
+    <sys:String x:Key="S_BindingMismatch">Máy này không khớp với ràng buộc.</sys:String>
+    <sys:String x:Key="S_CopiedToClipboard">Đã sao chép vào clipboard.</sys:String>
+    <sys:String x:Key="S_CouldNotRebuildCode">Không tạo lại được activation code: {0}</sys:String>
+    <sys:String x:Key="S_ProductLabel">Sản phẩm</sys:String>
+    <sys:String x:Key="S_CustomerLabel">Khách hàng</sys:String>
+    <sys:String x:Key="S_StationLabel">Trạm</sys:String>
+    <sys:String x:Key="S_DeviceBindingLabel">Ràng buộc thiết bị</sys:String>
+    <sys:String x:Key="S_DeviceLabel">Thiết bị</sys:String>
+    <sys:String x:Key="S_LicenseTypeLabel">Loại license</sys:String>
+    <sys:String x:Key="S_IssuedLabel">Ngày cấp</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">Hết hạn</sys:String>
+    <sys:String x:Key="S_AlgorithmLabel">Thuật toán</sys:String>
+    <sys:String x:Key="S_KeyIdLabel">Key id</sys:String>
+    <sys:String x:Key="S_StatusLabel">Trạng thái</sys:String>
+
+    <!-- ============================ password prompt ============================ -->
+    <sys:String x:Key="S_IssuerPasswordU">MẬT KHẨU ISSUER</sys:String>
+    <sys:String x:Key="S_PasswordMemoryHint">Mật khẩu chỉ được giữ trong bộ nhớ khi cửa sổ này mở. Không bao giờ ghi ra đĩa hoặc log.</sys:String>
+
+    <!-- ============================ message dialogs ============================ -->
+    <sys:String x:Key="S_Message">Thông báo</sys:String>
+
+    <!-- ============================ client activation ============================ -->
+    <sys:String x:Key="S_SoftwareActivation">Kích hoạt phần mềm</sys:String>
+    <sys:String x:Key="S_ActivateYourSoftware">Kích hoạt phần mềm của bạn</sys:String>
+    <sys:String x:Key="S_ThisMachineU">MÁY NÀY</sys:String>
+    <sys:String x:Key="S_SendDeviceHint">Gửi Device ID hoặc fingerprint cho nhà cung cấp khi yêu cầu license. Giá trị này không đổi trên PC này.</sys:String>
+    <sys:String x:Key="S_LicenseKeyU">LICENSE KEY</sys:String>
+    <sys:String x:Key="S_ImportFile">Nhập từ file</sys:String>
+    <sys:String x:Key="S_ShowKey">Hiện khóa</sys:String>
+    <sys:String x:Key="S_HideKey">Ẩn khóa</sys:String>
+    <sys:String x:Key="S_OrDropFile">hoặc kéo thả file .license.json vào đây</sys:String>
+    <sys:String x:Key="S_KeyVerifiedHint">Khóa được kiểm tra offline bằng public key của nhà cung cấp và fingerprint máy này. License được lưu bảo vệ bằng Windows DPAPI.</sys:String>
+    <sys:String x:Key="S_ActivationWindowTitle">{0} — Kích hoạt</sys:String>
+    <sys:String x:Key="S_ActivationIntro">Nhập license key do {0} cung cấp để kích hoạt {1} trên máy này.</sys:String>
+    <sys:String x:Key="S_KeyMissingWarning">Bản build này không chứa public key của nhà cung cấp (thiếu Keys/public-keys.json). Hãy liên hệ nhà cung cấp để nhận bản cài đặt đúng.</sys:String>
+    <sys:String x:Key="S_MachineIdentityUnavailable">Không đọc được định danh máy. Hãy chạy ứng dụng trên Windows với quyền truy cập registry rồi thử lại.</sys:String>
+    <sys:String x:Key="S_ClipboardEmpty">Clipboard không có văn bản.</sys:String>
+    <sys:String x:Key="S_ClipboardBusy">Ứng dụng khác đang giữ clipboard. Hãy thử lại.</sys:String>
+    <sys:String x:Key="S_SelectLicenseFile">Chọn file license</sys:String>
+    <sys:String x:Key="S_ReadFileError">Không đọc được file license: {0}</sys:String>
+    <sys:String x:Key="S_EnterKeyFirst">Hãy dán license key hoặc nhập file license trước.</sys:String>
+    <sys:String x:Key="S_ActivationFailed">Kích hoạt thất bại: {0}</sys:String>
+    <sys:String x:Key="S_DroppedFileError">Không đọc được file được kéo thả: {0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckFailed">Không kiểm tra được license: {0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckTitle">Kiểm tra license</sys:String>
+    <sys:String x:Key="S_ReplacementNotice">Nhập license key thay thế. License hiện tại vẫn có hiệu lực cho đến khi khóa mới được xác minh trên máy này.</sys:String>
+    <sys:String x:Key="S_StartupError" xml:space="preserve">Ứng dụng không thể khởi động.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StudioStartupError" xml:space="preserve">License Studio không thể khởi động.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_UnexpectedError" xml:space="preserve">Đã xảy ra lỗi không mong muốn.&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StartupErrorTitle">Lỗi khởi động</sys:String>
+
+    <!-- ============================ client main window ============================ -->
+    <sys:String x:Key="S_LicenseActive">License đang hiệu lực</sys:String>
+    <sys:String x:Key="S_ReCheck">Kiểm tra lại</sys:String>
+    <sys:String x:Key="S_License">License</sys:String>
+    <sys:String x:Key="S_LabelComparison">So sánh nhãn</sys:String>
+    <sys:String x:Key="S_CompareLabelsHint">So sánh mô tả vật tư in trên hai nhãn.</sys:String>
+    <sys:String x:Key="S_DemoModule">Module demo</sys:String>
+    <sys:String x:Key="S_LabelA">NHÃN A</sys:String>
+    <sys:String x:Key="S_LabelB">NHÃN B</sys:String>
+    <sys:String x:Key="S_CompareLabels">So sánh nhãn</sys:String>
+    <sys:String x:Key="S_ResultU">KẾT QUẢ</sys:String>
+    <sys:String x:Key="S_EnterTwoLabels">Nhập nội dung hai nhãn rồi bấm So sánh.</sys:String>
+    <sys:String x:Key="S_DemoPanelHint">Bảng này mô phỏng module nghiệp vụ thật của bạn. Trong ứng dụng thật, hãy đặt kiểm tra license ở lúc khởi động và kiểm tra lại trước khi mở các chức năng được bảo vệ.</sys:String>
+    <sys:String x:Key="S_LicenseStatus">Trạng thái license</sys:String>
+    <sys:String x:Key="S_ValidUntil">Có hiệu lực đến</sys:String>
+    <sys:String x:Key="S_Remaining">Còn lại</sys:String>
+    <sys:String x:Key="S_LastCheck">Lần kiểm tra cuối</sys:String>
+    <sys:String x:Key="S_ReCheckLicense">Kiểm tra lại license</sys:String>
+    <sys:String x:Key="S_HowProtected">Bản build này được bảo vệ thế nào</sys:String>
+    <sys:String x:Key="S_ProtSignatureClient">Chữ ký và product id được xác minh trước khi tạo cửa sổ này.</sys:String>
+    <sys:String x:Key="S_ProtBindingClient">Khóa được gắn với fingerprint máy này và lưu bằng DPAPI.</sys:String>
+    <sys:String x:Key="S_ProtRecheck">License được kiểm tra lại mỗi 30 phút và trước mỗi phiên mới.</sys:String>
+    <sys:String x:Key="S_OfflineFooter">Xác minh offline · lưu trữ bằng DPAPI · ràng buộc fingerprint</sys:String>
+    <sys:String x:Key="S_LicenseInformation">Thông tin license</sys:String>
+    <sys:String x:Key="S_VerifiedOffline">Đã xác minh offline</sys:String>
+    <sys:String x:Key="S_StoredAt">Lưu tại</sys:String>
+    <sys:String x:Key="S_CopyDeviceId">Sao chép Device ID</sys:String>
+    <sys:String x:Key="S_EnterNewLicense">Nhập license mới</sys:String>
+    <sys:String x:Key="S_LicenseInfoHint">Khóa này đã được xác minh offline bằng public key của nhà cung cấp nhúng trong bản build. Bản lưu được bảo vệ bằng Windows DPAPI và gắn với máy này nên không thể chép sang PC khác.</sys:String>
+    <sys:String x:Key="S_PerpetualNoExpiry">Vĩnh viễn — không hết hạn</sys:String>
+    <sys:String x:Key="S_PerpetualLicense">License vĩnh viễn</sys:String>
+    <sys:String x:Key="S_Unavailable">Không có</sys:String>
+    <sys:String x:Key="S_MachineIdentityReadError">Không đọc được định danh máy Windows.</sys:String>
+    <sys:String x:Key="S_NoLicenseInstalled">Chưa cài license</sys:String>
+    <sys:String x:Key="S_DaysRemaining">{0} ngày</sys:String>
+    <sys:String x:Key="S_LicensedTo">Cấp cho {0}</sys:String>
+    <sys:String x:Key="S_ExpiredLabel">Đã hết hạn</sys:String>
+    <sys:String x:Key="S_JustNow">(vừa xong)</sys:String>
+    <sys:String x:Key="S_ThisMachineLabel">Máy này</sys:String>
+    <sys:String x:Key="S_CompareEmpty">Hãy nhập nội dung vào cả hai nhãn trước khi so sánh.</sys:String>
+    <sys:String x:Key="S_CompareMatch">KHỚP — hai nhãn mô tả cùng một loại vật tư.</sys:String>
+    <sys:String x:Key="S_CompareDifferent">KHÁC NHAU — hai nhãn không khớp. Hãy giữ vật tư lại và kiểm tra chứng từ gốc.</sys:String>
+
+    <!-- ============================ client validation messages ============================ -->
+    <sys:String x:Key="S_NoLicenseInstalledMessage">Chưa cài license cho máy này.</sys:String>
+    <sys:String x:Key="S_LicenseInvalid">License key hoặc file không hợp lệ. Hãy kiểm tra đã sao chép đầy đủ chưa.</sys:String>
+    <sys:String x:Key="S_UnknownKey">Public key của nhà cung cấp cho license này không có trong bản build. Hãy liên hệ nhà cung cấp.</sys:String>
+    <sys:String x:Key="S_InvalidSignatureMessage">Không xác minh được chữ ký license. Hãy kiểm tra đã sao chép đủ toàn bộ khóa chưa.</sys:String>
+    <sys:String x:Key="S_WrongProductMessage">License này thuộc về '{0}', không phải '{1}'.</sys:String>
+    <sys:String x:Key="S_WrongMachineIdMessage">License này đã đăng ký cho Device ID khác.</sys:String>
+    <sys:String x:Key="S_WrongMachineFpMessage">License này gắn với fingerprint máy khác.</sys:String>
+    <sys:String x:Key="S_NotYetValidMessage">License này có hiệu lực từ {0} (UTC).</sys:String>
+    <sys:String x:Key="S_ExpiredMessage">License này đã hết hạn ngày {0} (UTC).</sys:String>
+    <sys:String x:Key="S_ClockRollbackMessage">Đồng hồ hệ thống có vẻ đã bị lùi lại. Hãy chỉnh đúng giờ rồi thử lại.</sys:String>
+    <sys:String x:Key="S_DeviceIdentityUnavailableMessage">Không đọc được định danh máy. Hãy chạy ứng dụng trên Windows với quyền truy cập registry.</sys:String>
+    <sys:String x:Key="S_StoreFailedMessage">License hợp lệ nhưng không thể lưu trên máy này: {0}</sys:String>
+
+    <!-- ============================ issuer messages ============================ -->
+    <sys:String x:Key="S_CouldNotSaveProduct">Không lưu được sản phẩm</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateProduct">Không cập nhật được sản phẩm</sys:String>
+    <sys:String x:Key="S_CouldNotDeleteProduct">Không xóa được sản phẩm</sys:String>
+    <sys:String x:Key="S_DeleteProductTitle">Xóa sản phẩm?</sys:String>
+    <sys:String x:Key="S_DeleteProductMessage" xml:space="preserve">'{0}' sẽ bị xóa khỏi danh mục. License đã cấp cho sản phẩm này vẫn hợp lệ trên máy khách, nhưng bạn sẽ không thể cấp mới hoặc gia hạn nữa.&#x0a;&#x0a;Các file khóa vẫn được giữ trong thư mục keys.</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingTitle">Thiếu public key</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingMessage">Không có file public key cho sản phẩm này.</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateRecord">Không cập nhật được hồ sơ license</sys:String>
+    <sys:String x:Key="S_CouldNotRemoveRecord">Không xóa được hồ sơ</sys:String>
+    <sys:String x:Key="S_LicenseTextUnreadable">Không đọc được nội dung license</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedTitle">Đã sao chép activation code</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedMessage" xml:space="preserve">Activation code của {0} đã nằm trong clipboard.&#x0a;&#x0a;{1} ký tự — hãy gửi qua email, chat hoặc hệ thống ticket.</sys:String>
+    <sys:String x:Key="S_CouldNotBuildCode">Không tạo được activation code</sys:String>
+    <sys:String x:Key="S_ProductNotFoundTitle">Không tìm thấy sản phẩm</sys:String>
+    <sys:String x:Key="S_ProductNotFoundMessage">'{0}' không còn trong danh mục nên không thể dùng khóa ký để gia hạn.</sys:String>
+    <sys:String x:Key="S_RevokeLicenseTitle">Thu hồi license?</sys:String>
+    <sys:String x:Key="S_UnrevokeLicenseTitle">Khôi phục license?</sys:String>
+    <sys:String x:Key="S_RevokeMessage" xml:space="preserve">Đánh dấu {0} là đã thu hồi trong sổ đăng ký.&#x0a;&#x0a;Đây chỉ là ghi chú cục bộ: client offline không thấy được. Nó hữu ích cho việc theo dõi và từ chối gia hạn.</sys:String>
+    <sys:String x:Key="S_UnrevokeMessage">Đánh dấu {0} là đang hiệu lực trở lại trong sổ đăng ký.</sys:String>
+    <sys:String x:Key="S_RemoveRecordTitle">Xóa hồ sơ license?</sys:String>
+    <sys:String x:Key="S_RemoveRecordMessage">Xóa {0} khỏi sổ đăng ký. License đã ký trên máy khách vẫn hoạt động; thao tác này chỉ xóa hồ sơ cục bộ.</sys:String>
+    <sys:String x:Key="S_RemoveRecordLabel">Xóa hồ sơ</sys:String>
+    <sys:String x:Key="S_NoProductsTitle">Chưa có sản phẩm</sys:String>
+    <sys:String x:Key="S_NoProductsBeforeExport">Hãy tạo sản phẩm trước khi xuất public key.</sys:String>
+    <sys:String x:Key="S_ExportClientKeysTitle">Xuất public key cho client</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedTitle">Đã xuất public key</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedMessage" xml:space="preserve">Sao chép file vào thư mục 'Keys' của client (cạnh file .exe):&#x0a;&#x0a;{0}&#x0a;&#x0a;File chỉ chứa public key và an toàn để phân phối.</sys:String>
+    <sys:String x:Key="S_NothingToExportTitle">Không có gì để xuất</sys:String>
+    <sys:String x:Key="S_NothingToExportMessage">Chưa cấp license nào.</sys:String>
+    <sys:String x:Key="S_ExportRegisterTitle">Xuất sổ license</sys:String>
+    <sys:String x:Key="S_CouldNotOpenFolder">Không mở được thư mục</sys:String>
+    <sys:String x:Key="S_CouldNotSaveFile">Không lưu được file</sys:String>
+    <sys:String x:Key="S_CouldNotReadFile">Không đọc được file</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailable">Clipboard không khả dụng</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailableMessage">Ứng dụng khác đang giữ clipboard. Hãy thử lại.</sys:String>
+    <sys:String x:Key="S_SigningKeyMissing">Không tìm thấy khóa ký của '{0}'. Không thể tạo lại mà không làm mất hiệu lực các license đã cấp.</sys:String>
+    <sys:String x:Key="S_IssuerPasteFingerprint">Dán fingerprint đã sao chép từ máy đích.</sys:String>
+    <sys:String x:Key="S_IssuerEnterDeviceId">Nhập Device ID hiển thị trên client của máy đích.</sys:String>
+
+</ResourceDictionary>
