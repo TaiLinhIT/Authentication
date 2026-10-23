@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-D:\project\Han\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\
+E:\MyProject\HAN\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\
 LicenseGenerator
 none
 false
 TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR_GREATER;NET7_0_OR_GREATER;NET8_0_OR_GREATER;NETCOREAPP1_0_OR_GREATER;NETCOREAPP1_1_OR_GREATER;NETCOREAPP2_0_OR_GREATER;NETCOREAPP2_1_OR_GREATER;NETCOREAPP2_2_OR_GREATER;NETCOREAPP3_0_OR_GREATER;NETCOREAPP3_1_OR_GREATER;WINDOWS7_0_OR_GREATER
-D:\project\Han\Authentication\LicenseGenerator\App.xaml
+E:\MyProject\HAN\Authentication\LicenseGenerator\App.xaml
 12-2129739071
 
 31-1244493385
-200-330285744
+200-210241436
 MainWindow.xaml;Theme.xaml;Views\DashboardView.xaml;Views\Dialogs\AddProductDialog.xaml;Views\Dialogs\ConfirmDialog.xaml;Views\Dialogs\IssueLicenseDialog.xaml;Views\Dialogs\LicenseDetailsDialog.xaml;Views\Dialogs\MessageDialog.xaml;Views\Dialogs\PasswordPromptDialog.xaml;Views\LicensesView.xaml;Views\ProductsView.xaml;Views\SettingsView.xaml;
 
 True

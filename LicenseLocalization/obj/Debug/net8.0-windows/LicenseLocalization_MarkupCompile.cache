@@ -4,7 +4,7 @@
 library
 C#
 .cs
-D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\
+E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\
 LicenseLocalization
 none
 false
@@ -13,7 +13,7 @@ TRACE;DEBUG;NET;NET8_0;NETCOREAPP;WINDOWS;WINDOWS7_0;NET5_0_OR_GREATER;NET6_0_OR
 4-1952014031
 
 2177058756
-1991955470724
+199-1005797719
 Strings.en.xaml;Strings.ja.xaml;Strings.vi.xaml;Strings.zh.xaml;
 
 False
