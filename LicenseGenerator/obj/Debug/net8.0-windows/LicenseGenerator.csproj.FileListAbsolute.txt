@@ -1,4 +1,3 @@
-D:\project\Han\Authentication\LicenseGenerator\bin\Debug\net8.0-windows\LicenseGenerator.exe
 D:\project\Han\Authentication\LicenseGenerator\bin\Debug\net8.0-windows\LicenseGenerator.deps.json
 D:\project\Han\Authentication\LicenseGenerator\bin\Debug\net8.0-windows\LicenseGenerator.runtimeconfig.json
 D:\project\Han\Authentication\LicenseGenerator\bin\Debug\net8.0-windows\LicenseGenerator.dll
@@ -97,3 +96,5 @@ E:\MyProject\HAN\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\refint
 E:\MyProject\HAN\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\LicenseGenerator.pdb
 E:\MyProject\HAN\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\LicenseGenerator.genruntimeconfig.cache
 E:\MyProject\HAN\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\ref\LicenseGenerator.dll
+D:\project\Han\Authentication\LicenseGenerator\obj\Debug\net8.0-windows\LicenseGenerator.sourcelink.json
+D:\project\Han\Authentication\LicenseGenerator\bin\Debug\net8.0-windows\LicenseGenerator.exe

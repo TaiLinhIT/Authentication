@@ -1,12 +1,5 @@
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.deps.json
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.runtimeconfig.json
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.exe
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\WarehouseLabelCompareMaterial.deps.json
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\WarehouseLabelCompareMaterial.runtimeconfig.json
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\appsettings.json
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\Keys\README.txt
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\WarehouseLabelCompareMaterial.exe
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSelfTest.exe
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSelfTest.deps.json
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSelfTest.runtimeconfig.json
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSelfTest.dll
@@ -14,11 +7,9 @@ D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSe
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.dll
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseLocalization.dll
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseShared.dll
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\WarehouseLabelCompareMaterial.dll
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseShared.pdb
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseLocalization.pdb
 D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.pdb
-D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\WarehouseLabelCompareMaterial.pdb
 D:\project\Han\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.csproj.AssemblyReference.cache
 D:\project\Han\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.GeneratedMSBuildEditorConfig.editorconfig
 D:\project\Han\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.AssemblyInfoInputs.cache
@@ -56,3 +47,6 @@ E:\MyProject\HAN\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\refint\
 E:\MyProject\HAN\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.pdb
 E:\MyProject\HAN\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.genruntimeconfig.cache
 E:\MyProject\HAN\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\ref\LicenseSelfTest.dll
+D:\project\Han\Authentication\LicenseSelfTest\obj\Debug\net8.0-windows\LicenseSelfTest.sourcelink.json
+D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseGenerator.exe
+D:\project\Han\Authentication\LicenseSelfTest\bin\Debug\net8.0-windows\LicenseSelfTest.exe

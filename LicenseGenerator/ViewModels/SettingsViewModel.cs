@@ -22,6 +22,7 @@ public sealed class SettingsViewModel : ObservableObject
         LockCommand = new RelayCommand(Lock);
         ExportBundleCommand = new RelayCommand(ExportBundle);
         ExportOfficeSecretCommand = new RelayCommand(ExportOfficeSecret);
+        ResetIssuerKeysCommand = new RelayCommand(ResetIssuerKeys);
         OpenDataFolderCommand = new RelayCommand(() => OpenFolder(LicensePaths.Data));
         OpenKeysFolderCommand = new RelayCommand(() => OpenFolder(LicensePaths.Keys));
         CopyRootCommand = new RelayCommand(() => _services.Dialogs.CopyToClipboard(LicensePaths.Root));
@@ -50,6 +51,27 @@ public sealed class SettingsViewModel : ObservableObject
     public string ProductsFile => _services.Products.FilePath;
     public string RecordsFile => _services.Records.FilePath;
 
+    /// <summary>
+    /// The reset is offered only after every product has been removed, so a leftover key that is
+    /// still encrypted with the old issuer password can never sit next to newly created keys.
+    /// </summary>
+    public bool CanResetIssuerKeys => _services.Products.Load().Count == 0;
+
+    public bool HasStoredKeys => _services.Keys.StoredKeyCount() > 0;
+
+    public string StoredKeysInfo
+    {
+        get
+        {
+            int count = _services.Keys.StoredKeyCount();
+            return count == 0
+                ? L.T("S_IssuerKeysNone")
+                : count == 1
+                    ? L.T("S_IssuerKeysStoredOne")
+                    : L.F("S_IssuerKeysStoredMany", count);
+        }
+    }
+
     public string BundleInfo
     {
         get
@@ -69,6 +91,7 @@ public sealed class SettingsViewModel : ObservableObject
     public ICommand OpenDataFolderCommand { get; }
     public ICommand OpenKeysFolderCommand { get; }
     public ICommand CopyRootCommand { get; }
+    public ICommand ResetIssuerKeysCommand { get; }
 
     public void Refresh()
     {
@@ -78,6 +101,9 @@ public sealed class SettingsViewModel : ObservableObject
         OnPropertyChanged(nameof(StatusCaption));
         OnPropertyChanged(nameof(KeyCountText));
         OnPropertyChanged(nameof(BundleInfo));
+        OnPropertyChanged(nameof(CanResetIssuerKeys));
+        OnPropertyChanged(nameof(HasStoredKeys));
+        OnPropertyChanged(nameof(StoredKeysInfo));
         OnPropertyChanged(nameof(DataRoot));
         OnPropertyChanged(nameof(KeysRoot));
         OnPropertyChanged(nameof(LicensesRoot));
@@ -99,6 +125,39 @@ public sealed class SettingsViewModel : ObservableObject
         _services.Signing.Lock();
         Refresh();
         _stateChanged();
+    }
+
+    /// <summary>
+    /// Erases every stored key. Refuses to run while products exist: their keys must stay usable to
+    /// renew the licenses that were already issued with them.
+    /// </summary>
+    private void ResetIssuerKeys()
+    {
+        if (!CanResetIssuerKeys || !HasStoredKeys) return;
+
+        int count = _services.Keys.StoredKeyCount();
+        bool confirmed = _services.Dialogs.Confirm(
+            L.T("S_ResetKeysTitle"),
+            count == 1 ? L.T("S_ResetKeysMessageOne") : L.F("S_ResetKeysMessageMany", count),
+            L.T("S_ResetKeysConfirm"),
+            danger: true);
+
+        if (!confirmed) return;
+
+        try
+        {
+            int removed = _services.Keys.DeleteAllKeys();
+            _services.Signing.Lock();
+            Refresh();
+            _stateChanged();
+            _services.Dialogs.ShowInfo(
+                L.T("S_ResetKeysDoneTitle"),
+                L.T("S_ResetKeysDoneMessage"));
+        }
+        catch (Exception ex)
+        {
+            _services.Dialogs.ShowError(L.T("S_ResetKeysFailedTitle"), ex.Message);
+        }
     }
 
     private void ExportBundle()

@@ -14,8 +14,8 @@
     <sys:String x:Key="S_Issue">Cấp</sys:String>
     <sys:String x:Key="S_Activate">Kích hoạt</sys:String>
     <sys:String x:Key="S_Exit">Thoát</sys:String>
-    <sys:String x:Key="S_LanguageToggle">EN</sys:String>
-    <sys:String x:Key="S_LanguageToggleTip">Chuyển sang tiếng Anh</sys:String>
+    <sys:String x:Key="S_LanguageToggle">中文</sys:String>
+    <sys:String x:Key="S_LanguageToggleTip">Chuyển sang tiếng Trung</sys:String>
 
     <!-- ============================ issuer main window ============================ -->
     <sys:String x:Key="S_AppTitle">Warehouse License Studio</sys:String>
@@ -91,7 +91,7 @@
     <sys:String x:Key="S_CustomerStationU">KHÁCH HÀNG · TRẠM</sys:String>
     <sys:String x:Key="S_DeviceU">THIẾT BỊ</sys:String>
     <sys:String x:Key="S_TypeU">LOẠI</sys:String>
-    <sys:String x:Key="S_ExpiresU">HẾT HẠN</sys:String>
+    <sys:String x:Key="S_ExpiresU">HẾT HẠN (GIỜ MÁY)</sys:String>
     <sys:String x:Key="S_StatusU">TRẠNG THÁI</sys:String>
     <sys:String x:Key="S_NoLicensesHere">Chưa có license nào</sys:String>
     <sys:String x:Key="S_NoLicensesHereHint">Cấp license cho một sản phẩm và gắn với máy khách. Bạn có thể sao chép activation key hoặc xuất file đã ký bất cứ lúc nào.</sys:String>
@@ -128,7 +128,7 @@
     <sys:String x:Key="S_StatusScheduled">Chưa tới hạn</sys:String>
     <sys:String x:Key="S_StatusExpired">Đã hết hạn</sys:String>
     <sys:String x:Key="S_StatusRevoked">Đã thu hồi</sys:String>
-    <sys:String x:Key="S_BindingFingerprint">Fingerprint</sys:String>
+    <sys:String x:Key="S_BindingFingerprint">Địa chỉ Mac</sys:String>
     <sys:String x:Key="S_BindingDeviceId">Device ID</sys:String>
 
     <!-- ============================ settings ============================ -->
@@ -147,10 +147,25 @@
     <sys:String x:Key="S_OpenDataFolder">Mở thư mục dữ liệu</sys:String>
     <sys:String x:Key="S_SecurityNotes">Ghi chú bảo mật</sys:String>
     <sys:String x:Key="S_SecurityNotesHint">Đọc trước khi giao client cho khách hàng.</sys:String>
-    <sys:String x:Key="S_SecNotePrivateKey">File private key được mã hóa AES-256 (PBKDF2, 200.000 vòng lặp). Hãy sao lưu riêng, tách khỏi mật khẩu và tuyệt đối không gửi kèm ứng dụng cho khách.</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">File private key được mã hóa AES-256 (PBKDF2, 600.000 vòng lặp). Hãy sao lưu riêng, tách khỏi mật khẩu và tuyệt đối không gửi kèm ứng dụng cho khách.</sys:String>
     <sys:String x:Key="S_SecNoteDpapi">Client lưu license bằng DPAPI kèm entropy sinh từ fingerprint máy. Trạng thái đồng hồ cũng được bảo vệ tương tự, nên chép file license hoặc trạng thái đồng hồ sang PC khác sẽ không dùng được.</sys:String>
     <sys:String x:Key="S_SecNoteOffline">Ứng dụng hoàn toàn offline không thể chặn thu hồi hoặc chống sửa đồng hồ nếu dữ liệu cục bộ bị xóa. Hãy dùng mô hình này cho tiện lợi và bổ sung kiểm tra máy chủ định kỳ khi giá trị thương mại đủ lớn.</sys:String>
     <sys:String x:Key="S_SecNoteObfuscation">Dùng obfuscation và ký code cho bản phát hành. Chúng làm tăng chi phí can thiệp nhưng không thay thế kiểm tra bằng mật mã.</sys:String>
+
+    <!-- issuer key reset (Settings) -->
+    <sys:String x:Key="S_ResetKeysHeading">Khóa ký issuer còn sót</sys:String>
+    <sys:String x:Key="S_ResetKeys">Xóa khóa ký issuer</sys:String>
+    <sys:String x:Key="S_ResetKeysHint">Chỉ hiển thị sau khi đã xóa hết sản phẩm. Sản phẩm đầu tiên bạn tạo tiếp theo sẽ đặt mật khẩu issuer mới và sinh bộ khóa mới, nên sẽ không còn khóa nào bị mã hóa bằng mật khẩu cũ.</sys:String>
+    <sys:String x:Key="S_IssuerKeysNone">Không còn khóa ký nào trên máy này.</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredOne">Còn 1 bộ khóa ký đã lưu thuộc sản phẩm đã xóa.</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredMany">Còn {0} bộ khóa ký đã lưu thuộc các sản phẩm đã xóa.</sys:String>
+    <sys:String x:Key="S_ResetKeysTitle">Xóa toàn bộ khóa ký issuer?</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageOne">1 bộ khóa đã lưu sẽ bị xóa vĩnh viễn. Mọi license đã cấp bằng bộ khóa này sẽ không thể gia hạn hoặc cấp lại, và client đã nhận license đó phải được cấp lại bundle public key mới. Sản phẩm bạn tạo tiếp theo sẽ yêu cầu mật khẩu issuer mới. Tiếp tục?</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageMany">Cả {0} bộ khóa đã lưu sẽ bị xóa vĩnh viễn. Mọi license đã cấp bằng các bộ khóa này sẽ không thể gia hạn hoặc cấp lại, và client đã nhận license đó phải được cấp lại bundle public key mới. Sản phẩm bạn tạo tiếp theo sẽ yêu cầu mật khẩu issuer mới. Tiếp tục?</sys:String>
+    <sys:String x:Key="S_ResetKeysConfirm">Xóa khóa</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneTitle">Đã xóa khóa ký issuer</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneMessage">Đã xóa toàn bộ khóa ký trên máy. Sản phẩm đầu tiên bạn tạo sẽ yêu cầu mật khẩu issuer mới.</sys:String>
+    <sys:String x:Key="S_ResetKeysFailedTitle">Không xóa được khóa ký issuer</sys:String>
     <sys:String x:Key="S_UnlockedSession">Đã mở khóa cho phiên này</sys:String>
     <sys:String x:Key="S_Locked">Đang khóa</sys:String>
     <sys:String x:Key="S_UnlockedCaption">Có thể tạo và ký license. Mật khẩu chỉ giữ trong bộ nhớ và bị xóa khi đóng ứng dụng hoặc khóa phiên.</sys:String>
@@ -191,14 +206,14 @@
     <sys:String x:Key="S_OfflineSigned">Ký offline</sys:String>
     <sys:String x:Key="S_CustomerU">KHÁCH HÀNG</sys:String>
     <sys:String x:Key="S_StationPcU">TRẠM / PC</sys:String>
-    <sys:String x:Key="S_DeviceIdFingerprintU">DEVICE ID / FINGERPRINT</sys:String>
-    <sys:String x:Key="S_StartDateU">NGÀY BẮT ĐẦU (UTC)</sys:String>
-    <sys:String x:Key="S_ExpiryDateU">NGÀY HẾT HẠN (BAO GỒM)</sys:String>
+    <sys:String x:Key="S_DeviceIdFingerprintU">FINGERPRINT / DEVICE ID / MAC</sys:String>
+    <sys:String x:Key="S_StartDateU">NGÀY BẮT ĐẦU (GIỜ MÁY)</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">HẾT HẠN (BAO GỒM, GIỜ MÁY)</sys:String>
     <sys:String x:Key="S_LicenseTypeU">LOẠI LICENSE</sys:String>
     <sys:String x:Key="S_DurationU">THỜI HẠN LICENSE</sys:String>
     <sys:String x:Key="S_DeviceBindingU">RÀNG BUỘC THIẾT BỊ</sys:String>
     <sys:String x:Key="S_StationU">TRẠM</sys:String>
-    <sys:String x:Key="S_DatesHint">Ngày dùng định dạng yyyy-MM-dd, có thể kèm giờ hết hạn dạng yyyy-MM-dd HH:mm (UTC). Nếu không nhập giờ, license có hiệu lực đến 23:59:59 UTC của ngày hết hạn.</sys:String>
+    <sys:String x:Key="S_DatesHint">Múi giờ: {0}. Nhập yyyy-MM-dd, có thể thêm HH:mm hoặc HH:mm:ss. Không nhập giờ thì có hiệu lực đến hết ngày theo giờ máy. Khi ký, thời gian được lưu theo UTC.</sys:String>
     <sys:String x:Key="S_GenerateSignedLicense">Tạo license đã ký</sys:String>
     <sys:String x:Key="S_SignLocalHint">License được ký bằng private key của sản phẩm ngay trên máy này. Không có dữ liệu nào gửi qua mạng.</sys:String>
     <sys:String x:Key="S_ConfigPreview">XEM TRƯỚC CẤU HÌNH</sys:String>
@@ -224,10 +239,10 @@
     <sys:String x:Key="S_CodeCopied">Đã sao chép activation code vào clipboard.</sys:String>
     <sys:String x:Key="S_SavedTo">Đã lưu vào {0}</sys:String>
     <sys:String x:Key="S_ErrSelectProduct">Chọn sản phẩm mà license này thuộc về.</sys:String>
-    <sys:String x:Key="S_ErrDeviceRequired">Nhập fingerprint hoặc device ID của máy đích.</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">Nhập fingerprint, device ID hoặc địa chỉ MAC tương ứng với kiểu ràng buộc đã chọn.</sys:String>
     <sys:String x:Key="S_ErrFingerprint">Fingerprint máy phải là chuỗi 64 ký tự hex sao chép từ client.</sys:String>
     <sys:String x:Key="S_ErrStartDate">Ngày bắt đầu phải dùng định dạng yyyy-MM-dd.</sys:String>
-    <sys:String x:Key="S_ErrExpiryDate">Ngày hết hạn phải dùng định dạng yyyy-MM-dd hoặc yyyy-MM-dd HH:mm (UTC).</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Nhập yyyy-MM-dd, yyyy-MM-dd HH:mm hoặc yyyy-MM-dd HH:mm:ss theo giờ máy.</sys:String>
     <sys:String x:Key="S_ErrExpiryOrder">Ngày hết hạn phải bằng hoặc sau ngày bắt đầu.</sys:String>
     <sys:String x:Key="S_SaveSignedLicense">Lưu license đã ký</sys:String>
     <sys:String x:Key="S_SaveLicenseFileTitle">Lưu file license</sys:String>
@@ -264,7 +279,7 @@
     <sys:String x:Key="S_DeviceLabel">Thiết bị</sys:String>
     <sys:String x:Key="S_LicenseTypeLabel">Loại license</sys:String>
     <sys:String x:Key="S_IssuedLabel">Ngày cấp</sys:String>
-    <sys:String x:Key="S_ExpiresLabel">Hết hạn</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">Hết hạn (giờ máy)</sys:String>
     <sys:String x:Key="S_AlgorithmLabel">Thuật toán</sys:String>
     <sys:String x:Key="S_KeyIdLabel">Key id</sys:String>
     <sys:String x:Key="S_StatusLabel">Trạng thái</sys:String>
@@ -414,4 +429,7 @@
     <sys:String x:Key="S_OfficeSecretExportedTitle">Đã xuất secret</sys:String>
     <sys:String x:Key="S_OfficeSecretExportedMessage">Secret đã lưu tại:\n{0}\n\nGiữ secret tránh xa khách hàng: đây là khóa cần để mở file office.dat. Hãy nhúng nó vào phần mềm bạn bán.</sys:String>
 
+    <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">Nhập MAC card mạng máy đích, ví dụ C4-C6-E6-9E-17-5B. Chỉ cần một card mạng khớp, không cần kết nối mạng.</sys:String>
+    <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">Địa chỉ MAC</sys:String>
+    <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">Nhập MAC unicast hợp lệ: 12 ký tự hex, có thể phân cách bằng - hoặc :.</sys:String>
 </ResourceDictionary>

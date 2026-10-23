@@ -1,0 +1,435 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- ============================ common ============================ -->
+    <sys:String x:Key="S_Cancel">キャンセル</sys:String>
+    <sys:String x:Key="S_Close">閉じる</sys:String>
+    <sys:String x:Key="S_Copy">コピー</sys:String>
+    <sys:String x:Key="S_OK">OK</sys:String>
+    <sys:String x:Key="S_Confirm">確認</sys:String>
+    <sys:String x:Key="S_Done">完了</sys:String>
+    <sys:String x:Key="S_Paste">貼り付け</sys:String>
+    <sys:String x:Key="S_Unlock">ロック解除</sys:String>
+    <sys:String x:Key="S_Issue">発行</sys:String>
+    <sys:String x:Key="S_Activate">有効化</sys:String>
+    <sys:String x:Key="S_Exit">終了</sys:String>
+    <sys:String x:Key="S_LanguageToggle">EN</sys:String>
+    <sys:String x:Key="S_LanguageToggleTip">英語に切り替え</sys:String>
+
+    <!-- ============================ issuer main window ============================ -->
+    <sys:String x:Key="S_AppTitle">Warehouse License Studio</sys:String>
+    <sys:String x:Key="S_UnlockSigningKey">署名鍵のロックを解除</sys:String>
+    <sys:String x:Key="S_OfflineIssuance">v1.0 · オフライン発行</sys:String>
+    <sys:String x:Key="S_IssueLicense">ライセンスを発行</sys:String>
+    <sys:String x:Key="S_AddProduct">製品を追加</sys:String>
+
+    <sys:String x:Key="S_NavDashboard">ダッシュボード</sys:String>
+    <sys:String x:Key="S_NavProducts">製品</sys:String>
+    <sys:String x:Key="S_NavLicenses">ライセンス</sys:String>
+    <sys:String x:Key="S_NavSettings">設定</sys:String>
+    <sys:String x:Key="S_NavDashboardSub">製品、発行済みキー、有効期限が近いライセンスの概要</sys:String>
+    <sys:String x:Key="S_NavProductsSub">署名鍵とライセンス対象製品を管理</sys:String>
+    <sys:String x:Key="S_NavLicensesSub">この端末で発行したすべてのライセンス</sys:String>
+    <sys:String x:Key="S_NavSettingsSub">署名鍵、保存先、クライアントへの配布</sys:String>
+
+    <sys:String x:Key="S_KeyUnlocked">署名鍵のロック解除済み</sys:String>
+    <sys:String x:Key="S_KeyLocked">署名鍵はロック中</sys:String>
+    <sys:String x:Key="S_ReadyToIssue">発行可能</sys:String>
+    <sys:String x:Key="S_UnlockToSign">署名するにはロックを解除</sys:String>
+
+    <!-- ============================ dashboard ============================ -->
+    <sys:String x:Key="S_RecentLicenses">最近のライセンス</sys:String>
+    <sys:String x:Key="S_LatestKeys">この端末で最近発行したキー</sys:String>
+    <sys:String x:Key="S_LocalRegister">ローカル台帳</sys:String>
+    <sys:String x:Key="S_NoLicensesYet">ライセンスはまだありません。「ライセンスを発行」から作成してください。</sys:String>
+    <sys:String x:Key="S_QuickActions">クイック操作</sys:String>
+    <sys:String x:Key="S_AddAProduct">製品を追加</sys:String>
+    <sys:String x:Key="S_IssueALicense">ライセンスを発行</sys:String>
+    <sys:String x:Key="S_ExportClientPublicKeys">クライアント用公開鍵をエクスポート</sys:String>
+    <sys:String x:Key="S_ProtectionLayers">保護機能</sys:String>
+    <sys:String x:Key="S_WhatClientEnforces">クライアントが起動時に行う検証</sys:String>
+    <sys:String x:Key="S_ProtSignature">ライセンスの全項目を RSA または ECDSA で署名</sys:String>
+    <sys:String x:Key="S_ProtBinding">デバイスに紐付け、別の PC への移動を防止</sys:String>
+    <sys:String x:Key="S_ProtDpapi">Windows DPAPI で製品と端末に紐付けて保存</sys:String>
+    <sys:String x:Key="S_ProtClock">時計の巻き戻し検出と定期的な再検証</sys:String>
+
+    <sys:String x:Key="S_StatProducts">製品</sys:String>
+    <sys:String x:Key="S_StatProductsCaption">登録済み製品</sys:String>
+    <sys:String x:Key="S_StatLicenses">ライセンス</sys:String>
+    <sys:String x:Key="S_StatLicensesCaption">発行総数</sys:String>
+    <sys:String x:Key="S_StatActive">有効</sys:String>
+    <sys:String x:Key="S_StatActiveCaption">現在有効</sys:String>
+    <sys:String x:Key="S_StatExpiring">期限間近</sys:String>
+    <sys:String x:Key="S_StatExpiringCaption">30 日以内</sys:String>
+
+    <!-- ============================ products ============================ -->
+    <sys:String x:Key="S_SearchProducts">製品を検索</sys:String>
+    <sys:String x:Key="S_ProductU">製品</sys:String>
+    <sys:String x:Key="S_AlgorithmU">アルゴリズム</sys:String>
+    <sys:String x:Key="S_KeygenModeU">キー生成方式</sys:String>
+    <sys:String x:Key="S_IssuedU">発行済み</sys:String>
+    <sys:String x:Key="S_NoProductsYet">製品はまだありません</sys:String>
+    <sys:String x:Key="S_NoProductsHint">製品を作成すると署名鍵が生成されます。以後のライセンスはその製品に紐付きます。</sys:String>
+    <sys:String x:Key="S_CreateFirstProduct">最初の製品を作成</sys:String>
+    <sys:String x:Key="S_EditProduct">製品を編集</sys:String>
+    <sys:String x:Key="S_ExportPublicKey">公開鍵をエクスポート</sys:String>
+    <sys:String x:Key="S_DeleteProduct">製品を削除</sys:String>
+    <sys:String x:Key="S_ProductCountOne">製品 1 件</sys:String>
+    <sys:String x:Key="S_ProductCountMany">製品 {0} 件</sys:String>
+    <sys:String x:Key="S_LicenseCountOne">ライセンス 1 件</sys:String>
+    <sys:String x:Key="S_LicenseCountMany">ライセンス {0} 件</sys:String>
+    <sys:String x:Key="S_NoKey">鍵なし</sys:String>
+    <sys:String x:Key="S_LicenseIsValid">ライセンスは有効です。</sys:String>
+    <sys:String x:Key="S_AlgorithmKey">{0} · 鍵 {1}</sys:String>
+    <sys:String x:Key="S_KeyPrefix">鍵 {0}</sys:String>
+
+    <!-- ============================ licenses ============================ -->
+    <sys:String x:Key="S_SearchSerial">シリアル、顧客、デバイスを検索…</sys:String>
+    <sys:String x:Key="S_ExportCsv">CSV をエクスポート</sys:String>
+    <sys:String x:Key="S_LicenseU">ライセンス</sys:String>
+    <sys:String x:Key="S_CustomerStationU">顧客 · 端末</sys:String>
+    <sys:String x:Key="S_DeviceU">デバイス</sys:String>
+    <sys:String x:Key="S_TypeU">種類</sys:String>
+    <sys:String x:Key="S_ExpiresU">有効期限（現地時間）</sys:String>
+    <sys:String x:Key="S_StatusU">状態</sys:String>
+    <sys:String x:Key="S_NoLicensesHere">ライセンスはありません</sys:String>
+    <sys:String x:Key="S_NoLicensesHereHint">製品のライセンスを発行し、顧客の端末に紐付けます。ここからいつでも有効化コードのコピーや署名済みファイルの出力ができます。</sys:String>
+    <sys:String x:Key="S_CopyActivationCode">有効化コードをコピー</sys:String>
+    <sys:String x:Key="S_SaveLicenseFile">.license ファイルを保存</sys:String>
+    <sys:String x:Key="S_MoreActions">その他の操作</sys:String>
+    <sys:String x:Key="S_InspectLicense">ライセンスの詳細</sys:String>
+    <sys:String x:Key="S_RenewLicense">ライセンスを更新</sys:String>
+    <sys:String x:Key="S_RevokeRestore">失効 / 復元</sys:String>
+    <sys:String x:Key="S_RemoveFromRegister">台帳から削除</sys:String>
+    <sys:String x:Key="S_FilterAll">すべて</sys:String>
+    <sys:String x:Key="S_FilterActive">有効</sys:String>
+    <sys:String x:Key="S_FilterExpiring">期限間近</sys:String>
+    <sys:String x:Key="S_FilterExpired">期限切れ</sys:String>
+    <sys:String x:Key="S_FilterScheduled">開始前</sys:String>
+    <sys:String x:Key="S_FilterRevoked">失効済み</sys:String>
+    <sys:String x:Key="S_TypeTrial">試用</sys:String>
+    <sys:String x:Key="S_TypeDays30">30 日</sys:String>
+    <sys:String x:Key="S_TypeDays90">90 日</sys:String>
+    <sys:String x:Key="S_TypeOneYear">1 年</sys:String>
+    <sys:String x:Key="S_TypePerpetual">無期限</sys:String>
+    <sys:String x:Key="S_TypeCustom">日付を指定</sys:String>
+    <sys:String x:Key="S_KeygenSerial">シリアル番号</sys:String>
+    <sys:String x:Key="S_KeygenCodes">有効化コード</sys:String>
+    <sys:String x:Key="S_AlgRsa">RSA</sys:String>
+    <sys:String x:Key="S_AlgEcdsa">ECDSA</sys:String>
+    <sys:String x:Key="S_Summary">有効 {0} 件 · 期限間近 {1} 件 · 期限切れ {2} 件</sys:String>
+    <sys:String x:Key="S_Never">期限なし</sys:String>
+    <sys:String x:Key="S_Revoke">失効</sys:String>
+    <sys:String x:Key="S_Unrevoke">失効を取り消す</sys:String>
+    <sys:String x:Key="S_StatusActive">有効</sys:String>
+    <sys:String x:Key="S_StatusPerpetual">無期限</sys:String>
+    <sys:String x:Key="S_StatusExpiringSoon">期限間近</sys:String>
+    <sys:String x:Key="S_StatusScheduled">開始前</sys:String>
+    <sys:String x:Key="S_StatusExpired">期限切れ</sys:String>
+    <sys:String x:Key="S_StatusRevoked">失効済み</sys:String>
+    <sys:String x:Key="S_BindingFingerprint">フィンガープリント</sys:String>
+    <sys:String x:Key="S_BindingDeviceId">デバイス ID</sys:String>
+
+    <!-- ============================ settings ============================ -->
+    <sys:String x:Key="S_SigningKeyVault">署名鍵の保管庫</sys:String>
+    <sys:String x:Key="S_KeyMaterial">鍵情報：</sys:String>
+    <sys:String x:Key="S_LockSession">セッションをロック</sys:String>
+    <sys:String x:Key="S_ClientDistribution">クライアントへの配布</sys:String>
+    <sys:String x:Key="S_ClientDistributionHint">公開鍵セットを出力し、クライアント実行ファイルと同じ場所の Keys フォルダーに配置します。起動時に署名検証に使用します。公開鍵は配布できます。</sys:String>
+    <sys:String x:Key="S_ExportPublicKeys">公開鍵をエクスポート</sys:String>
+    <sys:String x:Key="S_OpenKeysFolder">鍵フォルダーを開く</sys:String>
+    <sys:String x:Key="S_StorageLocations">保存先</sys:String>
+    <sys:String x:Key="S_CopyRoot">ルートパスをコピー</sys:String>
+    <sys:String x:Key="S_DataFiles">データファイル</sys:String>
+    <sys:String x:Key="S_SigningKeysU">署名鍵</sys:String>
+    <sys:String x:Key="S_LocalLicenseCache">ローカルライセンスキャッシュ</sys:String>
+    <sys:String x:Key="S_OpenDataFolder">データフォルダーを開く</sys:String>
+    <sys:String x:Key="S_SecurityNotes">セキュリティ上の注意</sys:String>
+    <sys:String x:Key="S_SecurityNotesHint">クライアントを顧客に渡す前にお読みください。</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">秘密鍵は AES-256（PBKDF2、600,000 回）で暗号化されます。パスワードとは別にバックアップし、アプリに同梱しないでください。</sys:String>
+    <sys:String x:Key="S_SecNoteDpapi">ライセンスと時計の状態は DPAPI と端末のフィンガープリントから派生したエントロピーで保護され、他の PC では利用できません。</sys:String>
+    <sys:String x:Key="S_SecNoteOffline">完全オフラインでは、ローカル状態が削除された場合の失効管理や時計改ざんへの対応に限界があります。必要に応じて定期的なサーバー検証を追加してください。</sys:String>
+    <sys:String x:Key="S_SecNoteObfuscation">リリース版では難読化とコード署名を使用してください。改ざんの難易度は上がりますが、暗号学的な検証の代わりにはなりません。</sys:String>
+
+    <!-- issuer key reset (Settings) -->
+    <sys:String x:Key="S_ResetKeysHeading">残存する発行者鍵</sys:String>
+    <sys:String x:Key="S_ResetKeys">発行者鍵を削除</sys:String>
+    <sys:String x:Key="S_ResetKeysHint">全製品を削除した後のみ利用できます。次の製品作成時に新しいパスワードと鍵ペアを設定し、旧パスワードの鍵を残しません。</sys:String>
+    <sys:String x:Key="S_IssuerKeysNone">この端末に署名鍵は保存されていません。</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredOne">削除済み製品の署名鍵が 1 件残っています。</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredMany">削除済み製品の署名鍵が {0} 件残っています。</sys:String>
+    <sys:String x:Key="S_ResetKeysTitle">すべての発行者鍵を削除しますか？</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageOne">保存済みの鍵ペア 1 件を完全に削除します。この鍵で発行したライセンスは更新・再発行できなくなり、クライアントへの新しい公開鍵セットの配布が必要です。次の製品作成時に新しいパスワードを設定します。続行しますか？</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageMany">保存済みの鍵ペア {0} 件を完全に削除します。これらの鍵で発行したライセンスは更新・再発行できなくなり、新しい公開鍵セットの配布が必要です。次の製品作成時に新しいパスワードを設定します。続行しますか？</sys:String>
+    <sys:String x:Key="S_ResetKeysConfirm">鍵を削除</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneTitle">発行者鍵を削除しました</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneMessage">すべての署名鍵を削除しました。最初の製品作成時に新しいパスワードを設定します。</sys:String>
+    <sys:String x:Key="S_ResetKeysFailedTitle">発行者鍵を削除できません</sys:String>
+    <sys:String x:Key="S_UnlockedSession">このセッションはロック解除済み</sys:String>
+    <sys:String x:Key="S_Locked">ロック中</sys:String>
+    <sys:String x:Key="S_UnlockedCaption">ライセンスの作成と署名が可能です。パスワードはメモリ内のみ保持され、終了またはロック時に消去されます。</sys:String>
+    <sys:String x:Key="S_LockedCaption">製品の作成やライセンスの発行には、発行者パスワードでロックを解除してください。</sys:String>
+    <sys:String x:Key="S_ProductNoLongerExists">製品は既に存在しません。</sys:String>
+    <sys:String x:Key="S_RecordNoLongerExists">ライセンス記録は既に存在しません。</sys:String>
+    <sys:String x:Key="S_ProductKeyOne">製品鍵 1 件</sys:String>
+    <sys:String x:Key="S_ProductKeyMany">製品鍵 {0} 件</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedOne">公開鍵 1 件を含みます。</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedMany">公開鍵 {0} 件を含みます。</sys:String>
+
+    <!-- ============================ add / edit product ============================ -->
+    <sys:String x:Key="S_AddNewProduct">新しい製品を追加</sys:String>
+    <sys:String x:Key="S_EditProductTitle">製品を編集</sys:String>
+    <sys:String x:Key="S_ProductName">製品名</sys:String>
+    <sys:String x:Key="S_ProductNameHint">ツールとライセンス記録に表示する名前です。</sys:String>
+    <sys:String x:Key="S_AddProductIntro">この製品専用の署名鍵を生成します。秘密鍵はこの端末に保管されます。</sys:String>
+    <sys:String x:Key="S_EditProductIntro">製品の表示情報を更新します。既存のライセンスには影響しません。</sys:String>
+    <sys:String x:Key="S_Bits">ビット数</sys:String>
+    <sys:String x:Key="S_KeygenMode">キー生成方式</sys:String>
+    <sys:String x:Key="S_KeygenHintCodes">有効化コードは貼り付け可能な WLC1 キーです。ECDSA P-256 は約 500 文字で、RSA はより長くなります。オフラインで検証します。</sys:String>
+    <sys:String x:Key="S_KeygenHintSerials">シリアル番号方式では署名済み .license.json と有効化コードを提供します。RSA 鍵やメールでの配布に適しています。</sys:String>
+    <sys:String x:Key="S_EditProductNote">作成後はアルゴリズム、鍵長、署名鍵を変更できません。名前を変更しても製品 ID は変わらず、既存のクライアントは動作します。</sys:String>
+    <sys:String x:Key="S_SaveChanges">変更を保存</sys:String>
+    <sys:String x:Key="S_ErrProductNameShort">製品名は 2 文字以上で入力してください。</sys:String>
+    <sys:String x:Key="S_ErrProductNameLong">製品名は 80 文字未満にしてください。</sys:String>
+    <sys:String x:Key="S_ErrProductDuplicate">同名の製品が既に存在します。</sys:String>
+    <sys:String x:Key="S_ErrProductIdDuplicate">同じ製品 ID が存在します。名前を調整してください。</sys:String>
+    <sys:String x:Key="S_PasswordPromptNewProduct">秘密鍵を保護する発行者パスワードを設定してください（12 文字以上）。この端末のすべての製品鍵に同じパスワードを使用します。</sys:String>
+    <sys:String x:Key="S_PasswordPromptSign">ライセンスに署名するための発行者パスワードを入力してください。</sys:String>
+    <sys:String x:Key="S_PasswordPromptUnlock">このセッションの署名鍵を解除する発行者パスワードを入力してください。</sys:String>
+    <sys:String x:Key="S_PwdTooShort">{0} 文字以上で入力してください。</sys:String>
+    <sys:String x:Key="S_PwdWrong">このパスワードでは既存の署名鍵を解除できません。</sys:String>
+
+    <!-- ============================ issue license ============================ -->
+    <sys:String x:Key="S_IssueLicenseTitle">ライセンスを発行</sys:String>
+    <sys:String x:Key="S_IssueLicenseIntro">署名済みライセンスを端末に紐付け、有効期間を指定します。</sys:String>
+    <sys:String x:Key="S_OfflineSigned">オフライン署名</sys:String>
+    <sys:String x:Key="S_CustomerU">顧客</sys:String>
+    <sys:String x:Key="S_StationPcU">端末 / PC</sys:String>
+    <sys:String x:Key="S_DeviceIdFingerprintU">デバイス ID / フィンガープリント / MAC</sys:String>
+    <sys:String x:Key="S_StartDateU">開始日（現地時間）</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">有効期限（当日を含む・現地時間）</sys:String>
+    <sys:String x:Key="S_LicenseTypeU">ライセンスの種類</sys:String>
+    <sys:String x:Key="S_DurationU">有効期間</sys:String>
+    <sys:String x:Key="S_DeviceBindingU">デバイスの紐付け</sys:String>
+    <sys:String x:Key="S_StationU">端末</sys:String>
+    <sys:String x:Key="S_DatesHint">タイムゾーン：{0}。yyyy-MM-dd 形式で、HH:mm または HH:mm:ss を追加できます。時刻省略時は現地の当日末まで有効です。署名データは UTC で保存します。</sys:String>
+    <sys:String x:Key="S_GenerateSignedLicense">署名済みライセンスを生成</sys:String>
+    <sys:String x:Key="S_SignLocalHint">この PC の製品秘密鍵で署名します。ネットワークへデータは送信しません。</sys:String>
+    <sys:String x:Key="S_ConfigPreview">設定プレビュー</sys:String>
+    <sys:String x:Key="S_NotSignedYet">未署名</sys:String>
+    <sys:String x:Key="S_Delivery">配布</sys:String>
+    <sys:String x:Key="S_LicenseGenerated">ライセンスを生成しました</sys:String>
+    <sys:String x:Key="S_Signed">署名済み</sys:String>
+    <sys:String x:Key="S_ActivationKeyU">有効化キー</sys:String>
+    <sys:String x:Key="S_CopyActivationKey">有効化キーをコピー</sys:String>
+    <sys:String x:Key="S_IssueAnother">次のライセンスを発行</sys:String>
+    <sys:String x:Key="S_DeliveryResultHint">有効化キーまたは .license ファイルを配布してください。クライアントはメイン画面を開く前に署名と端末の紐付けを検証します。</sys:String>
+    <sys:String x:Key="S_NotSelected">未選択</sys:String>
+    <sys:String x:Key="S_NotSet">未設定</sys:String>
+    <sys:String x:Key="S_NoExpiry">有効期限なし</sys:String>
+    <sys:String x:Key="S_Perpetual">無期限</sys:String>
+    <sys:String x:Key="S_CustomExpiry">有効期限を指定</sys:String>
+    <sys:String x:Key="S_BindingFingerprintLabel">端末のフィンガープリント</sys:String>
+    <sys:String x:Key="S_BindingFingerprintHint">クライアントの有効化画面からコピーした 64 文字のフィンガープリントを貼り付けてください。</sys:String>
+    <sys:String x:Key="S_BindingDeviceIdHint">対象端末のクライアントに表示された DEV-… ID を貼り付けてください。</sys:String>
+    <sys:String x:Key="S_CompactCodeHint">短い有効化コード（約 500 文字）または .license ファイル。</sys:String>
+    <sys:String x:Key="S_RsaCodeHint">ライセンスファイルを推奨します。RSA 署名により有効化コードは約 1,100 文字になります。</sys:String>
+    <sys:String x:Key="S_ResultCodeHint">{0} 文字 · クライアントの有効化画面に貼り付けるか、.license ファイルを配布してください。</sys:String>
+    <sys:String x:Key="S_CodeCopied">有効化コードをクリップボードにコピーしました。</sys:String>
+    <sys:String x:Key="S_SavedTo">{0} に保存しました</sys:String>
+    <sys:String x:Key="S_ErrSelectProduct">ライセンスの対象製品を選択してください。</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">紐付け方式に応じてフィンガープリント、デバイス ID、MAC アドレスを入力してください。</sys:String>
+    <sys:String x:Key="S_ErrFingerprint">クライアントからコピーした 64 桁の 16 進数を入力してください。</sys:String>
+    <sys:String x:Key="S_ErrStartDate">開始日は yyyy-MM-dd 形式で入力してください。</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">yyyy-MM-dd、yyyy-MM-dd HH:mm、yyyy-MM-dd HH:mm:ss のいずれかで入力してください（現地時間）。</sys:String>
+    <sys:String x:Key="S_ErrExpiryOrder">有効期限は開始日以降にしてください。</sys:String>
+    <sys:String x:Key="S_SaveSignedLicense">署名済みライセンスを保存</sys:String>
+    <sys:String x:Key="S_SaveLicenseFileTitle">ライセンスファイルを保存</sys:String>
+    <sys:String x:Key="S_ExportLicenseRegister">ライセンス台帳をエクスポート</sys:String>
+    <sys:String x:Key="S_FilterLicenseFile">ライセンスファイル (*.license.json)|*.license.json|JSON (*.json)|*.json|すべてのファイル (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterJson">JSON (*.json)|*.json|すべてのファイル (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterCsv">CSV (*.csv)|*.csv|すべてのファイル (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterPem">PEM 公開鍵 (*.pem)|*.pem|すべてのファイル (*.*)|*.*</sys:String>
+
+    <!-- ============================ license details ============================ -->
+    <sys:String x:Key="S_LicenseDetails">ライセンスの詳細</sys:String>
+    <sys:String x:Key="S_Checking">検証中</sys:String>
+    <sys:String x:Key="S_Unreadable">読み取り不可</sys:String>
+    <sys:String x:Key="S_Malformed">形式が不正</sys:String>
+    <sys:String x:Key="S_PublicKeyMissing">公開鍵がありません</sys:String>
+    <sys:String x:Key="S_SignatureValid">署名は有効</sys:String>
+    <sys:String x:Key="S_InvalidSignaturePill">署名が無効</sys:String>
+    <sys:String x:Key="S_UnrecognizedLicense">認識できないライセンス</sys:String>
+    <sys:String x:Key="S_SignatureNoteValid">デジタル署名と鍵 ID は有効です。この端末で発行されたライセンスです。</sys:String>
+    <sys:String x:Key="S_SignatureNoteMissingKey">この端末に対応する公開鍵がないため署名を検証できません。</sys:String>
+    <sys:String x:Key="S_SignatureNoteMalformed">署名対象のデータをデコードできません。</sys:String>
+    <sys:String x:Key="S_StatusCodeNotActive">開始前です。開始日時：{0} (UTC)。</sys:String>
+    <sys:String x:Key="S_StatusCodeExpired">{0} (UTC) に期限切れとなりました。</sys:String>
+    <sys:String x:Key="S_StatusCodeActivePerpetual">有効です。有効期限はありません。</sys:String>
+    <sys:String x:Key="S_StatusCodeActiveUntil">{0} (UTC) まで有効です。</sys:String>
+    <sys:String x:Key="S_BindingMatches">この端末は紐付け条件に一致します。</sys:String>
+    <sys:String x:Key="S_BindingMismatch">この端末は紐付け条件に一致しません。</sys:String>
+    <sys:String x:Key="S_CopiedToClipboard">クリップボードにコピーしました。</sys:String>
+    <sys:String x:Key="S_CouldNotRebuildCode">有効化コードを再生成できません：{0}</sys:String>
+    <sys:String x:Key="S_ProductLabel">製品</sys:String>
+    <sys:String x:Key="S_CustomerLabel">顧客</sys:String>
+    <sys:String x:Key="S_StationLabel">端末</sys:String>
+    <sys:String x:Key="S_DeviceBindingLabel">デバイスの紐付け</sys:String>
+    <sys:String x:Key="S_DeviceLabel">デバイス</sys:String>
+    <sys:String x:Key="S_LicenseTypeLabel">ライセンスの種類</sys:String>
+    <sys:String x:Key="S_IssuedLabel">発行日時</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">有効期限（現地時間）</sys:String>
+    <sys:String x:Key="S_AlgorithmLabel">アルゴリズム</sys:String>
+    <sys:String x:Key="S_KeyIdLabel">鍵 ID</sys:String>
+    <sys:String x:Key="S_StatusLabel">状態</sys:String>
+
+    <!-- ============================ password prompt ============================ -->
+    <sys:String x:Key="S_IssuerPasswordU">発行者パスワード</sys:String>
+    <sys:String x:Key="S_PasswordMemoryHint">パスワードは画面を開いている間のみメモリに保持され、ディスクやログには書き込まれません。</sys:String>
+
+    <!-- ============================ message dialogs ============================ -->
+    <sys:String x:Key="S_Message">メッセージ</sys:String>
+
+    <!-- ============================ client activation ============================ -->
+    <sys:String x:Key="S_SoftwareActivation">ソフトウェアの有効化</sys:String>
+    <sys:String x:Key="S_ActivateYourSoftware">ソフトウェアを有効化</sys:String>
+    <sys:String x:Key="S_ThisMachineU">この端末</sys:String>
+    <sys:String x:Key="S_SendDeviceHint">ライセンスを申請する際にデバイス ID またはフィンガープリントを提供元へ送信してください。この PC では同じ値を使用します。</sys:String>
+    <sys:String x:Key="S_LicenseKeyU">ライセンスキー</sys:String>
+    <sys:String x:Key="S_ImportFile">ファイルをインポート</sys:String>
+    <sys:String x:Key="S_ShowKey">キーを表示</sys:String>
+    <sys:String x:Key="S_HideKey">キーを非表示</sys:String>
+    <sys:String x:Key="S_OrDropFile">または .license.json ファイルをここにドロップ</sys:String>
+    <sys:String x:Key="S_KeyVerifiedHint">提供元の公開鍵と端末のフィンガープリントでオフライン検証し、Windows DPAPI で保護して保存します。</sys:String>
+    <sys:String x:Key="S_ActivationWindowTitle">{0} — 有効化</sys:String>
+    <sys:String x:Key="S_ActivationIntro">{0} から提供されたライセンスキーを入力し、この PC で {1} を有効化してください。</sys:String>
+    <sys:String x:Key="S_KeyMissingWarning">提供元の公開鍵（Keys/public-keys.json）がありません。正しいインストーラーを提供元に依頼してください。</sys:String>
+    <sys:String x:Key="S_MachineIdentityUnavailable">端末識別情報を取得できません。レジストリにアクセスできる Windows 環境で再実行してください。</sys:String>
+    <sys:String x:Key="S_ClipboardEmpty">クリップボードにテキストがありません。</sys:String>
+    <sys:String x:Key="S_ClipboardBusy">他のアプリがクリップボードを使用中です。再試行してください。</sys:String>
+    <sys:String x:Key="S_SelectLicenseFile">ライセンスファイルを選択</sys:String>
+    <sys:String x:Key="S_ReadFileError">ライセンスファイルを読み取れません：{0}</sys:String>
+    <sys:String x:Key="S_EnterKeyFirst">まずキーを貼り付けるか、ライセンスファイルをインポートしてください。</sys:String>
+    <sys:String x:Key="S_ActivationFailed">有効化に失敗しました：{0}</sys:String>
+    <sys:String x:Key="S_DroppedFileError">ドロップしたファイルを読み取れません：{0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckFailed">ライセンスを検証できません：{0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckTitle">ライセンス検証</sys:String>
+    <sys:String x:Key="S_ReplacementNotice">新しいライセンスキーを入力してください。検証が完了するまで現在のライセンスは有効です。</sys:String>
+    <sys:String x:Key="S_StartupError" xml:space="preserve">アプリを起動できません。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StudioStartupError" xml:space="preserve">ライセンスツールを起動できません。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_UnexpectedError" xml:space="preserve">予期しないエラーが発生しました。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StartupErrorTitle">起動エラー</sys:String>
+
+    <!-- ============================ client main window ============================ -->
+    <sys:String x:Key="S_LicenseActive">ライセンスは有効</sys:String>
+    <sys:String x:Key="S_ReCheck">再検証</sys:String>
+    <sys:String x:Key="S_License">ライセンス</sys:String>
+    <sys:String x:Key="S_LabelComparison">ラベル比較</sys:String>
+    <sys:String x:Key="S_CompareLabelsHint">2 つのラベルに印刷された材料の説明を比較します。</sys:String>
+    <sys:String x:Key="S_DemoModule">デモモジュール</sys:String>
+    <sys:String x:Key="S_LabelA">ラベル A</sys:String>
+    <sys:String x:Key="S_LabelB">ラベル B</sys:String>
+    <sys:String x:Key="S_CompareLabels">ラベルを比較</sys:String>
+    <sys:String x:Key="S_ResultU">結果</sys:String>
+    <sys:String x:Key="S_EnterTwoLabels">2 つのラベルを入力し、比較を押してください。</sys:String>
+    <sys:String x:Key="S_DemoPanelHint">この画面は業務モジュールのサンプルです。本番では起動時と保護機能を開く前にライセンスを検証してください。</sys:String>
+    <sys:String x:Key="S_LicenseStatus">ライセンスの状態</sys:String>
+    <sys:String x:Key="S_ValidUntil">有効期限</sys:String>
+    <sys:String x:Key="S_Remaining">残り</sys:String>
+    <sys:String x:Key="S_LastCheck">最終検証</sys:String>
+    <sys:String x:Key="S_ReCheckLicense">ライセンスを再検証</sys:String>
+    <sys:String x:Key="S_HowProtected">このアプリの保護方式</sys:String>
+    <sys:String x:Key="S_ProtSignatureClient">この画面の作成前に署名と製品 ID を検証します。</sys:String>
+    <sys:String x:Key="S_ProtBindingClient">キーを端末のフィンガープリントに紐付け、DPAPI で保存します。</sys:String>
+    <sys:String x:Key="S_ProtRecheck">30 分ごと、およびセッション開始前にライセンスを再検証します。</sys:String>
+    <sys:String x:Key="S_OfflineFooter">オフライン検証 · DPAPI による保存 · フィンガープリント紐付け</sys:String>
+    <sys:String x:Key="S_LicenseInformation">ライセンス情報</sys:String>
+    <sys:String x:Key="S_VerifiedOffline">オフライン検証済み</sys:String>
+    <sys:String x:Key="S_StoredAt">保存先</sys:String>
+    <sys:String x:Key="S_CopyDeviceId">デバイス ID をコピー</sys:String>
+    <sys:String x:Key="S_EnterNewLicense">新しいライセンスを入力</sys:String>
+    <sys:String x:Key="S_LicenseInfoHint">内蔵の提供元公開鍵でオフライン検証済みです。保存されたコピーは Windows DPAPI でこの端末に紐付けられ、別の PC では使用できません。</sys:String>
+    <sys:String x:Key="S_PerpetualNoExpiry">無期限</sys:String>
+    <sys:String x:Key="S_PerpetualLicense">無期限ライセンス</sys:String>
+    <sys:String x:Key="S_Unavailable">利用不可</sys:String>
+    <sys:String x:Key="S_MachineIdentityReadError">Windows の端末識別情報を取得できません。</sys:String>
+    <sys:String x:Key="S_NoLicenseInstalled">ライセンス未登録</sys:String>
+    <sys:String x:Key="S_DaysRemaining">{0} 日</sys:String>
+    <sys:String x:Key="S_LicensedTo">ライセンス所有者：{0}</sys:String>
+    <sys:String x:Key="S_ExpiredLabel">期限切れ</sys:String>
+    <sys:String x:Key="S_JustNow">（たった今）</sys:String>
+    <sys:String x:Key="S_ThisMachineLabel">この端末</sys:String>
+    <sys:String x:Key="S_CompareEmpty">比較前に両方のラベルへテキストを入力してください。</sys:String>
+    <sys:String x:Key="S_CompareMatch">一致：両方のラベルは同じ材料を示しています。</sys:String>
+    <sys:String x:Key="S_CompareDifferent">不一致：材料の使用を保留し、元の文書を確認してください。</sys:String>
+
+    <!-- ============================ client validation messages ============================ -->
+    <sys:String x:Key="S_NoLicenseInstalledMessage">この端末にライセンスは登録されていません。</sys:String>
+    <sys:String x:Key="S_LicenseInvalid">ライセンスキーまたはファイルが無効です。全体をコピーしたか確認してください。</sys:String>
+    <sys:String x:Key="S_UnknownKey">対応する提供元の公開鍵がありません。提供元に連絡してください。</sys:String>
+    <sys:String x:Key="S_InvalidSignatureMessage">ライセンスの署名を検証できません。キー全体をコピーしたか確認してください。</sys:String>
+    <sys:String x:Key="S_WrongProductMessage">このライセンスは「{0}」用で、「{1}」用ではありません。</sys:String>
+    <sys:String x:Key="S_WrongMachineIdMessage">このライセンスは別のデバイス ID に登録されています。</sys:String>
+    <sys:String x:Key="S_WrongMachineFpMessage">このライセンスは別の端末のフィンガープリントに紐付いています。</sys:String>
+    <sys:String x:Key="S_NotYetValidMessage">ライセンスは {0} (UTC) に有効になります。</sys:String>
+    <sys:String x:Key="S_ExpiredMessage">ライセンスは {0} (UTC) に期限切れとなりました。</sys:String>
+    <sys:String x:Key="S_ClockRollbackMessage">システム時計が巻き戻されたようです。時計を修正して再試行してください。</sys:String>
+    <sys:String x:Key="S_DeviceIdentityUnavailableMessage">端末識別情報を取得できません。レジストリにアクセスできる Windows で実行してください。</sys:String>
+    <sys:String x:Key="S_StoreFailedMessage">ライセンスは有効ですが、この端末に保存できません：{0}</sys:String>
+
+    <!-- ============================ issuer messages ============================ -->
+    <sys:String x:Key="S_CouldNotSaveProduct">製品を保存できません</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateProduct">製品を更新できません</sys:String>
+    <sys:String x:Key="S_CouldNotDeleteProduct">製品を削除できません</sys:String>
+    <sys:String x:Key="S_DeleteProductTitle">製品を削除しますか？</sys:String>
+    <sys:String x:Key="S_DeleteProductMessage" xml:space="preserve">「{0}」を一覧から削除します。発行済みライセンスは顧客の端末で有効なままですが、新規発行や更新はできなくなります。&#x0a;&#x0a;鍵ファイルは鍵フォルダーに残ります。</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingTitle">公開鍵がありません</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingMessage">この製品の公開鍵ファイルがありません。</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateRecord">ライセンス記録を更新できません</sys:String>
+    <sys:String x:Key="S_CouldNotRemoveRecord">記録を削除できません</sys:String>
+    <sys:String x:Key="S_LicenseTextUnreadable">ライセンステキストを読み取れません</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedTitle">有効化コードをコピーしました</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedMessage" xml:space="preserve">{0} の有効化コードをクリップボードにコピーしました。&#x0a;&#x0a;{1} 文字です。メール、チャット、チケットシステムで配布してください。</sys:String>
+    <sys:String x:Key="S_CouldNotBuildCode">有効化コードを生成できません</sys:String>
+    <sys:String x:Key="S_ProductNotFoundTitle">製品が見つかりません</sys:String>
+    <sys:String x:Key="S_ProductNotFoundMessage">「{0}」は一覧に存在しないため、署名鍵を更新に使用できません。</sys:String>
+    <sys:String x:Key="S_RevokeLicenseTitle">ライセンスを失効させますか？</sys:String>
+    <sys:String x:Key="S_UnrevokeLicenseTitle">ライセンスの失効を取り消しますか？</sys:String>
+    <sys:String x:Key="S_RevokeMessage" xml:space="preserve">台帳で {0} を失効済みにします。&#x0a;&#x0a;ローカル記録のみの変更で、オフラインのクライアントには反映されません。管理や更新の拒否に使用できます。</sys:String>
+    <sys:String x:Key="S_UnrevokeMessage">台帳で {0} を再び有効にします。</sys:String>
+    <sys:String x:Key="S_RemoveRecordTitle">ライセンス記録を削除しますか？</sys:String>
+    <sys:String x:Key="S_RemoveRecordMessage">台帳から {0} を削除します。ローカル記録のみの削除で、顧客の署名済みライセンスは引き続き有効です。</sys:String>
+    <sys:String x:Key="S_RemoveRecordLabel">記録を削除</sys:String>
+    <sys:String x:Key="S_NoProductsTitle">製品はまだありません</sys:String>
+    <sys:String x:Key="S_NoProductsBeforeExport">公開鍵を出力する前に製品を作成してください。</sys:String>
+    <sys:String x:Key="S_ExportClientKeysTitle">クライアント用公開鍵をエクスポート</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedTitle">公開鍵をエクスポートしました</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedMessage" xml:space="preserve">クライアントの .exe と同じ場所の Keys フォルダーへコピーしてください：&#x0a;&#x0a;{0}&#x0a;&#x0a;公開鍵のみのファイルなので配布できます。</sys:String>
+    <sys:String x:Key="S_NothingToExportTitle">出力するデータがありません</sys:String>
+    <sys:String x:Key="S_NothingToExportMessage">ライセンスはまだ発行されていません。</sys:String>
+    <sys:String x:Key="S_ExportRegisterTitle">ライセンス台帳をエクスポート</sys:String>
+    <sys:String x:Key="S_CouldNotOpenFolder">フォルダーを開けません</sys:String>
+    <sys:String x:Key="S_CouldNotSaveFile">ファイルを保存できません</sys:String>
+    <sys:String x:Key="S_CouldNotReadFile">ファイルを読み取れません</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailable">クリップボードを利用できません</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailableMessage">他のアプリがクリップボードを使用中です。再試行してください。</sys:String>
+    <sys:String x:Key="S_SigningKeyMissing">「{0}」の署名鍵がありません。再生成すると既存のライセンスが無効になります。</sys:String>
+    <sys:String x:Key="S_IssuerPasteFingerprint">対象端末からコピーしたフィンガープリントを貼り付けてください。</sys:String>
+    <sys:String x:Key="S_IssuerEnterDeviceId">対象端末のクライアントに表示されたデバイス ID を入力してください。</sys:String>
+
+    <!-- encrypted office.dat license file -->
+    <sys:String x:Key="S_SaveOfficeDat">office.dat を保存</sys:String>
+    <sys:String x:Key="S_FilterOfficeDat">ライセンスファイル (*.dat)|*.dat|すべてのファイル (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterText">テキストファイル (*.txt)|*.txt|すべてのファイル (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_OfficeDatCard">暗号化ライセンスファイル (office.dat)</sys:String>
+    <sys:String x:Key="S_OfficeDatCardHint">署名済みライセンスを AES-256-GCM で暗号化し、対象端末に紐付けた office.dat として保存できます。開くには以下の秘密値をクライアントに埋め込んでください。</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecret">クライアント用秘密値をエクスポート</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecretTitle">クライアント用秘密値をエクスポート</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedTitle">クライアント用秘密値をエクスポートしました</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedMessage">秘密値の保存先：&#x0a;{0}&#x0a;&#x0a;office.dat を開くために必要です。配布アプリに埋め込み、顧客には公開しないでください。</sys:String>
+
+    <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">有効なユニキャスト MAC アドレスを入力してください（16 進数 12 桁、区切りは - または :）。</sys:String>
+    <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">対象のネットワークアダプターの MAC（例：C4-C6-E6-9E-17-5B）を入力してください。いずれかが一致すればよく、接続は不要です。</sys:String>
+    <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC アドレス</sys:String>
+</ResourceDictionary>

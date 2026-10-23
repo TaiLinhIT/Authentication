@@ -97,6 +97,8 @@ Trong đó:
 - **`BindingValue`** — giá trị buộc máy, tùy loại license:
   - License buộc theo **fingerprint**: chính là fingerprint 64 ký tự hex.
   - License buộc theo **Device ID thủ công**: chính là chuỗi `DEV-XXXXXXXXXXXXXXXX`.
+  - License buộc theo **MAC** (`bindingMode = 2`): MAC chuẩn hóa thành 12 ký tự hex viết hoa,
+    không có dấu phân cách, ví dụ `C4C6E69E175B`. Client phải dùng `LicenseShared.dll` mới.
 
 > **Quy tắc đồng bộ với tool:** tool dùng `Trim().ToUpperInvariant()` trên cả ProductId và
 > BindingValue trước khi đưa vào `info`. Bạn PHẢI làm đúng như vậy khi đọc, nếu không sẽ derive
@@ -198,6 +200,16 @@ public static class OfficeDatReader
 
         if (TryOpen(file, productId, shortId, secret, out licenseJson, out error))
             return true;
+
+        foreach (var adapter in System.Net.NetworkInformation.NetworkInterface.GetAllNetworkInterfaces())
+        {
+            if (adapter.NetworkInterfaceType is System.Net.NetworkInformation.NetworkInterfaceType.Loopback
+                or System.Net.NetworkInformation.NetworkInterfaceType.Tunnel) continue;
+            byte[] mac = adapter.GetPhysicalAddress().GetAddressBytes();
+            if (mac.Length != 6 || mac.All(b => b == 0) || (mac[0] & 1) != 0) continue;
+            if (TryOpen(file, productId, Convert.ToHexString(mac), secret, out licenseJson, out error))
+                return true;
+        }
 
         error = fpError;
         return false;
@@ -355,7 +367,7 @@ bool ok = OfficeLicenseFile.TryOpenForThisMachine(blob, ProductId, secret,
     out string licenseJson, out string error);
 ```
 
-`TryOpenForThisMachine` đã tự thử theo fingerprint rồi theo DEV- id. API đầy đủ của
+`TryOpenForThisMachine` tự thử fingerprint, DEV- id rồi các MAC của máy (kể cả card không kết nối mạng). API đầy đủ của
 `OfficeLicenseFile`:
 
 | Thành phần | Mục đích |
@@ -382,12 +394,12 @@ thành "bằng chứng hợp lệ". Thứ tự đúng:
 4. Decode payloadBytes → LicensePayload { productId, deviceId, bindingMode,
    licenseType, notBeforeUtc, expiresAtUtc, ... }
 5. Kiểm productId khớp
-6. Kiểm deviceId khớp máy hiện tại (fingerprint hoặc DEV- id theo bindingMode)
+6. Kiểm deviceId khớp máy hiện tại (0 = fingerprint, 1 = DEV- id, 2 = MAC; từ chối mode khác)
 7. Kiểm notBeforeUtc ≤ now ≤ expiresAtUtc (hoặc perpetual)
 8. (Khuyến nghị) Kiểm chống lùi đồng hồ (ClockGuard)
 ```
 
-Nếu bạn dùng `LicenseShared.dll`, bước 5–8 gọi 1 dòng:
+Nếu bạn dùng `LicenseShared.dll` mới, bước 5–7 gọi 1 dòng (ClockGuard ở bước 8 cần gọi riêng):
 
 ```csharp
 var result = LicenseRules.Evaluate(payload, ProductId, fingerprint, shortId, DateTimeOffset.UtcNow);
@@ -410,10 +422,15 @@ Nếu tự viết, lưu ý:
 1. **Một lần duy nhất:** Settings → *Export client secret* → nhận `office-secret.txt`
    (chuỗi base64). Nhúng vào app bạn bán. **Giữ bí mật** — ai có secret + app có thể *đọc*
    license (nhưng không *phát hành* được).
-2. **Mỗi khách:** khách gửi fingerprint (app hiển thị) hoặc DEV- id → tool → *Cấp license* →
+2. **Mỗi khách:** khách gửi fingerprint, DEV- id hoặc MAC → tool → chọn đúng kiểu ràng buộc trong *Cấp license* →
    kết quả → **Lưu office.dat** → gửi file này cho khách.
 3. Khách đặt `office.dat` cạnh exe (hoặc thư mục data của app) → app tự kiểm khi khởi động.
 4. **Gia hạn:** tool → *Gia hạn* → lưu `office.dat` mới → khách thay file cũ.
+
+Form cấp license nhập theo **giờ máy**, hiển thị rõ múi giờ; payload vẫn lưu UTC.
+Ví dụ `2026-10-23 16:00:00` ở UTC+7 được lưu `2026-10-23 09:00:00Z`.
+License cũ không được tự sửa. Nếu đã cấp nhầm 16:00 UTC (23:00 giờ Việt Nam), cần cấp file thay thế.
+MAC có thể thay đổi hoặc bị giả mạo; thay card mạng hoặc bật MAC ngẫu nhiên có thể cần cấp lại license.
 
 ---
 

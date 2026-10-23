@@ -128,6 +128,19 @@ internal static class Program
             Check("Manual binding accepted",
                 LicenseRules.Evaluate(manualPayload!, product, fingerprint, deviceId, now).IsValid);
 
+            foreach (string macText in new[] { "C4-C6-E6-9E-17-5B", "c4:c6:e6:9e:17:5b", " C4C6E69E175B " })
+                Check("MAC normalization " + macText, MacAddress.TryNormalize(macText, out var normalized) && normalized == "C4C6E69E175B");
+            foreach (string badMac in new[] { "", "192.168.1.1", "000000000000", "FFFFFFFFFFFF", "01:22:33:44:55:66", "C4-C6:E6-9E-17-5B", "C4C6E69E175", "GG-C6-E6-9E-17-5B" })
+                Check("MAC rejects " + badMac, !MacAddress.TryNormalize(badMac, out _));
+            Check("Explicit midnight retained", LicenseDateInput.TryParseExpiry("2026-10-23 00:00:00", out _, out var midnight) && midnight == TimeOnly.MinValue);
+            Check("Date-only input distinguished", LicenseDateInput.TryParseExpiry("2026-10-23", out _, out var dateTime) && dateTime is null);
+            Check("Expiry seconds retained", LicenseDateInput.TryParseExpiry("2026-10-23 16:00:37", out _, out var seconds) && seconds == new TimeOnly(16, 0, 37));
+            Check("Invalid expiry rejected", !LicenseDateInput.TryParseExpiry("2026-02-30 16:00:00", out _, out _));
+            Check("Explicit midnight displayed", LicenseFormatting.Expiry(new DateTimeOffset(2026, 10, 23, 0, 0, 0, TimeSpan.Zero), false) == "2026-10-23 00:00");
+            var unsupported = Clone(payload);
+            unsupported.BindingMode = (DeviceBindingMode)99;
+            Check("Unknown binding rejected", LicenseRules.Evaluate(unsupported, product, fingerprint, deviceId, now).Status == LicenseStatus.Malformed);
+
             // Tampering
             var tampered = Clone(payload);
             tampered.ExpiresAtUtc = payload.ExpiresAtUtc.AddYears(10);

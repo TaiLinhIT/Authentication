@@ -124,11 +124,8 @@
 
                                     <StackPanel Grid.Column="6" Orientation="Horizontal" HorizontalAlignment="Right"
                                                 VerticalAlignment="Center">
-                                        <Button Content="{DynamicResource S_Copy}" Style="{StaticResource GhostButton}" Height="30"
-                                                FontSize="11.5" Width="48" ToolTip="{DynamicResource S_CopyActivationCode}"
-                                                Command="{Binding CopyCodeCommand}"/>
                                         <Button Style="{StaticResource GhostButton}" Width="32" Margin="2,0,0,0"
-                                                ToolTip="{DynamicResource S_SaveLicenseFile}" Command="{Binding SaveFileCommand}">
+                                                ToolTip="{DynamicResource S_SaveOfficeDat}" Command="{Binding SaveOfficeFileCommand}">
                                             <TextBlock Text="&#xE896;" FontFamily="{StaticResource IconFont}" FontSize="13"
                                                        Foreground="{Binding Foreground, RelativeSource={RelativeSource AncestorType=Button}}"/>
                                         </Button>
@@ -139,8 +136,6 @@
                                             <Button.ContextMenu>
                                                 <ContextMenu DataContext="{Binding PlacementTarget.DataContext, RelativeSource={RelativeSource Self}}">
                                                     <MenuItem Header="{DynamicResource S_InspectLicense}" Command="{Binding InspectCommand}"/>
-                                                    <MenuItem Header="{DynamicResource S_SaveLicenseFile}" Command="{Binding SaveFileCommand}"/>
-                                                    <MenuItem Header="{DynamicResource S_SaveOfficeDat}" Command="{Binding SaveOfficeFileCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RenewLicense}" Command="{Binding RenewCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RevokeRestore}" Command="{Binding RevokeCommand}"/>
                                                     <MenuItem Header="{DynamicResource S_RemoveFromRegister}" Command="{Binding DeleteCommand}"/>

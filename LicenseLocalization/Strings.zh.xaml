@@ -1,0 +1,435 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:sys="clr-namespace:System;assembly=System.Runtime">
+
+    <!-- ============================ common ============================ -->
+    <sys:String x:Key="S_Cancel">取消</sys:String>
+    <sys:String x:Key="S_Close">关闭</sys:String>
+    <sys:String x:Key="S_Copy">复制</sys:String>
+    <sys:String x:Key="S_OK">确定</sys:String>
+    <sys:String x:Key="S_Confirm">确认</sys:String>
+    <sys:String x:Key="S_Done">完成</sys:String>
+    <sys:String x:Key="S_Paste">粘贴</sys:String>
+    <sys:String x:Key="S_Unlock">解锁</sys:String>
+    <sys:String x:Key="S_Issue">签发</sys:String>
+    <sys:String x:Key="S_Activate">激活</sys:String>
+    <sys:String x:Key="S_Exit">退出</sys:String>
+    <sys:String x:Key="S_LanguageToggle">日本語</sys:String>
+    <sys:String x:Key="S_LanguageToggleTip">切换为日语</sys:String>
+
+    <!-- ============================ issuer main window ============================ -->
+    <sys:String x:Key="S_AppTitle">Warehouse License Studio</sys:String>
+    <sys:String x:Key="S_UnlockSigningKey">解锁签名密钥</sys:String>
+    <sys:String x:Key="S_OfflineIssuance">v1.0 · 离线签发</sys:String>
+    <sys:String x:Key="S_IssueLicense">签发许可证</sys:String>
+    <sys:String x:Key="S_AddProduct">添加产品</sys:String>
+
+    <sys:String x:Key="S_NavDashboard">概览</sys:String>
+    <sys:String x:Key="S_NavProducts">产品</sys:String>
+    <sys:String x:Key="S_NavLicenses">许可证</sys:String>
+    <sys:String x:Key="S_NavSettings">设置</sys:String>
+    <sys:String x:Key="S_NavDashboardSub">产品、已签发密钥和即将到期许可证概览</sys:String>
+    <sys:String x:Key="S_NavProductsSub">管理签名密钥和许可产品</sys:String>
+    <sys:String x:Key="S_NavLicensesSub">此工作站签发的所有许可证</sys:String>
+    <sys:String x:Key="S_NavSettingsSub">签名密钥、存储和客户端分发</sys:String>
+
+    <sys:String x:Key="S_KeyUnlocked">签名密钥已解锁</sys:String>
+    <sys:String x:Key="S_KeyLocked">签名密钥已锁定</sys:String>
+    <sys:String x:Key="S_ReadyToIssue">可以签发</sys:String>
+    <sys:String x:Key="S_UnlockToSign">解锁后即可签名</sys:String>
+
+    <!-- ============================ dashboard ============================ -->
+    <sys:String x:Key="S_RecentLicenses">最近的许可证</sys:String>
+    <sys:String x:Key="S_LatestKeys">此工作站最近签发的密钥</sys:String>
+    <sys:String x:Key="S_LocalRegister">本地记录</sys:String>
+    <sys:String x:Key="S_NoLicensesYet">尚未签发许可证。请使用“签发许可证”创建第一个许可证。</sys:String>
+    <sys:String x:Key="S_QuickActions">快捷操作</sys:String>
+    <sys:String x:Key="S_AddAProduct">添加产品</sys:String>
+    <sys:String x:Key="S_IssueALicense">签发许可证</sys:String>
+    <sys:String x:Key="S_ExportClientPublicKeys">导出客户端公钥</sys:String>
+    <sys:String x:Key="S_ProtectionLayers">保护机制</sys:String>
+    <sys:String x:Key="S_WhatClientEnforces">客户端每次启动时执行的检查</sys:String>
+    <sys:String x:Key="S_ProtSignature">使用 RSA 或 ECDSA 对许可证所有字段签名</sys:String>
+    <sys:String x:Key="S_ProtBinding">设备绑定，防止许可证转移到其他电脑</sys:String>
+    <sys:String x:Key="S_ProtDpapi">使用 Windows DPAPI 缓存许可证，并绑定产品与机器</sys:String>
+    <sys:String x:Key="S_ProtClock">检测时钟回拨并定期重新验证</sys:String>
+
+    <sys:String x:Key="S_StatProducts">产品</sys:String>
+    <sys:String x:Key="S_StatProductsCaption">已注册产品</sys:String>
+    <sys:String x:Key="S_StatLicenses">许可证</sys:String>
+    <sys:String x:Key="S_StatLicensesCaption">签发总数</sys:String>
+    <sys:String x:Key="S_StatActive">有效</sys:String>
+    <sys:String x:Key="S_StatActiveCaption">当前有效</sys:String>
+    <sys:String x:Key="S_StatExpiring">即将到期</sys:String>
+    <sys:String x:Key="S_StatExpiringCaption">30 天内</sys:String>
+
+    <!-- ============================ products ============================ -->
+    <sys:String x:Key="S_SearchProducts">搜索产品</sys:String>
+    <sys:String x:Key="S_ProductU">产品</sys:String>
+    <sys:String x:Key="S_AlgorithmU">算法</sys:String>
+    <sys:String x:Key="S_KeygenModeU">密钥生成模式</sys:String>
+    <sys:String x:Key="S_IssuedU">已签发</sys:String>
+    <sys:String x:Key="S_NoProductsYet">暂无产品</sys:String>
+    <sys:String x:Key="S_NoProductsHint">创建产品以生成签名密钥。之后签发的许可证将绑定到该产品。</sys:String>
+    <sys:String x:Key="S_CreateFirstProduct">创建第一个产品</sys:String>
+    <sys:String x:Key="S_EditProduct">编辑产品</sys:String>
+    <sys:String x:Key="S_ExportPublicKey">导出公钥</sys:String>
+    <sys:String x:Key="S_DeleteProduct">删除产品</sys:String>
+    <sys:String x:Key="S_ProductCountOne">1 个产品</sys:String>
+    <sys:String x:Key="S_ProductCountMany">{0} 个产品</sys:String>
+    <sys:String x:Key="S_LicenseCountOne">1 个许可证</sys:String>
+    <sys:String x:Key="S_LicenseCountMany">{0} 个许可证</sys:String>
+    <sys:String x:Key="S_NoKey">无密钥</sys:String>
+    <sys:String x:Key="S_LicenseIsValid">许可证有效。</sys:String>
+    <sys:String x:Key="S_AlgorithmKey">{0} · 密钥 {1}</sys:String>
+    <sys:String x:Key="S_KeyPrefix">密钥 {0}</sys:String>
+
+    <!-- ============================ licenses ============================ -->
+    <sys:String x:Key="S_SearchSerial">搜索序列号、客户、设备…</sys:String>
+    <sys:String x:Key="S_ExportCsv">导出 CSV</sys:String>
+    <sys:String x:Key="S_LicenseU">许可证</sys:String>
+    <sys:String x:Key="S_CustomerStationU">客户 · 工作站</sys:String>
+    <sys:String x:Key="S_DeviceU">设备</sys:String>
+    <sys:String x:Key="S_TypeU">类型</sys:String>
+    <sys:String x:Key="S_ExpiresU">到期时间（本地）</sys:String>
+    <sys:String x:Key="S_StatusU">状态</sys:String>
+    <sys:String x:Key="S_NoLicensesHere">暂无许可证</sys:String>
+    <sys:String x:Key="S_NoLicensesHereHint">为产品签发许可证并绑定客户机器。您可随时在此复制激活码或导出签名文件。</sys:String>
+    <sys:String x:Key="S_CopyActivationCode">复制激活码</sys:String>
+    <sys:String x:Key="S_SaveLicenseFile">保存 .license 文件</sys:String>
+    <sys:String x:Key="S_MoreActions">更多操作</sys:String>
+    <sys:String x:Key="S_InspectLicense">查看许可证</sys:String>
+    <sys:String x:Key="S_RenewLicense">续期许可证</sys:String>
+    <sys:String x:Key="S_RevokeRestore">撤销 / 恢复</sys:String>
+    <sys:String x:Key="S_RemoveFromRegister">从记录中移除</sys:String>
+    <sys:String x:Key="S_FilterAll">全部</sys:String>
+    <sys:String x:Key="S_FilterActive">有效</sys:String>
+    <sys:String x:Key="S_FilterExpiring">即将到期</sys:String>
+    <sys:String x:Key="S_FilterExpired">已过期</sys:String>
+    <sys:String x:Key="S_FilterScheduled">尚未生效</sys:String>
+    <sys:String x:Key="S_FilterRevoked">已撤销</sys:String>
+    <sys:String x:Key="S_TypeTrial">试用</sys:String>
+    <sys:String x:Key="S_TypeDays30">30 天</sys:String>
+    <sys:String x:Key="S_TypeDays90">90 天</sys:String>
+    <sys:String x:Key="S_TypeOneYear">1 年</sys:String>
+    <sys:String x:Key="S_TypePerpetual">永久</sys:String>
+    <sys:String x:Key="S_TypeCustom">自定义日期</sys:String>
+    <sys:String x:Key="S_KeygenSerial">序列号</sys:String>
+    <sys:String x:Key="S_KeygenCodes">激活码</sys:String>
+    <sys:String x:Key="S_AlgRsa">RSA</sys:String>
+    <sys:String x:Key="S_AlgEcdsa">ECDSA</sys:String>
+    <sys:String x:Key="S_Summary">{0} 个有效 · {1} 个即将到期 · {2} 个已过期</sys:String>
+    <sys:String x:Key="S_Never">永不到期</sys:String>
+    <sys:String x:Key="S_Revoke">撤销</sys:String>
+    <sys:String x:Key="S_Unrevoke">恢复</sys:String>
+    <sys:String x:Key="S_StatusActive">有效</sys:String>
+    <sys:String x:Key="S_StatusPerpetual">永久</sys:String>
+    <sys:String x:Key="S_StatusExpiringSoon">即将到期</sys:String>
+    <sys:String x:Key="S_StatusScheduled">尚未生效</sys:String>
+    <sys:String x:Key="S_StatusExpired">已过期</sys:String>
+    <sys:String x:Key="S_StatusRevoked">已撤销</sys:String>
+    <sys:String x:Key="S_BindingFingerprint">指纹</sys:String>
+    <sys:String x:Key="S_BindingDeviceId">设备 ID</sys:String>
+
+    <!-- ============================ settings ============================ -->
+    <sys:String x:Key="S_SigningKeyVault">签名密钥库</sys:String>
+    <sys:String x:Key="S_KeyMaterial">密钥资料：</sys:String>
+    <sys:String x:Key="S_LockSession">锁定会话</sys:String>
+    <sys:String x:Key="S_ClientDistribution">客户端分发</sys:String>
+    <sys:String x:Key="S_ClientDistributionHint">导出公钥包并放入客户端可执行文件旁的 Keys 文件夹。客户端启动时加载它以验证签名。公钥可以安全分发。</sys:String>
+    <sys:String x:Key="S_ExportPublicKeys">导出公钥</sys:String>
+    <sys:String x:Key="S_OpenKeysFolder">打开密钥文件夹</sys:String>
+    <sys:String x:Key="S_StorageLocations">存储位置</sys:String>
+    <sys:String x:Key="S_CopyRoot">复制根目录</sys:String>
+    <sys:String x:Key="S_DataFiles">数据文件</sys:String>
+    <sys:String x:Key="S_SigningKeysU">签名密钥</sys:String>
+    <sys:String x:Key="S_LocalLicenseCache">本地许可证缓存</sys:String>
+    <sys:String x:Key="S_OpenDataFolder">打开数据文件夹</sys:String>
+    <sys:String x:Key="S_SecurityNotes">安全说明</sys:String>
+    <sys:String x:Key="S_SecurityNotesHint">向客户交付客户端之前请阅读。</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">私钥文件使用 AES-256 加密（PBKDF2，600,000 次迭代）。请与密码分开备份，切勿随授权应用分发。</sys:String>
+    <sys:String x:Key="S_SecNoteDpapi">客户端使用 DPAPI 和机器指纹派生的附加熵保存许可证。时钟状态采用相同保护，复制到其他电脑将无法使用。</sys:String>
+    <sys:String x:Key="S_SecNoteOffline">完全离线的应用在本地状态被删除后无法可靠执行撤销或抵御时钟篡改。商业需求较高时应增加定期服务器验证。</sys:String>
+    <sys:String x:Key="S_SecNoteObfuscation">发布版本应使用混淆和代码签名。它们可提高篡改成本，但不能替代密码学验证。</sys:String>
+
+    <!-- issuer key reset (Settings) -->
+    <sys:String x:Key="S_ResetKeysHeading">残留的签发密钥</sys:String>
+    <sys:String x:Key="S_ResetKeys">删除签发密钥</sys:String>
+    <sys:String x:Key="S_ResetKeysHint">仅在全部产品被删除后可用。下次创建首个产品时将设置新密码和密钥对，不再保留使用旧密码加密的密钥。</sys:String>
+    <sys:String x:Key="S_IssuerKeysNone">此工作站没有存储签名密钥。</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredOne">仍有 1 个签名密钥属于已删除的产品。</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredMany">仍有 {0} 个签名密钥属于已删除的产品。</sys:String>
+    <sys:String x:Key="S_ResetKeysTitle">删除所有签发密钥？</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageOne">存储的 1 个密钥对将被永久删除。使用该密钥签发的许可证将无法续期或重新签发，相关客户端必须获得新的公钥包。下次创建产品时需设置新密码。继续吗？</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageMany">存储的 {0} 个密钥对将被永久删除。使用这些密钥签发的许可证将无法续期或重新签发，相关客户端必须获得新的公钥包。下次创建产品时需设置新密码。继续吗？</sys:String>
+    <sys:String x:Key="S_ResetKeysConfirm">删除密钥</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneTitle">签发密钥已删除</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneMessage">所有签名密钥已移除。创建首个产品时将要求设置新密码。</sys:String>
+    <sys:String x:Key="S_ResetKeysFailedTitle">无法删除签发密钥</sys:String>
+    <sys:String x:Key="S_UnlockedSession">本次会话已解锁</sys:String>
+    <sys:String x:Key="S_Locked">已锁定</sys:String>
+    <sys:String x:Key="S_UnlockedCaption">可以创建并签署许可证。密码仅保存在内存中，关闭或锁定应用后清除。</sys:String>
+    <sys:String x:Key="S_LockedCaption">使用签发密码解锁后可创建产品或签发许可证。</sys:String>
+    <sys:String x:Key="S_ProductNoLongerExists">产品已不存在。</sys:String>
+    <sys:String x:Key="S_RecordNoLongerExists">许可证记录已不存在。</sys:String>
+    <sys:String x:Key="S_ProductKeyOne">1 个产品密钥</sys:String>
+    <sys:String x:Key="S_ProductKeyMany">{0} 个产品密钥</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedOne">将包含 1 个公钥。</sys:String>
+    <sys:String x:Key="S_PublicKeyIncludedMany">将包含 {0} 个公钥。</sys:String>
+
+    <!-- ============================ add / edit product ============================ -->
+    <sys:String x:Key="S_AddNewProduct">添加新产品</sys:String>
+    <sys:String x:Key="S_EditProductTitle">编辑产品</sys:String>
+    <sys:String x:Key="S_ProductName">产品名称</sys:String>
+    <sys:String x:Key="S_ProductNameHint">在工具和许可证记录中显示的名称。</sys:String>
+    <sys:String x:Key="S_AddProductIntro">为此产品生成独立签名密钥。私钥保留在此工作站。</sys:String>
+    <sys:String x:Key="S_EditProductIntro">更新产品显示信息，不影响现有许可证。</sys:String>
+    <sys:String x:Key="S_Bits">位数</sys:String>
+    <sys:String x:Key="S_KeygenMode">密钥生成模式</sys:String>
+    <sys:String x:Key="S_KeygenHintCodes">激活码是可粘贴的 WLC1 密钥。ECDSA P-256 约 500 字符；RSA 更长。客户端离线验证。</sys:String>
+    <sys:String x:Key="S_KeygenHintSerials">序列号模式提供签名的 .license.json 文件及激活码。建议用于 RSA 密钥和邮件交付。</sys:String>
+    <sys:String x:Key="S_EditProductNote">创建后算法、密钥长度和签名密钥不可更改。重命名不改变产品 ID，现有客户端可继续使用。</sys:String>
+    <sys:String x:Key="S_SaveChanges">保存更改</sys:String>
+    <sys:String x:Key="S_ErrProductNameShort">产品名称至少需要 2 个字符。</sys:String>
+    <sys:String x:Key="S_ErrProductNameLong">产品名称应少于 80 个字符。</sys:String>
+    <sys:String x:Key="S_ErrProductDuplicate">已存在同名产品。</sys:String>
+    <sys:String x:Key="S_ErrProductIdDuplicate">已存在对应的产品 ID，请调整名称。</sys:String>
+    <sys:String x:Key="S_PasswordPromptNewProduct">设置保护此产品私钥的签发密码（至少 12 个字符）。同一密码用于解锁此工作站的所有产品密钥。</sys:String>
+    <sys:String x:Key="S_PasswordPromptSign">输入签发密码以签署此许可证。</sys:String>
+    <sys:String x:Key="S_PasswordPromptUnlock">输入签发密码以解锁本次会话的签名密钥。</sys:String>
+    <sys:String x:Key="S_PwdTooShort">至少需要 {0} 个字符。</sys:String>
+    <sys:String x:Key="S_PwdWrong">此密码无法解锁现有签名密钥。</sys:String>
+
+    <!-- ============================ issue license ============================ -->
+    <sys:String x:Key="S_IssueLicenseTitle">签发许可证</sys:String>
+    <sys:String x:Key="S_IssueLicenseIntro">将签名许可证绑定到一台机器并设置有效期。</sys:String>
+    <sys:String x:Key="S_OfflineSigned">离线签名</sys:String>
+    <sys:String x:Key="S_CustomerU">客户</sys:String>
+    <sys:String x:Key="S_StationPcU">工作站 / PC</sys:String>
+    <sys:String x:Key="S_DeviceIdFingerprintU">设备 ID / 指纹 / MAC</sys:String>
+    <sys:String x:Key="S_StartDateU">开始日期（本地时间）</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">到期日期（含当天，本地时间）</sys:String>
+    <sys:String x:Key="S_LicenseTypeU">许可证类型</sys:String>
+    <sys:String x:Key="S_DurationU">许可证期限</sys:String>
+    <sys:String x:Key="S_DeviceBindingU">设备绑定</sys:String>
+    <sys:String x:Key="S_StationU">工作站</sys:String>
+    <sys:String x:Key="S_DatesHint">时区：{0}。格式为 yyyy-MM-dd，可附加 HH:mm 或 HH:mm:ss。不填时间则有效至当地当天结束；签名内容保存为 UTC。</sys:String>
+    <sys:String x:Key="S_GenerateSignedLicense">生成签名许可证</sys:String>
+    <sys:String x:Key="S_SignLocalHint">使用此电脑上的产品私钥签名，不发送任何网络数据。</sys:String>
+    <sys:String x:Key="S_ConfigPreview">配置预览</sys:String>
+    <sys:String x:Key="S_NotSignedYet">尚未签名</sys:String>
+    <sys:String x:Key="S_Delivery">交付</sys:String>
+    <sys:String x:Key="S_LicenseGenerated">许可证已生成</sys:String>
+    <sys:String x:Key="S_Signed">已签名</sys:String>
+    <sys:String x:Key="S_ActivationKeyU">激活密钥</sys:String>
+    <sys:String x:Key="S_CopyActivationKey">复制激活密钥</sys:String>
+    <sys:String x:Key="S_IssueAnother">继续签发</sys:String>
+    <sys:String x:Key="S_DeliveryResultHint">交付激活密钥或 .license 文件。客户端打开主窗口前会离线验证签名与设备绑定。</sys:String>
+    <sys:String x:Key="S_NotSelected">未选择</sys:String>
+    <sys:String x:Key="S_NotSet">未设置</sys:String>
+    <sys:String x:Key="S_NoExpiry">无到期时间</sys:String>
+    <sys:String x:Key="S_Perpetual">永久</sys:String>
+    <sys:String x:Key="S_CustomExpiry">自定义到期时间</sys:String>
+    <sys:String x:Key="S_BindingFingerprintLabel">机器指纹</sys:String>
+    <sys:String x:Key="S_BindingFingerprintHint">粘贴从客户端激活窗口复制的 64 字符指纹。</sys:String>
+    <sys:String x:Key="S_BindingDeviceIdHint">粘贴目标机器客户端显示的 DEV-… ID。</sys:String>
+    <sys:String x:Key="S_CompactCodeHint">紧凑激活码（约 500 字符）或 .license 文件。</sys:String>
+    <sys:String x:Key="S_RsaCodeHint">建议使用许可证文件。RSA 签名使激活码较长（约 1,100 字符）。</sys:String>
+    <sys:String x:Key="S_ResultCodeHint">{0} 个字符 · 粘贴至客户端激活窗口，或交付 .license 文件。</sys:String>
+    <sys:String x:Key="S_CodeCopied">激活码已复制到剪贴板。</sys:String>
+    <sys:String x:Key="S_SavedTo">已保存到 {0}</sys:String>
+    <sys:String x:Key="S_ErrSelectProduct">请选择此许可证所属的产品。</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">请输入与绑定类型对应的机器指纹、设备 ID 或 MAC 地址。</sys:String>
+    <sys:String x:Key="S_ErrFingerprint">机器指纹必须是从客户端复制的 64 字符十六进制值。</sys:String>
+    <sys:String x:Key="S_ErrStartDate">开始日期格式必须为 yyyy-MM-dd。</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">请使用 yyyy-MM-dd、yyyy-MM-dd HH:mm 或 yyyy-MM-dd HH:mm:ss（本地时间）。</sys:String>
+    <sys:String x:Key="S_ErrExpiryOrder">到期日期不得早于开始日期。</sys:String>
+    <sys:String x:Key="S_SaveSignedLicense">保存签名许可证</sys:String>
+    <sys:String x:Key="S_SaveLicenseFileTitle">保存许可证文件</sys:String>
+    <sys:String x:Key="S_ExportLicenseRegister">导出许可证记录</sys:String>
+    <sys:String x:Key="S_FilterLicenseFile">许可证文件 (*.license.json)|*.license.json|JSON (*.json)|*.json|所有文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterJson">JSON (*.json)|*.json|所有文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterCsv">CSV (*.csv)|*.csv|所有文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterPem">PEM 公钥 (*.pem)|*.pem|所有文件 (*.*)|*.*</sys:String>
+
+    <!-- ============================ license details ============================ -->
+    <sys:String x:Key="S_LicenseDetails">许可证详情</sys:String>
+    <sys:String x:Key="S_Checking">正在检查</sys:String>
+    <sys:String x:Key="S_Unreadable">无法读取</sys:String>
+    <sys:String x:Key="S_Malformed">格式错误</sys:String>
+    <sys:String x:Key="S_PublicKeyMissing">缺少公钥</sys:String>
+    <sys:String x:Key="S_SignatureValid">签名有效</sys:String>
+    <sys:String x:Key="S_InvalidSignaturePill">签名无效</sys:String>
+    <sys:String x:Key="S_UnrecognizedLicense">无法识别的许可证</sys:String>
+    <sys:String x:Key="S_SignatureNoteValid">数字签名和密钥 ID 有效。此许可证由本工作站签发。</sys:String>
+    <sys:String x:Key="S_SignatureNoteMissingKey">此工作站没有对应公钥，无法验证签名。</sys:String>
+    <sys:String x:Key="S_SignatureNoteMalformed">无法解码签名载荷。</sys:String>
+    <sys:String x:Key="S_StatusCodeNotActive">尚未生效，将于 {0} (UTC) 开始。</sys:String>
+    <sys:String x:Key="S_StatusCodeExpired">已于 {0} (UTC) 到期。</sys:String>
+    <sys:String x:Key="S_StatusCodeActivePerpetual">有效，无到期时间。</sys:String>
+    <sys:String x:Key="S_StatusCodeActiveUntil">有效至 {0} (UTC)。</sys:String>
+    <sys:String x:Key="S_BindingMatches">此工作站符合设备绑定。</sys:String>
+    <sys:String x:Key="S_BindingMismatch">此工作站不符合设备绑定。</sys:String>
+    <sys:String x:Key="S_CopiedToClipboard">已复制到剪贴板。</sys:String>
+    <sys:String x:Key="S_CouldNotRebuildCode">无法重建激活码：{0}</sys:String>
+    <sys:String x:Key="S_ProductLabel">产品</sys:String>
+    <sys:String x:Key="S_CustomerLabel">客户</sys:String>
+    <sys:String x:Key="S_StationLabel">工作站</sys:String>
+    <sys:String x:Key="S_DeviceBindingLabel">设备绑定</sys:String>
+    <sys:String x:Key="S_DeviceLabel">设备</sys:String>
+    <sys:String x:Key="S_LicenseTypeLabel">许可证类型</sys:String>
+    <sys:String x:Key="S_IssuedLabel">签发时间</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">到期时间（本地）</sys:String>
+    <sys:String x:Key="S_AlgorithmLabel">算法</sys:String>
+    <sys:String x:Key="S_KeyIdLabel">密钥 ID</sys:String>
+    <sys:String x:Key="S_StatusLabel">状态</sys:String>
+
+    <!-- ============================ password prompt ============================ -->
+    <sys:String x:Key="S_IssuerPasswordU">签发密码</sys:String>
+    <sys:String x:Key="S_PasswordMemoryHint">密码仅在窗口打开时缓存在内存，不写入磁盘或日志。</sys:String>
+
+    <!-- ============================ message dialogs ============================ -->
+    <sys:String x:Key="S_Message">消息</sys:String>
+
+    <!-- ============================ client activation ============================ -->
+    <sys:String x:Key="S_SoftwareActivation">软件激活</sys:String>
+    <sys:String x:Key="S_ActivateYourSoftware">激活软件</sys:String>
+    <sys:String x:Key="S_ThisMachineU">本机</sys:String>
+    <sys:String x:Key="S_SendDeviceHint">申请许可证时将设备 ID 或指纹发送给供应商。这些值在此电脑上保持不变。</sys:String>
+    <sys:String x:Key="S_LicenseKeyU">许可证密钥</sys:String>
+    <sys:String x:Key="S_ImportFile">导入文件</sys:String>
+    <sys:String x:Key="S_ShowKey">显示密钥</sys:String>
+    <sys:String x:Key="S_HideKey">隐藏密钥</sys:String>
+    <sys:String x:Key="S_OrDropFile">或将 .license.json 文件拖放到此处</sys:String>
+    <sys:String x:Key="S_KeyVerifiedHint">使用供应商公钥与机器指纹离线验证密钥，许可证由 Windows DPAPI 保护存储。</sys:String>
+    <sys:String x:Key="S_ActivationWindowTitle">{0} — 激活</sys:String>
+    <sys:String x:Key="S_ActivationIntro">输入 {0} 提供的许可证密钥，在此电脑上激活 {1}。</sys:String>
+    <sys:String x:Key="S_KeyMissingWarning">此版本缺少供应商公钥（Keys/public-keys.json）。请联系供应商获取正确的安装包。</sys:String>
+    <sys:String x:Key="S_MachineIdentityUnavailable">无法读取机器标识。请在可访问注册表的 Windows 环境中运行并重试。</sys:String>
+    <sys:String x:Key="S_ClipboardEmpty">剪贴板不包含文本。</sys:String>
+    <sys:String x:Key="S_ClipboardBusy">其他应用正在使用剪贴板，请重试。</sys:String>
+    <sys:String x:Key="S_SelectLicenseFile">选择许可证文件</sys:String>
+    <sys:String x:Key="S_ReadFileError">无法读取许可证文件：{0}</sys:String>
+    <sys:String x:Key="S_EnterKeyFirst">请先粘贴密钥或导入许可证文件。</sys:String>
+    <sys:String x:Key="S_ActivationFailed">激活失败：{0}</sys:String>
+    <sys:String x:Key="S_DroppedFileError">无法读取拖放的文件：{0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckFailed">无法检查许可证：{0}</sys:String>
+    <sys:String x:Key="S_LicenseCheckTitle">许可证检查</sys:String>
+    <sys:String x:Key="S_ReplacementNotice">输入替换的许可证密钥。新密钥在此机器验证通过前，当前许可证保持有效。</sys:String>
+    <sys:String x:Key="S_StartupError" xml:space="preserve">应用无法启动。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StudioStartupError" xml:space="preserve">许可证工具无法启动。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_UnexpectedError" xml:space="preserve">发生意外错误。&#x0a;&#x0a;{0}</sys:String>
+    <sys:String x:Key="S_StartupErrorTitle">启动错误</sys:String>
+
+    <!-- ============================ client main window ============================ -->
+    <sys:String x:Key="S_LicenseActive">许可证有效</sys:String>
+    <sys:String x:Key="S_ReCheck">重新检查</sys:String>
+    <sys:String x:Key="S_License">许可证</sys:String>
+    <sys:String x:Key="S_LabelComparison">标签比较</sys:String>
+    <sys:String x:Key="S_CompareLabelsHint">比较两个标签上打印的物料描述。</sys:String>
+    <sys:String x:Key="S_DemoModule">演示模块</sys:String>
+    <sys:String x:Key="S_LabelA">标签 A</sys:String>
+    <sys:String x:Key="S_LabelB">标签 B</sys:String>
+    <sys:String x:Key="S_CompareLabels">比较标签</sys:String>
+    <sys:String x:Key="S_ResultU">结果</sys:String>
+    <sys:String x:Key="S_EnterTwoLabels">输入两个标签并点击比较。</sys:String>
+    <sys:String x:Key="S_DemoPanelHint">此面板代表实际业务模块。生产应用应在启动时以及打开受保护功能前检查许可证。</sys:String>
+    <sys:String x:Key="S_LicenseStatus">许可证状态</sys:String>
+    <sys:String x:Key="S_ValidUntil">有效至</sys:String>
+    <sys:String x:Key="S_Remaining">剩余</sys:String>
+    <sys:String x:Key="S_LastCheck">上次检查</sys:String>
+    <sys:String x:Key="S_ReCheckLicense">重新检查许可证</sys:String>
+    <sys:String x:Key="S_HowProtected">此版本的保护方式</sys:String>
+    <sys:String x:Key="S_ProtSignatureClient">创建此窗口前验证签名和产品 ID。</sys:String>
+    <sys:String x:Key="S_ProtBindingClient">密钥绑定机器指纹并使用 DPAPI 存储。</sys:String>
+    <sys:String x:Key="S_ProtRecheck">每 30 分钟及新会话开始前重新验证许可证。</sys:String>
+    <sys:String x:Key="S_OfflineFooter">离线验证 · DPAPI 保护存储 · 指纹绑定</sys:String>
+    <sys:String x:Key="S_LicenseInformation">许可证信息</sys:String>
+    <sys:String x:Key="S_VerifiedOffline">已离线验证</sys:String>
+    <sys:String x:Key="S_StoredAt">存储于</sys:String>
+    <sys:String x:Key="S_CopyDeviceId">复制设备 ID</sys:String>
+    <sys:String x:Key="S_EnterNewLicense">输入新许可证</sys:String>
+    <sys:String x:Key="S_LicenseInfoHint">使用内置供应商公钥离线验证。存储副本由 Windows DPAPI 保护并绑定本机，无法复制到其他电脑使用。</sys:String>
+    <sys:String x:Key="S_PerpetualNoExpiry">永久，无到期时间</sys:String>
+    <sys:String x:Key="S_PerpetualLicense">永久许可证</sys:String>
+    <sys:String x:Key="S_Unavailable">不可用</sys:String>
+    <sys:String x:Key="S_MachineIdentityReadError">无法读取 Windows 机器标识。</sys:String>
+    <sys:String x:Key="S_NoLicenseInstalled">未安装许可证</sys:String>
+    <sys:String x:Key="S_DaysRemaining">{0} 天</sys:String>
+    <sys:String x:Key="S_LicensedTo">授权给 {0}</sys:String>
+    <sys:String x:Key="S_ExpiredLabel">已过期</sys:String>
+    <sys:String x:Key="S_JustNow">（刚刚）</sys:String>
+    <sys:String x:Key="S_ThisMachineLabel">本机</sys:String>
+    <sys:String x:Key="S_CompareEmpty">比较前请在两个标签中输入文本。</sys:String>
+    <sys:String x:Key="S_CompareMatch">一致，两个标签描述相同的物料。</sys:String>
+    <sys:String x:Key="S_CompareDifferent">不一致。请暂扣物料并检查原始文件。</sys:String>
+
+    <!-- ============================ client validation messages ============================ -->
+    <sys:String x:Key="S_NoLicenseInstalledMessage">此机器未安装许可证。</sys:String>
+    <sys:String x:Key="S_LicenseInvalid">许可证密钥或文件无效，请确认已完整复制。</sys:String>
+    <sys:String x:Key="S_UnknownKey">此版本未安装对应供应商公钥，请联系供应商。</sys:String>
+    <sys:String x:Key="S_InvalidSignatureMessage">无法验证许可证签名，请确认密钥完整。</sys:String>
+    <sys:String x:Key="S_WrongProductMessage">此许可证属于“{0}”，不属于“{1}”。</sys:String>
+    <sys:String x:Key="S_WrongMachineIdMessage">此许可证注册到了其他设备 ID。</sys:String>
+    <sys:String x:Key="S_WrongMachineFpMessage">此许可证绑定到了其他机器指纹。</sys:String>
+    <sys:String x:Key="S_NotYetValidMessage">许可证将于 {0} (UTC) 生效。</sys:String>
+    <sys:String x:Key="S_ExpiredMessage">许可证已于 {0} (UTC) 到期。</sys:String>
+    <sys:String x:Key="S_ClockRollbackMessage">系统时钟似乎被调回，请校正时间后重试。</sys:String>
+    <sys:String x:Key="S_DeviceIdentityUnavailableMessage">无法读取机器标识，请在可访问注册表的 Windows 上运行。</sys:String>
+    <sys:String x:Key="S_StoreFailedMessage">许可证有效，但无法在本机存储：{0}</sys:String>
+
+    <!-- ============================ issuer messages ============================ -->
+    <sys:String x:Key="S_CouldNotSaveProduct">无法保存产品</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateProduct">无法更新产品</sys:String>
+    <sys:String x:Key="S_CouldNotDeleteProduct">无法删除产品</sys:String>
+    <sys:String x:Key="S_DeleteProductTitle">删除产品？</sys:String>
+    <sys:String x:Key="S_DeleteProductMessage" xml:space="preserve">将从目录移除“{0}”。已签发的许可证在客户机器上仍有效，但无法继续签发或续期。&#x0a;&#x0a;密钥文件保留在密钥文件夹中。</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingTitle">缺少公钥</sys:String>
+    <sys:String x:Key="S_PublicKeyMissingMessage">此产品没有公钥文件。</sys:String>
+    <sys:String x:Key="S_CouldNotUpdateRecord">无法更新许可证记录</sys:String>
+    <sys:String x:Key="S_CouldNotRemoveRecord">无法移除记录</sys:String>
+    <sys:String x:Key="S_LicenseTextUnreadable">许可证文本无法读取</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedTitle">激活码已复制</sys:String>
+    <sys:String x:Key="S_ActivationCodeCopiedMessage" xml:space="preserve">{0} 的激活码已复制到剪贴板。&#x0a;&#x0a;共 {1} 字符，可通过邮件、聊天或工单系统交付。</sys:String>
+    <sys:String x:Key="S_CouldNotBuildCode">无法生成激活码</sys:String>
+    <sys:String x:Key="S_ProductNotFoundTitle">找不到产品</sys:String>
+    <sys:String x:Key="S_ProductNotFoundMessage">“{0}”已不在目录中，无法使用其签名密钥续期。</sys:String>
+    <sys:String x:Key="S_RevokeLicenseTitle">撤销许可证？</sys:String>
+    <sys:String x:Key="S_UnrevokeLicenseTitle">恢复许可证？</sys:String>
+    <sys:String x:Key="S_RevokeMessage" xml:space="preserve">在记录中将 {0} 标为已撤销。&#x0a;&#x0a;此操作仅影响本地记录，离线客户端无法获知。可用于内部跟踪和拒绝续期。</sys:String>
+    <sys:String x:Key="S_UnrevokeMessage">在记录中将 {0} 恢复为有效。</sys:String>
+    <sys:String x:Key="S_RemoveRecordTitle">移除许可证记录？</sys:String>
+    <sys:String x:Key="S_RemoveRecordMessage">从记录移除 {0}。客户机器上的签名许可证继续有效，仅删除本地记录。</sys:String>
+    <sys:String x:Key="S_RemoveRecordLabel">移除记录</sys:String>
+    <sys:String x:Key="S_NoProductsTitle">暂无产品</sys:String>
+    <sys:String x:Key="S_NoProductsBeforeExport">导出公钥前请先创建产品。</sys:String>
+    <sys:String x:Key="S_ExportClientKeysTitle">导出客户端公钥</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedTitle">公钥已导出</sys:String>
+    <sys:String x:Key="S_PublicKeysExportedMessage" xml:space="preserve">将文件复制到客户端 .exe 旁的 Keys 文件夹：&#x0a;&#x0a;{0}&#x0a;&#x0a;此文件仅含公钥，可安全分发。</sys:String>
+    <sys:String x:Key="S_NothingToExportTitle">无可导出内容</sys:String>
+    <sys:String x:Key="S_NothingToExportMessage">尚未签发任何许可证。</sys:String>
+    <sys:String x:Key="S_ExportRegisterTitle">导出许可证记录</sys:String>
+    <sys:String x:Key="S_CouldNotOpenFolder">无法打开文件夹</sys:String>
+    <sys:String x:Key="S_CouldNotSaveFile">无法保存文件</sys:String>
+    <sys:String x:Key="S_CouldNotReadFile">无法读取文件</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailable">剪贴板不可用</sys:String>
+    <sys:String x:Key="S_ClipboardUnavailableMessage">其他应用占用了剪贴板，请重试。</sys:String>
+    <sys:String x:Key="S_SigningKeyMissing">缺少“{0}”的签名密钥。重新生成会使现有许可证失效。</sys:String>
+    <sys:String x:Key="S_IssuerPasteFingerprint">粘贴从目标机器复制的指纹。</sys:String>
+    <sys:String x:Key="S_IssuerEnterDeviceId">输入目标机器客户端显示的设备 ID。</sys:String>
+
+    <!-- encrypted office.dat license file -->
+    <sys:String x:Key="S_SaveOfficeDat">保存 office.dat</sys:String>
+    <sys:String x:Key="S_FilterOfficeDat">许可证文件 (*.dat)|*.dat|所有文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_FilterText">文本文件 (*.txt)|*.txt|所有文件 (*.*)|*.*</sys:String>
+    <sys:String x:Key="S_OfficeDatCard">加密许可证文件 (office.dat)</sys:String>
+    <sys:String x:Key="S_OfficeDatCardHint">可将许可证保存为 office.dat：使用 AES-256-GCM 封装签名许可证并绑定目标机器。客户端需要以下秘密值解密，请将其嵌入应用。</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecret">导出客户端秘密值</sys:String>
+    <sys:String x:Key="S_ExportOfficeSecretTitle">导出客户端秘密值</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedTitle">客户端秘密值已导出</sys:String>
+    <sys:String x:Key="S_OfficeSecretExportedMessage">秘密值已保存到：&#x0a;{0}&#x0a;&#x0a;打开 office.dat 需要此值。请嵌入交付的应用，不要向客户公开。</sys:String>
+
+    <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">请输入有效的单播 MAC 地址（12 个十六进制字符，可用 - 或 : 分隔）。</sys:String>
+    <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">输入目标网卡的 MAC 地址，例如 C4-C6-E6-9E-17-5B。任一网卡匹配即可，不要求联网。</sys:String>
+    <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC 地址</sys:String>
+</ResourceDictionary>

@@ -104,23 +104,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Admin\\.nuget\\packages\\": {},
+    "C:\\Users\\antnguyen\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+      "projectUniqueName": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
       "projectName": "LicenseGenerator",
-      "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
-      "packagesPath": "C:\\Users\\Admin\\.nuget\\packages\\",
-      "outputPath": "E:\\MyProject\\HAN\\Authentication\\LicenseGenerator\\obj\\",
+      "projectPath": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+      "packagesPath": "C:\\Users\\antnguyen\\.nuget\\packages\\",
+      "outputPath": "D:\\project\\Han\\Authentication\\LicenseGenerator\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Admin\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\antnguyen\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -137,11 +137,11 @@
           "framework": "net8.0-windows7.0",
           "targetAlias": "net8.0-windows",
           "projectReferences": {
-            "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
-              "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj"
+            "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj": {
+              "projectPath": "D:\\project\\Han\\Authentication\\LicenseLocalization\\LicenseLocalization.csproj"
             },
-            "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj": {
-              "projectPath": "E:\\MyProject\\HAN\\Authentication\\LicenseShared\\LicenseShared.csproj"
+            "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj": {
+              "projectPath": "D:\\project\\Han\\Authentication\\LicenseShared\\LicenseShared.csproj"
             }
           }
         }

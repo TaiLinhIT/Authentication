@@ -179,6 +179,56 @@ internal static class EndToEnd
             Verify(preciseRecord.LicenseText,
                 preciseRecord.ExpiresAtUtc.AddMinutes(-1)).IsValid, null);
 
+        var zone = TimeZoneInfo.CreateCustomTimeZone("Test UTC+7", TimeSpan.FromHours(7), "UTC+7", "UTC+7");
+        var macRequest = new IssueRequest
+        {
+            BindingMode = DeviceBindingMode.MacAddress,
+            DeviceId = "c4-c6-e6-9e-17-5b",
+            LicenseType = LicenseType.Custom,
+            StartDate = new DateOnly(2026, 10, 23),
+            ExpiryDate = new DateOnly(2026, 10, 23),
+            ExpiryTime = new TimeOnly(16, 0, 0),
+            InputTimeZone = zone
+        };
+        var macRecord = issuer.Issue(product, macRequest, password);
+        check("E2E 16:00 local becomes 09:00 UTC", macRecord.ExpiresAtUtc ==
+            new DateTimeOffset(2026, 10, 23, 9, 0, 0, TimeSpan.Zero), macRecord.ExpiresAtUtc.ToString("O"));
+        check("E2E local start is previous UTC day", macRecord.NotBeforeUtc ==
+            new DateTimeOffset(2026, 10, 22, 17, 0, 0, TimeSpan.Zero), null);
+        check("E2E local expiry round trip stays 16:00", TimeZoneInfo.ConvertTime(macRecord.ExpiresAtUtc, zone).Hour == 16, null);
+        check("E2E normalized MAC saved", macRecord.DeviceId == "C4C6E69E175B", macRecord.DeviceId);
+        LicenseCodec.TryParseLicenseText(macRecord.LicenseText, out var macEnvelope, out _);
+        check("E2E MAC signature verifies", LicenseCrypto.Verify(macEnvelope!, bundle!.Keys[0].PublicKeyPem,
+            out var macPayload, out var macError), macError);
+        var matchingMacs = new[] { "02:11:22:33:44:55", "C4:C6:E6:9E:17:5B" };
+        check("E2E MAC matches any local adapter", LicenseRules.Evaluate(macPayload!, productId, fingerprint, deviceId,
+            macRecord.ExpiresAtUtc, matchingMacs).IsValid, null);
+        check("E2E MAC rejects wrong adapter", LicenseRules.Evaluate(macPayload!, productId, fingerprint, deviceId,
+            macRecord.ExpiresAtUtc, new[] { "02:11:22:33:44:55" }).Status == LicenseStatus.WrongMachine, null);
+        check("E2E missing adapters fail closed", LicenseRules.Evaluate(macPayload!, productId, fingerprint, deviceId,
+            macRecord.ExpiresAtUtc, Array.Empty<string>()).Status == LicenseStatus.DeviceIdentityUnavailable, null);
+        check("E2E expired one tick after local expiry", LicenseRules.Evaluate(macPayload!, productId, fingerprint, deviceId,
+            macRecord.ExpiresAtUtc.AddTicks(1), matchingMacs).Status == LicenseStatus.Expired, null);
+        byte[] macSecret = OfficeLicenseFile.CreateSecret();
+        byte[] macOffice = new ExportService(keys).BuildOfficeFile(macRecord, macSecret);
+        check("E2E MAC office.dat opens with normalized address", OfficeLicenseFile.TryOpen(macOffice, productId,
+            "C4C6E69E175B", macSecret, out _, out _), null);
+        check("E2E MAC office.dat rejects other address", !OfficeLicenseFile.TryOpen(macOffice, productId,
+            "021122334455", macSecret, out _, out _), null);
+        string macCode = LicenseCodec.CreateActivationCode(macEnvelope!);
+        check("E2E MAC activation code round trips", LicenseCodec.TryDecodeActivationCode(macCode, out var decodedMac, out _)
+            && LicenseCrypto.Verify(decodedMac!, bundle.Keys[0].PublicKeyPem, out var decodedPayload, out _)
+            && decodedPayload!.BindingMode == DeviceBindingMode.MacAddress, null);
+        macRequest.ExpiryTime = null;
+        var dayRecord = issuer.Issue(product, macRequest, password);
+        check("E2E date-only ends local day", TimeZoneInfo.ConvertTime(dayRecord.ExpiresAtUtc, zone).TimeOfDay == TimeOnly.MaxValue.ToTimeSpan(), null);
+        macRequest.DeviceId = "192.168.1.1";
+        int countBeforeInvalid = records.Load().Count;
+        bool invalidMacRejected = false;
+        try { issuer.Issue(product, macRequest, password); }
+        catch (InvalidOperationException) { invalidMacRejected = true; }
+        check("E2E issuer rejects IP as MAC without saving", invalidMacRejected && records.Load().Count == countBeforeInvalid, null);
+
         // Tampered payload keeps the original signature and must fail verification.
         var tamperedPayload = LicenseCodec.DeserializePayload(Convert.FromBase64String(envelope!.PayloadBase64));
         tamperedPayload.ExpiresAtUtc = tamperedPayload.ExpiresAtUtc.AddYears(5);

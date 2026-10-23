@@ -37,3 +37,6 @@ E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Lic
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\refint\LicenseLocalization.dll
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.pdb
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\ref\LicenseLocalization.dll
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.sourcelink.json
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.ja.baml
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.zh.baml

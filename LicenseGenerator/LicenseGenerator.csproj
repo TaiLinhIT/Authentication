@@ -11,3 +11,4 @@
     <ProjectReference Include="..\LicenseLocalization\LicenseLocalization.csproj" />
   </ItemGroup>
 </Project>
+    

@@ -91,7 +91,7 @@
     <sys:String x:Key="S_CustomerStationU">CUSTOMER · STATION</sys:String>
     <sys:String x:Key="S_DeviceU">DEVICE</sys:String>
     <sys:String x:Key="S_TypeU">TYPE</sys:String>
-    <sys:String x:Key="S_ExpiresU">EXPIRES</sys:String>
+    <sys:String x:Key="S_ExpiresU">EXPIRES (LOCAL)</sys:String>
     <sys:String x:Key="S_StatusU">STATUS</sys:String>
     <sys:String x:Key="S_NoLicensesHere">No licenses here</sys:String>
     <sys:String x:Key="S_NoLicensesHereHint">Issue a license for a product and bind it to the customer machine. You can copy the activation key or export the signed file from here at any time.</sys:String>
@@ -147,10 +147,25 @@
     <sys:String x:Key="S_OpenDataFolder">Open data folder</sys:String>
     <sys:String x:Key="S_SecurityNotes">Security notes</sys:String>
     <sys:String x:Key="S_SecurityNotesHint">Read this before handing the client to a customer.</sys:String>
-    <sys:String x:Key="S_SecNotePrivateKey">The private key file is encrypted with AES-256 (PBKDF2, 200 000 iterations). Back it up separately from the password, and never ship it with the licensed application.</sys:String>
+    <sys:String x:Key="S_SecNotePrivateKey">The private key file is encrypted with AES-256 (PBKDF2, 600 000 iterations). Back it up separately from the password, and never ship it with the licensed application.</sys:String>
     <sys:String x:Key="S_SecNoteDpapi">The client stores the license with DPAPI and additional entropy derived from the machine fingerprint. The clock state is protected the same way, so moving the license file or the clock state to another PC fails.</sys:String>
     <sys:String x:Key="S_SecNoteOffline">A fully offline application cannot reliably enforce revocation or resist clock tampering if the local state is deleted. Keep this model for convenience and add periodic server validation when the commercial value justifies it.</sys:String>
     <sys:String x:Key="S_SecNoteObfuscation">Use obfuscation and code signing for release builds. They raise the cost of tampering but do not replace cryptographic verification.</sys:String>
+
+    <!-- issuer key reset (Settings) -->
+    <sys:String x:Key="S_ResetKeysHeading">Leftover issuer keys</sys:String>
+    <sys:String x:Key="S_ResetKeys">Delete issuer keys</sys:String>
+    <sys:String x:Key="S_ResetKeysHint">This is offered only after every product has been deleted. The first product you create next sets a new issuer password and a new key pair, so no key encrypted with an old password is ever left behind.</sys:String>
+    <sys:String x:Key="S_IssuerKeysNone">No signing keys are stored on this workstation.</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredOne">1 stored signing key still belongs to a deleted product.</sys:String>
+    <sys:String x:Key="S_IssuerKeysStoredMany">{0} stored signing keys still belong to deleted products.</sys:String>
+    <sys:String x:Key="S_ResetKeysTitle">Delete all issuer keys?</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageOne">The 1 stored key pair will be erased permanently. Licenses already issued with it can no longer be renewed or reissued, and clients that received them must be given a new public-key bundle. The next product you create will ask for a new issuer password. Continue?</sys:String>
+    <sys:String x:Key="S_ResetKeysMessageMany">All {0} stored key pairs will be erased permanently. Licenses already issued with them can no longer be renewed or reissued, and clients that received them must be given a new public-key bundle. The next product you create will ask for a new issuer password. Continue?</sys:String>
+    <sys:String x:Key="S_ResetKeysConfirm">Delete keys</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneTitle">Issuer keys deleted</sys:String>
+    <sys:String x:Key="S_ResetKeysDoneMessage">All stored signing keys were removed. The first product you create will ask for a new issuer password.</sys:String>
+    <sys:String x:Key="S_ResetKeysFailedTitle">Could not delete issuer keys</sys:String>
     <sys:String x:Key="S_UnlockedSession">Unlocked for this session</sys:String>
     <sys:String x:Key="S_Locked">Locked</sys:String>
     <sys:String x:Key="S_UnlockedCaption">Licenses can be created and signed. The password is held in memory and cleared when the app closes or you lock it.</sys:String>
@@ -192,13 +207,13 @@
     <sys:String x:Key="S_CustomerU">CUSTOMER</sys:String>
     <sys:String x:Key="S_StationPcU">STATION / PC</sys:String>
     <sys:String x:Key="S_DeviceIdFingerprintU">DEVICE ID / FINGERPRINT</sys:String>
-    <sys:String x:Key="S_StartDateU">START DATE (UTC)</sys:String>
-    <sys:String x:Key="S_ExpiryDateU">EXPIRY DATE (INCLUSIVE)</sys:String>
+    <sys:String x:Key="S_StartDateU">START DATE (LOCAL)</sys:String>
+    <sys:String x:Key="S_ExpiryDateU">EXPIRY DATE (INCLUSIVE, LOCAL)</sys:String>
     <sys:String x:Key="S_LicenseTypeU">LICENSE TYPE</sys:String>
     <sys:String x:Key="S_DurationU">LICENSE DURATION</sys:String>
     <sys:String x:Key="S_DeviceBindingU">DEVICE BINDING</sys:String>
     <sys:String x:Key="S_StationU">STATION</sys:String>
-    <sys:String x:Key="S_DatesHint">Dates use yyyy-MM-dd, optionally with the expiry time as yyyy-MM-dd HH:mm (UTC). Without a time the license stays valid until 23:59:59 UTC on the expiry date.</sys:String>
+    <sys:String x:Key="S_DatesHint">Time zone: {0}. Use yyyy-MM-dd, optionally followed by HH:mm or HH:mm:ss. Without a time, validity lasts through the local expiry day. Signed dates are stored in UTC.</sys:String>
     <sys:String x:Key="S_GenerateSignedLicense">Generate signed license</sys:String>
     <sys:String x:Key="S_SignLocalHint">The license is signed with the product's private key on this PC. Nothing is sent over the network.</sys:String>
     <sys:String x:Key="S_ConfigPreview">CONFIGURATION PREVIEW</sys:String>
@@ -224,10 +239,10 @@
     <sys:String x:Key="S_CodeCopied">Activation code copied to the clipboard.</sys:String>
     <sys:String x:Key="S_SavedTo">Saved to {0}</sys:String>
     <sys:String x:Key="S_ErrSelectProduct">Select the product this license belongs to.</sys:String>
-    <sys:String x:Key="S_ErrDeviceRequired">Enter the target machine fingerprint or device ID.</sys:String>
+    <sys:String x:Key="S_ErrDeviceRequired">Enter the target fingerprint, device ID or MAC address for the selected binding.</sys:String>
     <sys:String x:Key="S_ErrFingerprint">The machine fingerprint must be the 64-character hexadecimal value copied from the client.</sys:String>
     <sys:String x:Key="S_ErrStartDate">Start date must use yyyy-MM-dd.</sys:String>
-    <sys:String x:Key="S_ErrExpiryDate">Expiry must use yyyy-MM-dd or yyyy-MM-dd HH:mm (UTC).</sys:String>
+    <sys:String x:Key="S_ErrExpiryDate">Use yyyy-MM-dd, yyyy-MM-dd HH:mm or yyyy-MM-dd HH:mm:ss (local time).</sys:String>
     <sys:String x:Key="S_ErrExpiryOrder">The expiry date must be on or after the start date.</sys:String>
     <sys:String x:Key="S_SaveSignedLicense">Save signed license</sys:String>
     <sys:String x:Key="S_SaveLicenseFileTitle">Save license file</sys:String>
@@ -264,7 +279,7 @@
     <sys:String x:Key="S_DeviceLabel">Device</sys:String>
     <sys:String x:Key="S_LicenseTypeLabel">License type</sys:String>
     <sys:String x:Key="S_IssuedLabel">Issued</sys:String>
-    <sys:String x:Key="S_ExpiresLabel">Expires</sys:String>
+    <sys:String x:Key="S_ExpiresLabel">Expires (local)</sys:String>
     <sys:String x:Key="S_AlgorithmLabel">Algorithm</sys:String>
     <sys:String x:Key="S_KeyIdLabel">Key id</sys:String>
     <sys:String x:Key="S_StatusLabel">Status</sys:String>
@@ -414,4 +429,7 @@
     <sys:String x:Key="S_OfficeSecretExportedTitle">Client secret exported</sys:String>
     <sys:String x:Key="S_OfficeSecretExportedMessage">Secret saved to:\n{0}\n\nKeep it out of reach of your customers: it is required to open office.dat files. Embed it in the application you ship.</sys:String>
 
+    <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">Enter a valid unicast MAC address: 12 hex digits, optionally separated by - or :.</sys:String>
+    <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">Enter a target adapter MAC, e.g. C4-C6-E6-9E-17-5B. Any matching adapter is accepted; no network connection is needed.</sys:String>
+    <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC address</sys:String>
 </ResourceDictionary>

@@ -8,7 +8,9 @@ namespace LicenseLocalization;
 public enum AppLanguage
 {
     English,
-    Vietnamese
+    Vietnamese,
+    Chinese,
+    Japanese
 }
 
 /// <summary>
@@ -48,7 +50,15 @@ public static class LanguageManager
     }
 
     public static void Toggle() =>
-        SetLanguage(Current == AppLanguage.English ? AppLanguage.Vietnamese : AppLanguage.English);
+        SetLanguage((AppLanguage)(((int)Current + 1) % Enum.GetValues<AppLanguage>().Length));
+
+    public static string Code(AppLanguage language) => language switch
+    {
+        AppLanguage.Vietnamese => "vi",
+        AppLanguage.Chinese => "zh",
+        AppLanguage.Japanese => "ja",
+        _ => "en"
+    };
 
     /// <summary>Returns the string for <paramref name="key"/> in the active language.</summary>
     public static string T(string key)
@@ -99,7 +109,7 @@ public static class LanguageManager
                 merged.RemoveAt(i);
         }
 
-        string code = language == AppLanguage.Vietnamese ? "vi" : "en";
+        string code = Code(language);
         merged.Add(new ResourceDictionary
         {
             Source = new Uri(
@@ -117,10 +127,9 @@ public static class LanguageManager
             if (!File.Exists(LanguageFilePath)) return AppLanguage.English;
 
             string text = File.ReadAllText(LanguageFilePath).Trim();
-            return text.Equals("vi", StringComparison.OrdinalIgnoreCase)
-                   || text.Equals("vietnamese", StringComparison.OrdinalIgnoreCase)
-                ? AppLanguage.Vietnamese
-                : AppLanguage.English;
+            return Enum.GetValues<AppLanguage>().FirstOrDefault(language =>
+                text.Equals(Code(language), StringComparison.OrdinalIgnoreCase)
+                || text.Equals(language.ToString(), StringComparison.OrdinalIgnoreCase));
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {
@@ -135,7 +144,7 @@ public static class LanguageManager
             Directory.CreateDirectory(LicensePaths.Root);
             File.WriteAllText(
                 LanguageFilePath,
-                language == AppLanguage.Vietnamese ? "vi" : "en");
+                Code(language));
         }
         catch (Exception ex) when (ex is IOException or UnauthorizedAccessException)
         {

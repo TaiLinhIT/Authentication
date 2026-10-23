@@ -7,7 +7,7 @@ A complete, offline licensing system for Windows desktop applications:
 - **Shared library** (`LicenseShared`) — models, crypto, codec, machine fingerprint, DPAPI storage,
   clock guard and validation rules used by both sides. Reference this from your own application
   (WPF, WinForms, …) to verify licenses offline.
-- **Localization library** (`LicenseLocalization`) — the English and Vietnamese string catalogs and
+- **Localization library** (`LicenseLocalization`) — English, Vietnamese, Simplified Chinese and Japanese catalogs and
   the runtime language switcher used by the issuer.
 - **Self-test** (`LicenseSelfTest`) — headless test suite covering the whole pipeline.
 
@@ -53,25 +53,34 @@ RSA uses PSS with SHA-256; ECDSA uses SHA-256/SHA-384 according to the curve.
 
 ### Machine binding
 
-Two modes are available per license:
+Three modes are available per license:
 
 - **Machine fingerprint** — `SHA256("WarehouseLicense|v1|MachineGuid|MACHINENAME")`, shown as a
   64-character hex string. Strongest binding; survives app reinstalls, may change after a Windows
   reinstall or machine rename.
 - **Device ID** — the short `DEV-XXXXXXXXXXXXXXXX` form derived from the same fingerprint. Easier to
   read over the phone; slightly easier to guess, so use it only when convenience matters.
+- **MAC address** — a unicast 48-bit adapter address. Accepts `C4-C6-E6-9E-17-5B`,
+  `C4:C6:E6:9E:17:5B` or `C4C6E69E175B`, stored as uppercase hex without separators.
+  Any matching non-loopback/non-tunnel adapter is accepted, including disconnected adapters.
+  Replace the client's `LicenseShared.dll` with this version before issuing MAC licenses.
+  `LicenseRules.Evaluate` discovers local addresses automatically; its six-argument overload
+  accepts an explicit address collection for tests. MAC addresses can be spoofed or randomized;
+  changing the registered adapter/address requires a new license.
 
-## Languages (English / Vietnamese)
+## Languages (English / Vietnamese / Simplified Chinese / Japanese)
 
-The issuer is fully bilingual. Use the small **VI** / **EN** button in the header to switch
-languages instantly; every open window updates in place.
+Use the language button in the header to cycle English → Vietnamese → Simplified Chinese →
+Japanese → English. The button names the next language. The main screen and issuance form
+refresh their resource strings and computed labels when the language changes.
 
 - The choice is saved to `%LOCALAPPDATA%\WarehouseLicense\ui-language.txt` and restored on the next
   start. English is the default.
-- Strings live in `LicenseLocalization\Strings.en.xaml` and `Strings.vi.xaml`. XAML uses
+- Strings live in `LicenseLocalization\Strings.en.xaml`, `Strings.vi.xaml`, `Strings.zh.xaml`
+  and `Strings.ja.xaml`. XAML uses
   `{DynamicResource S_Key}`; code-behind and view models use `LicenseLocalization.LanguageManager`
   (`T`, `Format`) and subscribe to `LanguageChanged` for lists and labels built in code.
-- The self-test enforces that both catalogs expose exactly the same keys and that neither language
+- The self-test enforces that all four catalogs expose exactly the same keys and that no language
   has an empty value, so a missing translation is caught before release.
 
 To add another language, copy `Strings.en.xaml`, translate the values, keep the `S_*` keys, add the
@@ -98,7 +107,7 @@ Key files:
   keys\<productId>\public-key.pem   distribute with the client
   data\products.json                product catalog + key ids
   data\issued-licenses.json         register of issued licenses
-  ui-language.txt                   last UI language (en / vi)
+  ui-language.txt                   last UI language (en / vi / zh / ja)
   exports\                          exported license files
 ```
 
@@ -106,11 +115,18 @@ Key files:
 
 1. Pick the product. If the session is locked, enter the signing password.
 2. Enter customer and station names.
-3. Paste the fingerprint or device ID copied from the target PC
+3. Select fingerprint, Device ID or MAC binding and paste the matching value from the target PC
    (client → **License** window or activation screen → **Copy**).
 4. Choose the term: Trial (14 days), 30 days, 90 days, 1 year, perpetual, or a custom date range.
-   The expiry accepts `yyyy-MM-dd` or, for an exact minute, `yyyy-MM-dd HH:mm` (UTC); a date-only
-   value is inclusive through the end of that date (23:59:59 UTC).
+   The form uses the issuer machine's **local time zone**, shown beside the date inputs.
+   Expiry accepts `yyyy-MM-dd`, `yyyy-MM-dd HH:mm` or `yyyy-MM-dd HH:mm:ss`; date-only values
+   remain valid through the end of the local day. Signed payloads and CSV exports remain UTC.
+   For example, `2026-10-23 16:00:00` in UTC+7 is signed as `2026-10-23 09:00:00Z`
+   and displays as 16:00 on a machine in UTC+7. Older versions interpreted that input as
+   16:00 UTC, which displayed as 23:00 locally. Existing signed licenses are not rewritten;
+   issue a replacement if their original expiry was unintended.
+   Direct `IssuerService` callers retain UTC by default; set `IssueRequest.InputTimeZone`
+   explicitly when supplying local wall-clock dates. Ambiguous or nonexistent DST times are rejected.
 5. Issue. The tool produces:
    - a serial (`WLC-YYYY-XXXXXX`) recorded in the register,
    - an activation code (`WLC1-…`) for typed delivery,

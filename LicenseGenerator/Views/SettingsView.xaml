@@ -27,6 +27,28 @@
                             <TextBlock Text="{Binding KeyCountText}" FontSize="11.5" FontWeight="SemiBold"
                                        Margin="6,0,0,0"/>
                         </StackPanel>
+
+                        <!-- reset: only reachable once every product has been deleted -->
+                        <Border Background="{StaticResource DangerSoftBrush}" BorderBrush="#3A1C27"
+                                BorderThickness="1" CornerRadius="8" Padding="14,12" Margin="0,16,0,0"
+                                Visibility="{Binding CanResetIssuerKeys, Converter={StaticResource BoolToVis}}">
+                            <StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE74D;" FontFamily="{StaticResource IconFont}" FontSize="12"
+                                               Foreground="{StaticResource DangerBrush}" VerticalAlignment="Center"/>
+                                    <TextBlock Text="{DynamicResource S_ResetKeysHeading}" FontSize="11.5" FontWeight="SemiBold"
+                                               Foreground="{StaticResource DangerBrush}" Margin="8,0,0,0"/>
+                                </StackPanel>
+                                <TextBlock Text="{Binding StoredKeysInfo}" Style="{StaticResource Muted}" FontSize="11"
+                                           TextWrapping="Wrap" LineHeight="17" Margin="0,7,0,0"/>
+                                <TextBlock Text="{DynamicResource S_ResetKeysHint}" Style="{StaticResource Muted}" FontSize="11"
+                                           TextWrapping="Wrap" LineHeight="17" Margin="0,3,0,0"/>
+                                <Button Content="{DynamicResource S_ResetKeys}" Style="{StaticResource DangerButton}"
+                                        Width="200" HorizontalAlignment="Left" Margin="0,11,0,0"
+                                        Command="{Binding ResetIssuerKeysCommand}"
+                                        IsEnabled="{Binding HasStoredKeys}"/>
+                            </StackPanel>
+                        </Border>
                     </StackPanel>
 
                     <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

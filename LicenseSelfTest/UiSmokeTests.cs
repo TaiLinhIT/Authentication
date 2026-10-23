@@ -82,6 +82,25 @@ internal static class UiSmokeTests
                 enKeys.SequenceEqual(viKeys, StringComparer.Ordinal),
                 $"en={enKeys.Length}, vi={viKeys.Length}");
 
+            foreach (var code in new[] { "vi", "zh", "ja" })
+            {
+                var catalog = new ResourceDictionary
+                {
+                    Source = new Uri($"pack://application:,,,/LicenseLocalization;component/Strings.{code}.xaml")
+                };
+                var keys = catalog.Keys.Cast<string>().OrderBy(k => k, StringComparer.Ordinal).ToArray();
+                check($"{code} catalog key parity", enKeys.SequenceEqual(keys), null);
+                foreach (string key in enKeys)
+                {
+                    string value = catalog[key] as string ?? "";
+                    var placeholders = new Func<string, string[]>(text =>
+                        System.Text.RegularExpressions.Regex.Matches(text, @"\{\d+(?:[^}]*)\}")
+                            .Select(m => m.Value).OrderBy(x => x).ToArray());
+                    check($"{code} {key} text and placeholders", !string.IsNullOrWhiteSpace(value)
+                        && placeholders((string)english[key]).SequenceEqual(placeholders(value)), null);
+                }
+            }
+
             var empty = enKeys
                 .Where(k => english[k] is not string en || string.IsNullOrWhiteSpace(en)
                             || vietnamese[k] is not string vi || string.IsNullOrWhiteSpace(vi))
@@ -146,6 +165,25 @@ internal static class UiSmokeTests
                 vm.Products.CountText.Contains("product", StringComparison.Ordinal),
                 vm.Products.CountText);
 
+            var issueVm = new LicenseGenerator.ViewModels.IssueLicenseViewModel(services, null, null);
+            foreach (var language in new[] { AppLanguage.Chinese, AppLanguage.Japanese })
+            {
+                LanguageManager.SetLanguage(language);
+                string expected = language == AppLanguage.Chinese ? "概览" : "ダッシュボード";
+                check($"{language} dynamic and computed UI", block.Text == expected
+                    && vm.NavItems[0].Title == expected, block.Text);
+                issueVm.RefreshLanguage();
+                check($"{language} MAC binding option", issueVm.BindingOptions.Any(b =>
+                    b.Mode == DeviceBindingMode.MacAddress && b.Label == LanguageManager.T("S_BindingMacAddress")), null);
+                LanguageManager.Initialize();
+                check($"{language} saved language reload", LanguageManager.Current == language, null);
+            }
+            LanguageManager.SetLanguage(AppLanguage.English);
+            foreach (var expected in new[] { AppLanguage.Vietnamese, AppLanguage.Chinese, AppLanguage.Japanese, AppLanguage.English })
+            {
+                LanguageManager.Toggle();
+                check($"Language cycle reaches {expected}", LanguageManager.Current == expected, null);
+            }
             host.Close();
         }
         catch (Exception ex)
@@ -177,13 +215,42 @@ internal static class UiSmokeTests
             MaterializeView<LicenseGenerator.Views.LicensesView>(check, "licenses");
             MaterializeView<LicenseGenerator.Views.SettingsView>(check, "settings");
 
+            var issue = new LicenseGenerator.Views.Dialogs.IssueLicenseDialog(services, null, null);
+            var issueVm = issue.ViewModel;
+            issueVm.SelectedBinding = issueVm.BindingOptions.Single(b => b.Mode == DeviceBindingMode.MacAddress);
+            issueVm.SelectedType = issueVm.TypeOptions.Single(t => t.Type == LicenseType.Custom);
+            issueVm.StartDateText = "2026-10-23";
+            issueVm.ExpiryDateText = "2026-10-23 16:00:37";
+            issueVm.DeviceId = "C4-C6-E6-9E-17-5B";
+            foreach (var language in Enum.GetValues<AppLanguage>())
+            {
+                LanguageManager.SetLanguage(language);
+                issue.ApplyTemplate();
+                issue.Measure(new Size(1000, 780));
+                issue.Arrange(new Rect(0, 0, 1000, 780));
+                issue.UpdateLayout();
+                check($"{language} issuance window preserves inputs",
+                    issueVm.SelectedBinding?.Mode == DeviceBindingMode.MacAddress
+                    && issueVm.SelectedType?.Type == LicenseType.Custom
+                    && issueVm.ExpiryDateText == "2026-10-23 16:00:37"
+                    && issueVm.DeviceLabel == LanguageManager.T("S_BindingMacAddress"), issueVm.ExpiryDateText);
+            }
+            services.Signing.Unlock("correct-horse-battery");
+            issueVm.GenerateCommand.Execute(null);
+            check("Issuance UI signs a MAC license", issueVm.GeneratedRecord?.BindingMode == DeviceBindingMode.MacAddress,
+                issueVm.ErrorMessage);
+            check("Issuance UI result preserves local time and seconds", issueVm.ResultExpiry == "2026-10-23 16:00:37",
+                issueVm.ResultExpiry);
+            issue.Close();
+            LanguageManager.SetLanguage(AppLanguage.English);
+
             var issuerToggle = FindLogical<Button>(issuer)
                 .FirstOrDefault(b => b.Content as string == "VI");
             check("issuer language toggle is present in English", issuerToggle is not null, null);
 
             LanguageManager.SetLanguage(AppLanguage.Vietnamese);
-            check("issuer language toggle switches to EN",
-                issuerToggle?.Content as string == "EN", issuerToggle?.Content as string);
+            check("issuer language toggle switches to Chinese",
+                issuerToggle?.Content as string == "中文", issuerToggle?.Content as string);
             LanguageManager.SetLanguage(AppLanguage.English);
             check("issuer language toggle switches back to VI",
                 issuerToggle?.Content as string == "VI", issuerToggle?.Content as string);

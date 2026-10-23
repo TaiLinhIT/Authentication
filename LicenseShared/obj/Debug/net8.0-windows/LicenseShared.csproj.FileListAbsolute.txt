@@ -24,3 +24,5 @@ E:\MyProject\HAN\Authentication\LicenseShared\obj\Debug\net8.0-windows\refint\Li
 E:\MyProject\HAN\Authentication\LicenseShared\obj\Debug\net8.0-windows\LicenseShared.pdb
 E:\MyProject\HAN\Authentication\LicenseShared\obj\Debug\net8.0-windows\ref\LicenseShared.dll
 E:\MyProject\HAN\Authentication\LicenseShared\obj\Debug\net8.0-windows\LicenseS.259C42F7.Up2Date
+D:\project\Han\Authentication\LicenseShared\obj\Debug\net8.0-windows\LicenseShared.sourcelink.json
+D:\project\Han\Authentication\LicenseShared\obj\Debug\net8.0-windows\LicenseS.259C42F7.Up2Date

@@ -1,7 +1,28 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "E:\\MyProject\\HAN\\Authentication\\",
-  "Documents": [],
+  "WorkspaceRootPath": "D:\\project\\Han\\Authentication\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{94A88073-9596-4EF4-9CD0-FFDD472A6E06}|LicenseLocalization\\LicenseLocalization.csproj|d:\\project\\han\\authentication\\licenselocalization\\strings.vi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{94A88073-9596-4EF4-9CD0-FFDD472A6E06}|LicenseLocalization\\LicenseLocalization.csproj|solutionrelative:licenselocalization\\strings.vi.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{94A88073-9596-4EF4-9CD0-FFDD472A6E06}|LicenseLocalization\\LicenseLocalization.csproj|d:\\project\\han\\authentication\\licenselocalization\\strings.en.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{94A88073-9596-4EF4-9CD0-FFDD472A6E06}|LicenseLocalization\\LicenseLocalization.csproj|solutionrelative:licenselocalization\\strings.en.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|d:\\project\\han\\authentication\\licensegenerator\\views\\licensesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|solutionrelative:licensegenerator\\views\\licensesview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|d:\\project\\han\\authentication\\licensegenerator\\views\\productsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|solutionrelative:licensegenerator\\views\\productsview.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|d:\\project\\han\\authentication\\licensegenerator\\licensegenerator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5E0D77F7-63AB-4A65-9E57-0E72B6B1B002}|LicenseGenerator\\LicenseGenerator.csproj|solutionrelative:licensegenerator\\licensegenerator.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    }
+  ],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -9,15 +30,68 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": -1,
+          "SelectedChildIndex": 1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
             },
             {
-              "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Strings.vi.xaml",
+              "DocumentMoniker": "D:\\project\\Han\\Authentication\\LicenseLocalization\\Strings.vi.xaml",
+              "RelativeDocumentMoniker": "LicenseLocalization\\Strings.vi.xaml",
+              "ToolTip": "D:\\project\\Han\\Authentication\\LicenseLocalization\\Strings.vi.xaml",
+              "RelativeToolTip": "LicenseLocalization\\Strings.vi.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-23T04:12:35.183Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Strings.en.xaml",
+              "DocumentMoniker": "D:\\project\\Han\\Authentication\\LicenseLocalization\\Strings.en.xaml",
+              "RelativeDocumentMoniker": "LicenseLocalization\\Strings.en.xaml",
+              "ToolTip": "D:\\project\\Han\\Authentication\\LicenseLocalization\\Strings.en.xaml",
+              "RelativeToolTip": "LicenseLocalization\\Strings.en.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-23T04:12:25.317Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "LicensesView.xaml",
+              "DocumentMoniker": "D:\\project\\Han\\Authentication\\LicenseGenerator\\Views\\LicensesView.xaml",
+              "RelativeDocumentMoniker": "LicenseGenerator\\Views\\LicensesView.xaml",
+              "ToolTip": "D:\\project\\Han\\Authentication\\LicenseGenerator\\Views\\LicensesView.xaml",
+              "RelativeToolTip": "LicenseGenerator\\Views\\LicensesView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-23T04:11:56.604Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "ProductsView.xaml",
+              "DocumentMoniker": "D:\\project\\Han\\Authentication\\LicenseGenerator\\Views\\ProductsView.xaml",
+              "RelativeDocumentMoniker": "LicenseGenerator\\Views\\ProductsView.xaml",
+              "ToolTip": "D:\\project\\Han\\Authentication\\LicenseGenerator\\Views\\ProductsView.xaml",
+              "RelativeToolTip": "LicenseGenerator\\Views\\ProductsView.xaml",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
+              "WhenOpened": "2026-10-23T04:11:35.98Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "LicenseGenerator.csproj",
+              "DocumentMoniker": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+              "RelativeDocumentMoniker": "LicenseGenerator\\LicenseGenerator.csproj",
+              "ToolTip": "D:\\project\\Han\\Authentication\\LicenseGenerator\\LicenseGenerator.csproj",
+              "RelativeToolTip": "LicenseGenerator\\LicenseGenerator.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAEAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-10-23T02:43:47.655Z"
             }
           ]
         }

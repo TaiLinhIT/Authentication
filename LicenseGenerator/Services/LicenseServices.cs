@@ -208,6 +208,42 @@ public sealed class KeyStore
             // A locked key file is left in place; the product entry is still removed.
         }
     }
+
+    /// <summary>Number of stored private keys, including keys whose product was deleted.</summary>
+    public int StoredKeyCount()
+    {
+        if (!Directory.Exists(_root)) return 0;
+        return Directory.EnumerateDirectories(_root)
+            .Count(dir => File.Exists(Path.Combine(dir, "private-key.p8")));
+    }
+
+    /// <summary>
+    /// Erases every stored key folder. Only allowed when the product catalog is empty, so that the
+    /// next product creates a fresh key pair with a new issuer password.
+    /// </summary>
+    public int DeleteAllKeys()
+    {
+        if (!Directory.Exists(_root)) return 0;
+
+        int removed = 0;
+        foreach (string directory in Directory.EnumerateDirectories(_root).ToList())
+        {
+            try
+            {
+                Directory.Delete(directory, recursive: true);
+                removed++;
+            }
+            catch (IOException)
+            {
+                // A locked key file is left in place instead of failing the whole reset.
+            }
+            catch (UnauthorizedAccessException)
+            {
+            }
+        }
+
+        return removed;
+    }
 }
 
 public sealed class SigningSession
@@ -259,10 +295,13 @@ public sealed class IssueRequest
     public DateOnly ExpiryDate { get; set; }
 
     /// <summary>
-    /// Optional time of day for the expiry (UTC). Null keeps the historical behaviour of
-    /// expiring at the end of <see cref="ExpiryDate"/> (23:59:59 UTC).
+    /// Optional expiry wall-clock time in InputTimeZone. Null means the end of ExpiryDate.
+    /// Existing API callers default to UTC; the issuer UI explicitly supplies the local zone.
     /// </summary>
     public TimeOnly? ExpiryTime { get; set; }
+
+    /// <summary>Input wall-clock zone. UTC default preserves existing API callers.</summary>
+    public TimeZoneInfo InputTimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public bool Perpetual { get; set; }
 }
@@ -292,16 +331,23 @@ public sealed class IssuerService
                     ? L.T("S_IssuerPasteFingerprint")
                     : L.T("S_IssuerEnterDeviceId"));
 
-        if (!request.Perpetual && LicenseDurations.ExpiryInstantUtc(request.ExpiryDate, request.ExpiryTime) <
-            new DateTimeOffset(request.StartDate.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)))
-            throw new InvalidOperationException(L.T("S_ErrExpiryOrder"));
+        string device = request.DeviceId.Trim();
+        if (!Enum.IsDefined(request.BindingMode))
+            throw new InvalidOperationException(L.T("S_ErrDeviceRequired"));
+        if (request.BindingMode == DeviceBindingMode.MacAddress && !MacAddress.TryNormalize(device, out device))
+            throw new InvalidOperationException(L.T("S_ErrMacAddress"));
+        if (request.BindingMode == DeviceBindingMode.MachineFingerprint &&
+            (device.Length != 64 || !device.All(Uri.IsHexDigit)))
+            throw new InvalidOperationException(L.T("S_ErrFingerprint"));
 
-        var startUtc = new DateTimeOffset(
-            request.StartDate.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc));
+        var startUtc = LicenseDateInput.ToUtc(request.StartDate, TimeOnly.MinValue, request.InputTimeZone);
 
         var expiresUtc = request.Perpetual
             ? DateTimeOffset.MaxValue
-            : LicenseDurations.ExpiryInstantUtc(request.ExpiryDate, request.ExpiryTime);
+            : LicenseDateInput.ExpiryUtc(request.ExpiryDate, request.ExpiryTime, request.InputTimeZone);
+
+        if (!request.Perpetual && expiresUtc < startUtc)
+            throw new InvalidOperationException(L.T("S_ErrExpiryOrder"));
 
         var payload = new LicensePayload
         {
@@ -311,7 +357,7 @@ public sealed class IssuerService
             ProductName = product.ProductName,
             CustomerName = request.CustomerName.Trim(),
             StationName = request.StationName.Trim(),
-            DeviceId = request.DeviceId.Trim(),
+            DeviceId = device,
             BindingMode = request.BindingMode,
             LicenseType = request.Perpetual ? LicenseType.Perpetual : request.LicenseType,
             IssuedAtUtc = DateTimeOffset.UtcNow,

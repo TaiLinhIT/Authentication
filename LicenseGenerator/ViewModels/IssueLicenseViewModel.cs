@@ -45,7 +45,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
     private BindingOption? _selectedBinding;
     private string _deviceId = "";
     private LicenseTypeOption? _selectedType;
-    private string _startDateText = DateTime.UtcNow.ToString("yyyy-MM-dd");
+    private string _startDateText = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
     private string _expiryDateText = "";
     private string _errorMessage = "";
     private string _resultStatus = "";
@@ -83,7 +83,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
             SelectedBinding = BindingOptions.First(b => b.Mode == renewFrom.BindingMode);
             DeviceId = renewFrom.DeviceId;
             SelectedType = TypeOptions.FirstOrDefault(t => t.Type == renewFrom.LicenseType) ?? SelectedType;
-            StartDateText = DateTime.UtcNow.ToString("yyyy-MM-dd");
+            StartDateText = DateTime.Now.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
         }
         else
         {
@@ -152,6 +152,10 @@ public sealed class IssueLicenseViewModel : ObservableObject
     }
 
     public string DeviceHint => SelectedBinding?.Hint ?? "";
+    public string DeviceLabel => SelectedBinding?.Mode == DeviceBindingMode.MacAddress
+        ? L.T("S_BindingMacAddress") : SelectedBinding?.Mode == DeviceBindingMode.ManualDeviceId
+            ? L.T("S_BindingDeviceId") : L.T("S_BindingFingerprintLabel");
+    public string DatesHint => L.F("S_DatesHint", TimeZoneInfo.Local.DisplayName);
 
     public LicenseTypeOption? SelectedType
     {
@@ -262,6 +266,8 @@ public sealed class IssueLicenseViewModel : ObservableObject
                 throw new InvalidOperationException(L.T("S_ErrDeviceRequired"));
 
             string device = DeviceId.Trim();
+            if (SelectedBinding?.Mode == DeviceBindingMode.MacAddress && !MacAddress.TryNormalize(device, out device))
+                throw new InvalidOperationException(L.T("S_ErrMacAddress"));
             if (SelectedBinding?.Mode == DeviceBindingMode.MachineFingerprint &&
                 (device.Length != 64 || !device.All(Uri.IsHexDigit)))
             {
@@ -276,10 +282,10 @@ public sealed class IssueLicenseViewModel : ObservableObject
             TimeOnly? expiryTime = null;
             if (!perpetual)
             {
-                if (!TryParseExpiry(ExpiryDateText, out expiry, out expiryTime))
+                if (!LicenseDateInput.TryParseExpiry(ExpiryDateText, out expiry, out expiryTime))
                     throw new InvalidOperationException(L.T("S_ErrExpiryDate"));
-                if (LicenseDurations.ExpiryInstantUtc(expiry, expiryTime) <
-                    new DateTimeOffset(start.ToDateTime(TimeOnly.MinValue, DateTimeKind.Utc)))
+                if (LicenseDateInput.ExpiryUtc(expiry, expiryTime, TimeZoneInfo.Local) <
+                    LicenseDateInput.ToUtc(start, TimeOnly.MinValue, TimeZoneInfo.Local))
                     throw new InvalidOperationException(L.T("S_ErrExpiryOrder"));
             }
 
@@ -296,6 +302,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
                 StartDate = start,
                 ExpiryDate = expiry,
                 ExpiryTime = expiryTime,
+                InputTimeZone = TimeZoneInfo.Local,
                 Perpetual = perpetual
             };
 
@@ -432,6 +439,8 @@ public sealed class IssueLicenseViewModel : ObservableObject
             DeviceBindingMode.ManualDeviceId,
             L.T("S_BindingDeviceId"),
             L.T("S_BindingDeviceIdHint")));
+        BindingOptions.Add(new BindingOption(DeviceBindingMode.MacAddress,
+            L.T("S_BindingMacAddress"), L.T("S_BindingMacAddressHint")));
 
         _selectedBinding = BindingOptions.FirstOrDefault(b => b.Mode == selected) ?? BindingOptions[0];
         OnPropertyChanged(nameof(SelectedBinding));
@@ -456,7 +465,29 @@ public sealed class IssueLicenseViewModel : ObservableObject
             : args.Length == 0 ? L.T(key) : L.F(key, args);
     }
 
-    private void UpdateDeviceHint() => OnPropertyChanged(nameof(DeviceHint));
+    private void UpdateDeviceHint()
+    {
+        OnPropertyChanged(nameof(DeviceHint));
+        OnPropertyChanged(nameof(DeviceLabel));
+    }
+
+    public void RefreshLanguage()
+    {
+        var binding = SelectedBinding?.Mode ?? DeviceBindingMode.MachineFingerprint;
+        var type = SelectedType?.Type ?? LicenseType.Days90;
+        _suppressAutoExpiry = true;
+        try
+        {
+            BuildBindingOptions(binding);
+            BuildTypeOptions(type);
+            if (IsPerpetual) ExpiryDateText = L.T("S_Never");
+        }
+        finally { _suppressAutoExpiry = false; }
+        UpdateDeviceHint();
+        OnPropertyChanged(nameof(DatesHint));
+        UpdatePreview();
+        if (GeneratedRecord is not null) ShowResult(GeneratedRecord);
+    }
 
     private void RecomputeExpiry()
     {
@@ -511,40 +542,4 @@ public sealed class IssueLicenseViewModel : ObservableObject
                || DateOnly.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.None, out date);
     }
 
-    /// <summary>
-    /// Parses an expiry that may carry a time of day: <c>yyyy-MM-dd</c>, <c>yyyy-MM-dd HH:mm</c>
-    /// or <c>yyyy-MM-dd HH:mm:ss</c> (UTC). A date-only value leaves <paramref name="time"/> null
-    /// so the license expires at the end of that day.
-    /// </summary>
-    private static bool TryParseExpiry(string? text, out DateOnly date, out TimeOnly? time)
-    {
-        date = default;
-        time = null;
-        if (string.IsNullOrWhiteSpace(text)) return false;
-
-        string value = text.Trim();
-        if (value.Equals("Never", StringComparison.OrdinalIgnoreCase)) return false;
-
-        string[] exactFormats = { "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", "yyyy-MM-dd" };
-        if (DateTimeOffset.TryParseExact(value, exactFormats, CultureInfo.InvariantCulture,
-                DateTimeStyles.None, out var stamp))
-        {
-            date = DateOnly.FromDateTime(stamp.DateTime);
-            // A date-only entry (10 characters, "yyyy-MM-dd") keeps the end-of-day default.
-            time = value.Length == 10 ? null : new TimeOnly(stamp.Hour, stamp.Minute, stamp.Second);
-            return true;
-        }
-
-        // Lenient fallbacks (culture formats, extra whitespace) — accept a date with or without time.
-        if (DateTimeOffset.TryParse(value, CultureInfo.InvariantCulture, DateTimeStyles.None, out stamp)
-            || DateTimeOffset.TryParse(value, CultureInfo.CurrentCulture, DateTimeStyles.None, out stamp))
-        {
-            date = DateOnly.FromDateTime(stamp.DateTime);
-            var tod = stamp.TimeOfDay;
-            time = tod == TimeSpan.Zero ? null : new TimeOnly(tod.Hours, tod.Minutes, tod.Seconds);
-            return true;
-        }
-
-        return false;
-    }
 }

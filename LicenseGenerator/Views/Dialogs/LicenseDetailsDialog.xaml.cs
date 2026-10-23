@@ -66,7 +66,7 @@ public partial class LicenseDetailsDialog : Window
         DeviceValue.Text = payload.DeviceId;
         TypeValue.Text = L.TypeName(payload.LicenseType);
         IssuedValue.Text = payload.IssuedAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
-        ExpiresValue.Text = payload.IsPerpetual ? L.T("S_Never") : payload.ExpiresAtUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm");
+        ExpiresValue.Text = payload.IsPerpetual ? L.T("S_Never") : LicenseFormatting.Expiry(payload.ExpiresAtUtc);
         AlgorithmValue.Text = envelope!.Algorithm;
         KeyIdValue.Text = envelope.KeyId;
 
@@ -104,9 +104,7 @@ public partial class LicenseDetailsDialog : Window
         try
         {
             string fingerprint = MachineFingerprint.GetCurrent();
-            bool matches = payload.BindingMode == DeviceBindingMode.ManualDeviceId
-                ? string.Equals(payload.DeviceId, MachineFingerprint.GetShortDeviceId(), StringComparison.OrdinalIgnoreCase)
-                : string.Equals(payload.DeviceId, fingerprint, StringComparison.OrdinalIgnoreCase);
+            bool matches = LicenseRules.MatchesDevice(payload, fingerprint, MachineFingerprint.GetShortDeviceId());
 
             status += matches ? " " + L.T("S_BindingMatches") : " " + L.T("S_BindingMismatch");
         }

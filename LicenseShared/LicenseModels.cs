@@ -32,7 +32,10 @@ public enum DeviceBindingMode
     MachineFingerprint,
 
     /// <summary>Payload carries the short device id displayed by the client.</summary>
-    ManualDeviceId
+    ManualDeviceId,
+
+    /// <summary>Payload carries a normalized 48-bit network adapter MAC address.</summary>
+    MacAddress
 }
 
 public enum LicenseStatus

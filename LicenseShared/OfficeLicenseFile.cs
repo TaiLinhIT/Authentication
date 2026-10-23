@@ -41,7 +41,7 @@ public static class OfficeLicenseFile
     /// <param name="licenseJson">The signed envelope JSON (<see cref="LicenseCrypto.SerializeEnvelope"/>).</param>
     /// <param name="productId">The product id the license belongs to.</param>
     /// <param name="bindingValue">The device value carried by the license: the machine
-    /// fingerprint, or the short device id for manually registered licenses.</param>
+    /// fingerprint, short device id, or normalized twelve-digit MAC address.</param>
     /// <param name="secret">The vendor secret embedded in the client application.</param>
     public static byte[] Create(string licenseJson, string productId, string bindingValue, byte[] secret)
     {
@@ -175,7 +175,7 @@ public static class OfficeLicenseFile
 
     /// <summary>
     /// Opens an office.dat blob on the current machine. Tries the full fingerprint first,
-    /// then the short device id (used by manually registered licenses).
+    /// then the short device id and every available normalized MAC address.
     /// </summary>
     public static bool TryOpenForThisMachine(
         byte[]? file,
@@ -195,6 +195,8 @@ public static class OfficeLicenseFile
         {
             licenseJson = "";
             error = ex.Message;
+            foreach (string mac in MacAddress.GetCurrent())
+                if (TryOpen(file, productId, mac, secret, out licenseJson, out error)) return true;
             return false;
         }
 
@@ -206,6 +208,9 @@ public static class OfficeLicenseFile
 
         if (TryOpen(file, productId, shortId, secret, out licenseJson, out error))
             return true;
+
+        foreach (string mac in MacAddress.GetCurrent())
+            if (TryOpen(file, productId, mac, secret, out licenseJson, out error)) return true;
 
         error = fingerprintError;
         return false;

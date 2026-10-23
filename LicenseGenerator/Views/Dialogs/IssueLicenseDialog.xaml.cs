@@ -15,6 +15,8 @@ public partial class IssueLicenseDialog : Window
 
         ViewModel = new IssueLicenseViewModel(services, product, renewFrom);
         DataContext = ViewModel;
+        LicenseLocalization.LanguageManager.LanguageChanged += LanguageChanged;
+        Closed += (_, _) => LicenseLocalization.LanguageManager.LanguageChanged -= LanguageChanged;
 
         ViewModel.PropertyChanged += (_, e) =>
         {
@@ -26,6 +28,8 @@ public partial class IssueLicenseDialog : Window
     public IssueLicenseViewModel ViewModel { get; }
 
     public bool Generated { get; private set; }
+
+    private void LanguageChanged(object? sender, EventArgs e) => ViewModel.RefreshLanguage();
 
     private void Done_Click(object sender, RoutedEventArgs e) => DialogResult = true;
 }

@@ -69,7 +69,7 @@
                         <TextBlock Text="{Binding DeviceHint}" Style="{StaticResource Muted}" FontSize="11" Margin="0,6,0,0"
                                    TextWrapping="Wrap"/>
 
-                        <TextBlock Text="{DynamicResource S_DeviceIdFingerprintU}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
+                        <TextBlock Text="{Binding DeviceLabel}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
@@ -95,7 +95,7 @@
                             </StackPanel>
 
                             <StackPanel Grid.Column="2">
-                                <TextBlock Text="{DynamicResource S_StartDateU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock Text="{DynamicResource S_StartDateU}" Style="{StaticResource FieldLabel}" TextWrapping="Wrap"/>
                                 <TextBox Text="{Binding StartDateText, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource InputTextBox}"/>
                             </StackPanel>
@@ -109,7 +109,7 @@
                             </Grid.ColumnDefinitions>
 
                             <StackPanel>
-                                <TextBlock Text="{DynamicResource S_ExpiryDateU}" Style="{StaticResource FieldLabel}"/>
+                                <TextBlock Text="{DynamicResource S_ExpiryDateU}" Style="{StaticResource FieldLabel}" TextWrapping="Wrap"/>
                                 <TextBox Text="{Binding ExpiryDateText, UpdateSourceTrigger=PropertyChanged}"
                                          Style="{StaticResource InputTextBox}"
                                          IsEnabled="{Binding IsPerpetual, Converter={StaticResource InverseBool}}"/>
@@ -117,7 +117,7 @@
 
                             <TextBlock Grid.Column="2" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap"
                                        VerticalAlignment="Bottom" Margin="0,0,0,11"
-                                       Text="{DynamicResource S_DatesHint}"/>
+                                       Text="{Binding DatesHint}"/>
                         </Grid>
 
                         <Border Style="{StaticResource SubtleCard}" Margin="0,18,0,0" Padding="14,12"
@@ -206,19 +206,9 @@
 
                     <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto" Margin="0,22,0,0">
                         <StackPanel>
-                            <TextBlock Text="{DynamicResource S_ActivationKeyU}" Style="{StaticResource FieldLabel}"/>
-                            <TextBox Style="{StaticResource CodeTextBox}" Text="{Binding ResultCode, Mode=OneWay}"
-                                     IsReadOnly="True" Height="178"/>
-                            <TextBlock Text="{Binding ResultDeliveryHint}" Style="{StaticResource Muted}" FontSize="11"
-                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
-
                             <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
-                                <Button Content="{DynamicResource S_CopyActivationKey}" Style="{StaticResource PrimaryButton}"
-                                        Width="190" Command="{Binding CopyResultCommand}"/>
-                                <Button Content="{DynamicResource S_SaveLicenseFile}" Style="{StaticResource SecondaryButton}"
-                                        Width="170" Margin="10,0,0,0" Command="{Binding SaveResultCommand}"/>
-                                <Button Content="{DynamicResource S_SaveOfficeDat}" Style="{StaticResource SecondaryButton}"
-                                        Width="150" Margin="10,0,0,0" Command="{Binding SaveOfficeCommand}"/>
+                                <Button Content="{DynamicResource S_SaveOfficeDat}" Style="{StaticResource PrimaryButton}"
+                                        MinWidth="180" Command="{Binding SaveOfficeCommand}"/>
                             </StackPanel>
 
                             <TextBlock Text="{Binding ResultStatus}" Foreground="{StaticResource SuccessBrush}" FontSize="12"

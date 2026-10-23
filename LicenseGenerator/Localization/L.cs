@@ -26,8 +26,12 @@ public static class L
     public static string AlgorithmName(SigningAlgorithm algorithm) =>
         algorithm == SigningAlgorithm.Ecdsa ? T("S_AlgEcdsa") : T("S_AlgRsa");
 
-    public static string Binding(DeviceBindingMode mode) =>
-        mode == DeviceBindingMode.MachineFingerprint ? T("S_BindingFingerprint") : T("S_BindingDeviceId");
+    public static string Binding(DeviceBindingMode mode) => mode switch
+    {
+        DeviceBindingMode.MachineFingerprint => T("S_BindingFingerprint"),
+        DeviceBindingMode.MacAddress => T("S_BindingMacAddress"),
+        _ => T("S_BindingDeviceId")
+    };
 
     public static string RecordState(LicenseRecordState state) => state switch
     {
