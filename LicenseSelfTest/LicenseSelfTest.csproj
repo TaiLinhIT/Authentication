@@ -11,6 +11,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Include="..\docs\examples\LicenseGate.cs" Link="Examples\LicenseGate.cs" />
     <ProjectReference Include="..\LicenseShared\LicenseShared.csproj" />
     <ProjectReference Include="..\LicenseLocalization\LicenseLocalization.csproj" />
     <ProjectReference Include="..\LicenseGenerator\LicenseGenerator.csproj" />

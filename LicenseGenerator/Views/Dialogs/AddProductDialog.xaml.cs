@@ -33,14 +33,11 @@ public partial class AddProductDialog : Window
         {
             Title = L.T("S_EditProductTitle");
             HeaderText.Text = L.T("S_EditProductTitle");
-            SubHeaderText.Text = L.T("S_EditProductIntro");
             SaveButton.Content = L.T("S_SaveChanges");
             AlgorithmBox.IsEnabled = false;
             BitsBox.IsEnabled = false;
-            EditNote.Visibility = Visibility.Visible;
         }
 
-        UpdateKeygenHint();
         _initializing = false;
 
         Loaded += (_, _) =>
@@ -66,7 +63,6 @@ public partial class AddProductDialog : Window
 
     private void KeygenBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e)
     {
-        if (!_initializing) UpdateKeygenHint();
     }
 
     private void RefreshBits(int preferred)
@@ -83,15 +79,6 @@ public partial class AddProductDialog : Window
             BitsBox.ItemsSource = new[] { "2048", "3072", "4096" };
             BitsBox.SelectedItem = preferred is 2048 or 4096 ? preferred.ToString() : "3072";
         }
-    }
-
-    private void UpdateKeygenHint()
-    {
-        bool activationCodes = KeygenBox.SelectedIndex == 1;
-
-        KeygenHint.Text = activationCodes
-            ? L.T("S_KeygenHintCodes")
-            : L.T("S_KeygenHintSerials");
     }
 
     private void Save_Click(object sender, RoutedEventArgs e)

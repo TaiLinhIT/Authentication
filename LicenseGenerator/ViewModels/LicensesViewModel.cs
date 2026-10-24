@@ -43,8 +43,6 @@ public sealed class LicenseRowViewModel
             _ => "danger"
         };
 
-        CopyCodeCommand = new RelayCommand(CopyCode);
-        SaveFileCommand = new RelayCommand(SaveFile);
         SaveOfficeFileCommand = new RelayCommand(SaveOfficeFile);
         InspectCommand = new RelayCommand(Inspect);
         RenewCommand = new RelayCommand(Renew);
@@ -71,46 +69,11 @@ public sealed class LicenseRowViewModel
     public string StatusKind { get; }
     public string RevokeLabel => Record.Revoked ? L.T("S_Unrevoke") : L.T("S_Revoke");
 
-    public ICommand CopyCodeCommand { get; }
-    public ICommand SaveFileCommand { get; }
     public ICommand SaveOfficeFileCommand { get; }
     public ICommand InspectCommand { get; }
     public ICommand RenewCommand { get; }
     public ICommand RevokeCommand { get; }
     public ICommand DeleteCommand { get; }
-
-    private void CopyCode()
-    {
-        if (!LicenseCodec.TryParseLicenseText(Record.LicenseText, out var envelope, out string error))
-        {
-            _services.Dialogs.ShowError(L.T("S_LicenseTextUnreadable"), error);
-            return;
-        }
-
-        try
-        {
-            string code = LicenseCodec.CreateActivationCode(envelope!);
-            _services.Dialogs.CopyToClipboard(code);
-            _services.Dialogs.ShowInfo(
-                L.T("S_ActivationCodeCopiedTitle"),
-                L.F("S_ActivationCodeCopiedMessage", Record.LicenseId, code.Length));
-        }
-        catch (Exception ex) when (ex is FormatException or ArgumentException)
-        {
-            _services.Dialogs.ShowError(L.T("S_CouldNotBuildCode"), ex.Message);
-        }
-    }
-
-    private void SaveFile()
-    {
-        string fileName = $"{LicenseStore.SafeName(Record.LicenseId)}.license.json";
-        _services.Dialogs.SaveTextFile(
-            L.T("S_SaveLicenseFileTitle"),
-            fileName,
-            L.T("S_FilterLicenseFile"),
-            Record.LicenseText,
-            "license.json");
-    }
 
     private void Inspect() => _services.Dialogs.ShowLicenseDetails(Record.LicenseText);
 

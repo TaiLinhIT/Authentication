@@ -137,9 +137,7 @@
                         </Border>
                         <TextBlock Text="{DynamicResource S_NoProductsYet}" Style="{StaticResource H2}" FontSize="16"
                                    HorizontalAlignment="Center" Margin="0,16,0,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" TextAlignment="Center"
-                                   MaxWidth="380" Margin="0,7,0,0"
-                                   Text="{DynamicResource S_NoProductsHint}"/>
+
                         <Button Content="{DynamicResource S_CreateFirstProduct}" Style="{StaticResource PrimaryButton}"
                                 Width="200" Margin="0,18,0,0" Command="{Binding AddCommand}"/>
                     </StackPanel>

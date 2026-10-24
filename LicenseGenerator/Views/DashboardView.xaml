@@ -80,8 +80,7 @@
                         <Grid>
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource S_RecentLicenses}" Style="{StaticResource H2}"/>
-                                <TextBlock Text="{DynamicResource S_LatestKeys}"
-                                           Style="{StaticResource Muted}" FontSize="11" Margin="0,4,0,0"/>
+
                             </StackPanel>
                             <ContentControl Style="{StaticResource StatusPill}" Content="{DynamicResource S_LocalRegister}"
                                             Tag="accent" HorizontalAlignment="Right" VerticalAlignment="Top"/>
@@ -164,42 +163,6 @@
                         </StackPanel>
                     </Border>
 
-                    <!-- protection layers -->
-                    <Border Style="{StaticResource Card}" Padding="20" Margin="0,18,0,0">
-                        <StackPanel>
-                            <TextBlock Text="{DynamicResource S_ProtectionLayers}" Style="{StaticResource H2}"/>
-                            <TextBlock Text="{DynamicResource S_WhatClientEnforces}" Style="{StaticResource Muted}"
-                                       FontSize="11" Margin="0,4,0,0"/>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
-                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
-                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                                           Text="{DynamicResource S_ProtSignature}" Width="230"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
-                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                                           Text="{DynamicResource S_ProtBinding}" Width="230"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
-                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                                           Text="{DynamicResource S_ProtDpapi}" Width="230"/>
-                            </StackPanel>
-
-                            <StackPanel Orientation="Horizontal" Margin="0,12,0,0">
-                                <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                           Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,9,0"/>
-                                <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                                           Text="{DynamicResource S_ProtClock}" Width="230"/>
-                            </StackPanel>
-                        </StackPanel>
-                    </Border>
                 </StackPanel>
             </Grid>
         </StackPanel>

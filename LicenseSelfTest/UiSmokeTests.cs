@@ -235,12 +235,22 @@ internal static class UiSmokeTests
                     && issueVm.ExpiryDateText == "2026-10-23 16:00:37"
                     && issueVm.DeviceLabel == LanguageManager.T("S_BindingMacAddress"), issueVm.ExpiryDateText);
             }
+            check("Extra UI offers 24 hours and rolling month", issueVm.ExtraHours.Count == 24 && issueVm.ExtraDays.Count == 31 && issueVm.ExtraDays[0].Day == new DateOnly(2026, 10, 24) && issueVm.ExtraDays[^1].Day == new DateOnly(2026, 11, 23), null);
+            issueVm.ExtraHours[0].Selected = true;
+            issueVm.ExtraDays[0].Selected = true;
+            issueVm.RefreshLanguage();
+            check("Extra selections survive language switch", issueVm.ExtraHours[0].Selected && issueVm.ExtraDays[0].Selected, null);
             services.Signing.Unlock("correct-horse-battery");
             issueVm.GenerateCommand.Execute(null);
             check("Issuance UI signs a MAC license", issueVm.GeneratedRecord?.BindingMode == DeviceBindingMode.MacAddress,
                 issueVm.ErrorMessage);
             check("Issuance UI result preserves local time and seconds", issueVm.ResultExpiry == "2026-10-23 16:00:37",
                 issueVm.ResultExpiry);
+            check("Issuer signs selected experience intersection", issueVm.GeneratedRecord?.ExtraWindows.Count == 1 && issueVm.GeneratedRecord.ExtraWindows[0].StartUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") == "2026-10-24 16:00:37", issueVm.ErrorMessage);
+            issueVm.ExpiryDateText = "2026-10-24 16:00:00";
+            check("Changing expiry clears extra selections", !issueVm.ExtraHours.Any(x => x.Selected) && !issueVm.ExtraDays.Any(x => x.Selected), null);
+            issueVm.SelectedType = issueVm.TypeOptions.Single(t => t.Type == LicenseType.Perpetual);
+            check("Perpetual hides extra options", !issueVm.HasExperienceOptions, null);
             issue.Close();
             LanguageManager.SetLanguage(AppLanguage.English);
 

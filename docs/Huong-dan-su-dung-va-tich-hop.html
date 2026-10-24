@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Warehouse License Studio — Hướng dẫn sử dụng và tích hợp</title>
+<style>
+:root{color-scheme:light;--ink:#19304a;--blue:#205bc1;--line:#dce4ee}*{box-sizing:border-box}body{margin:0;background:#edf2f7;color:var(--ink);font:16px/1.65 "Segoe UI",Arial,sans-serif}main{max-width:1060px;margin:32px auto;background:white;padding:48px 60px;border-radius:16px}h1{font-size:38px;line-height:1.2;margin:12px 0 20px}h2{margin-top:48px;border-top:2px solid var(--line);padding-top:24px;font-size:25px}h3{font-size:19px;margin-top:26px}p{margin:12px 0}.tag{color:var(--blue);font-size:13px;font-weight:700;letter-spacing:1px}.lead{font-size:20px;color:#53667c}.note{border-left:4px solid var(--blue);padding:14px 18px;background:#eef5ff;margin:20px 0}.warn{border-color:#ba7617;background:#fff7e8}nav{padding:22px;background:#f5f8fc;border-radius:12px}nav a{display:inline-block;margin:5px 20px 5px 0}a{color:var(--blue)}table{width:100%;border-collapse:collapse;margin:18px 0;font-size:14px}th,td{text-align:left;vertical-align:top;padding:11px 12px;border:1px solid var(--line)}th{background:#eff4fa}code{font:13px/1.55 Consolas,monospace;overflow-wrap:anywhere}pre{padding:20px;background:#10253c;color:#e5eefb;border-radius:10px;white-space:pre-wrap;overflow-wrap:anywhere}pre code{color:inherit}figure{margin:24px 0;padding:18px;background:#f7faff;border:1px solid var(--line);border-radius:12px}svg{width:100%;height:auto;display:block}svg text{font-family:"Segoe UI",Arial,sans-serif;font-size:15px;fill:#19304a}figcaption{font-size:13px;color:#53667c;margin-top:12px}li{margin:7px 0}.small{font-size:13px;color:#53667c}.footer{border-top:1px solid var(--line);margin-top:40px;padding-top:18px}.print{float:right;border:0;background:#205bc1;color:white;border-radius:6px;padding:10px 16px;cursor:pointer}@media print{@page{size:A4;margin:16mm}body{background:white;font-size:11pt}main{margin:0;padding:0;max-width:none}h1{font-size:28pt}h2{font-size:19pt;break-after:avoid}h3{break-after:avoid}figure,tr,.note{break-inside:avoid}pre{background:#f3f5f8;color:#14283f;font-size:9pt}nav,.print{display:none}a{color:inherit}main{border-radius:0}}
+</style></head><body><main>
+<button class="print" onclick="window.print()">In / Lưu PDF</button>
+<div class="tag">WAREHOUSE LICENSE STUDIO · TÀI LIỆU TÍCH HỢP</div>
+<h1>Một file office.dat.<br>Kiểm tra trước khi cho phép sử dụng.</h1>
+<p class="lead">Hướng dẫn cho người cấp license và lập trình viên đưa cơ chế bản quyền offline vào project WPF, WinForms hoặc ứng dụng Windows .NET 8.</p>
+<p class="small">Đối chiếu mã nguồn dự án ngày 24/10/2026. Tài liệu chạy offline, không tải thư viện hoặc hình ảnh từ Internet.</p>
+<nav><a href="#use">1. Cấp license</a><a href="#assets">2. Chuẩn bị client</a><a href="#flow">3. Luồng bảo vệ</a><a href="#decrypt">4. Giải mã</a><a href="#integrate">5. Tích hợp C#</a><a href="#operate">6. Vận hành</a><a href="#errors">7. Xử lý lỗi</a><a href="#limits">8. Giới hạn</a></nav>
+<div class="note"><strong>Phân biệt hai công việc:</strong> mỗi khách chỉ nhận <code>office.dat</code>. Public key và secret là dữ liệu lập trình viên chuẩn bị một lần khi build client. Private key dùng để ký luôn ở máy cấp license.</div>
+
+<h2 id="use">1. Cấp và giao license</h2>
+<ol><li>Mở <code>LicenseGenerator.exe</code>. Chọn <strong>Thêm sản phẩm</strong>, nhập tên và chọn thuật toán/kích thước khóa. RSA-3072 là cấu hình mặc định; ECDSA P-256 cũng được hỗ trợ.</li>
+<li>Đặt mật khẩu ký ít nhất 12 ký tự. Sao chép chính xác <strong>Product ID</strong> từ danh sách sản phẩm để dùng trong client. ID được tạo từ tên sản phẩm; không tự suy đoán lại ID khi tích hợp.</li>
+<li>Chuẩn bị client theo phần 2. Lấy định danh từ chính máy sẽ chạy phần mềm, không lấy từ máy cấp license.</li>
+<li>Chọn <strong>Cấp license</strong>: sản phẩm, khách hàng, trạm/PC, kiểu ràng buộc, định danh, loại license, ngày bắt đầu và hết hạn.</li>
+<li>Bấm <strong>Tạo license đã ký</strong>, nhập mật khẩu nếu phiên đang khóa. Sau đó bấm <strong>Lưu office.dat</strong>. Tạo thư mục riêng cho từng khách/trạm để tránh ghi đè các file cùng tên.</li>
+<li>Gửi duy nhất <code>office.dat</code>. Khách đặt file vào đường dẫn mà client đọc, ví dụ cạnh file .exe. Không bấm/chạy file .dat; ứng dụng tự đọc nó khi khởi động.</li>
+<li>Để xuất lại: mở danh sách License, bấm biểu tượng tải xuống của đúng bản ghi. Gia hạn: chọn <strong>Gia hạn</strong>, đặt thời gian mới, cấp và thay file cũ bằng file mới.</li></ol>
+<table><thead><tr><th>Kiểu ràng buộc</th><th>Giá trị cần nhập</th><th>Điều kiện</th></tr></thead><tbody>
+<tr><td>Fingerprint máy (0)</td><td>64 ký tự hex từ <code>MachineFingerprint.GetCurrent()</code></td><td>SHA-256 của MachineGuid và tên máy. Đổi tên máy hoặc cài lại Windows có thể làm thay đổi.</td></tr>
+<tr><td>Device ID (1)</td><td><code>DEV-</code> + 16 ký tự đầu fingerprint</td><td>Client lấy bằng <code>GetShortDeviceId()</code>. Đây không phải IP hoặc MAC.</td></tr>
+<tr><td>Địa chỉ MAC (2)</td><td><code>C4-C6-E6-9E-17-5B</code>, dạng dấu hai chấm hoặc 12 ký tự hex</td><td>Chuẩn hóa thành <code>C4C6E69E175B</code>. Một card mạng phù hợp là đủ, kể cả chưa kết nối. Bỏ qua loopback và tunnel.</td></tr>
+</tbody></table>
+<p>Chỉ chọn một kiểu cho mỗi license. Ứng dụng không yêu cầu đồng thời fingerprint và MAC. Không dùng địa chỉ IP trong ô MAC.</p>
+<h3>Ngày giờ và ngôn ngữ</h3>
+<p>Form dùng múi giờ Windows trên máy cấp, thể hiện cạnh ô ngày. Nhập <code>yyyy-MM-dd</code>, <code>yyyy-MM-dd HH:mm</code> hoặc <code>yyyy-MM-dd HH:mm:ss</code>. Không nhập giờ: có hiệu lực đến hết ngày địa phương. Có giờ: hết hạn tại thời điểm đó. License vẫn hợp lệ đúng tại thời điểm hết hạn, bị từ chối khi thời gian hiện tại vượt qua mốc đó.</p>
+<p>Ví dụ UTC+7: nhập <code>2026-10-23 16:00:00</code> → ký <code>2026-10-23 09:00:00Z</code> → hiển thị lại 16:00 trên máy UTC+7. License cũ đã ký nhầm UTC không tự sửa; phải cấp thay thế. Ngày bắt đầu có dung sai 5 phút trong thư viện hiện tại.</p>
+<p>Nút ngôn ngữ chuyển Anh → Việt → Trung giản thể → Nhật → Anh, ghi nhớ lựa chọn. Các tên nút trong tài liệu này dùng tiếng Việt.</p>
+
+<h2 id="assets">2. Chuẩn bị dữ liệu cho mỗi project</h2>
+<figure><svg viewBox="0 0 900 260" role="img" aria-label="Máy cấp giữ private key. Lập trình viên nhúng public key và secret. Khách nhận office.dat.">
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0L8 4L0 8" fill="#205bc1"/></marker></defs>
+<rect x="10" y="40" width="245" height="170" rx="12" fill="#e5efff"/><text x="30" y="72" font-weight="700">MÁY CẤP LICENSE</text><text x="30" y="104">Private key + mật khẩu ký</text><text x="30" y="132">Danh sách sản phẩm / license</text><text x="30" y="160">Secret mã hóa office.dat</text><text x="30" y="188">Ký → đóng gói → xuất file</text>
+<rect x="330" y="10" width="250" height="100" rx="12" fill="#e8f5f0"/><text x="350" y="42" font-weight="700">LẬP TRÌNH VIÊN</text><text x="350" y="70">Nhúng public key + secret</text><text x="350" y="94">Build ứng dụng đã có kiểm tra</text>
+<rect x="655" y="40" width="235" height="170" rx="12" fill="#e5efff"/><text x="675" y="72" font-weight="700">MÁY KHÁCH HÀNG</text><text x="675" y="105">Ứng dụng đã cài đặt</text><text x="675" y="137">+ office.dat của máy này</text><text x="675" y="170">Kiểm tra → cho phép mở</text>
+<path d="M255 65H320M580 65H645" stroke="#205bc1" stroke-width="2" marker-end="url(#a)"/>
+<path d="M255 190H645" stroke="#205bc1" stroke-width="2" marker-end="url(#a)"/><text x="358" y="177">Mỗi lần cấp: chỉ gửi office.dat</text>
+</svg><figcaption>Hình 1. Dữ liệu chuẩn bị khi build khác với file giao từng khách. Không giao private key cho client.</figcaption></figure>
+<table><thead><tr><th>Thành phần</th><th>Lấy từ đâu</th><th>Dùng ở đâu</th></tr></thead><tbody>
+<tr><td>Product ID</td><td>Danh sách Sản phẩm → sao chép ID</td><td>Hằng số cố định của project client.</td></tr>
+<tr><td>Public key bundle</td><td>Cài đặt → Xuất public key</td><td>Nhúng <code>public-keys.json</code> thành EmbeddedResource. Không tin key do khách cung cấp hoặc file tùy ý bên cạnh .exe.</td></tr>
+<tr><td>Office secret</td><td>Cài đặt → Xuất client secret</td><td>32 byte dạng Base64. Nhúng vào bản build, không đưa file .txt rời cho khách.</td></tr>
+<tr><td>LicenseShared</td><td>Project <code>LicenseShared</code> hoặc bản DLL cùng phiên bản</td><td>Client cần .NET 8 Windows. Không cần tham chiếu ứng dụng cấp license.</td></tr>
+<tr><td>Private key + mật khẩu</td><td>Máy cấp license</td><td>Chỉ để ký. Không nhúng vào client, không đưa vào Git công khai.</td></tr>
+</tbody></table>
+<p>Office secret hiện dùng chung theo kho dữ liệu của máy cấp, không tự tách theo từng sản phẩm. Muốn tách vendor/môi trường, phải quản lý kho riêng và giữ đúng bộ secret tương ứng. Không tạo secret ngẫu nhiên mỗi lần client chạy.</p>
+<pre><code>&lt;!-- Trong .csproj của client: sửa đường dẫn ProjectReference theo máy bạn --&gt;
+&lt;ItemGroup&gt;
+  &lt;ProjectReference Include="..\Authentication\LicenseShared\LicenseShared.csproj" /&gt;
+  &lt;EmbeddedResource Include="Licensing\public-keys.json"
+                    LogicalName="Vendor.PublicKeys" /&gt;
+  &lt;EmbeddedResource Include="Licensing\office-secret.txt"
+                    LogicalName="Vendor.OfficeSecret" /&gt;
+&lt;/ItemGroup&gt;</code></pre>
+<p>Giữ source secret trong kho bảo mật phục vụ build, không đặt <code>CopyToOutputDirectory</code> cho file secret. Nếu dùng DLL thay project reference, mang theo các dependency cần thiết của bản build.</p>
+
+<h2 id="flow">3. Luồng xác thực bắt buộc</h2>
+<figure><svg viewBox="0 0 900 400" role="img" aria-label="Đọc office.dat, giải mã, kiểm tra chữ ký, sản phẩm, máy, thời gian, đồng hồ rồi mới mở ứng dụng. Bất kỳ lỗi nào đều từ chối.">
+<g fill="#e5efff" stroke="#c7d7ef"><rect x="20" y="20" width="250" height="75" rx="10"/><rect x="325" y="20" width="250" height="75" rx="10"/><rect x="630" y="20" width="250" height="75" rx="10"/><rect x="630" y="165" width="250" height="75" rx="10"/><rect x="325" y="165" width="250" height="75" rx="10"/></g>
+<rect x="20" y="165" width="250" height="75" rx="10" fill="#dff4e9"/><rect x="170" y="310" width="560" height="65" rx="10" fill="#fff0e5"/>
+<text x="40" y="50" font-weight="700">1. Đọc &amp; kiểm tra file</text><text x="40" y="76">Magic OFFC1, version, length</text><text x="345" y="50" font-weight="700">2. Giải mã AES-GCM</text><text x="345" y="76">Secret + Product ID + máy</text><text x="650" y="50" font-weight="700">3. Xác minh chữ ký</text><text x="650" y="76">Public key tin cậy + Key ID</text>
+<text x="650" y="195" font-weight="700">4. Kiểm tra quyền sử dụng</text><text x="650" y="221">Sản phẩm, máy, ngày giờ</text><text x="345" y="195" font-weight="700">5. ClockGuard</text><text x="345" y="221">Phát hiện lùi đồng hồ</text><text x="40" y="195" font-weight="700">6. Mở chức năng bảo vệ</text><text x="40" y="221">Định kỳ kiểm tra lại</text><text x="195" y="349">Bất kỳ bước nào thất bại → từ chối mở / khóa chức năng</text>
+<g stroke="#205bc1" stroke-width="2" fill="none" marker-end="url(#a)"><path d="M270 57H315"/><path d="M575 57H620"/><path d="M755 95V155"/><path d="M630 203H585"/><path d="M325 203H280"/></g>
+</svg><figcaption>Hình 2. Giải mã thành công chưa có nghĩa license hợp lệ. Chữ ký và quy tắc phải được kiểm tra riêng.</figcaption></figure>
+<p><code>OfficeLicenseFile.TryOpenForThisMachine</code> chỉ giải mã. <code>LicenseCrypto.Verify</code> kiểm chữ ký và giải mã payload binary. <code>LicenseRules.Evaluate</code> kiểm sản phẩm, thiết bị, thời gian; <strong>không tự gọi ClockGuard</strong>. Client phải thực hiện đủ các bước.</p>
+
+<h2 id="decrypt">4. office.dat được mã hóa và giải mã thế nào?</h2>
+<p>Máy cấp ký payload bằng private key RSA-PSS/SHA-256 hoặc ECDSA P-256/SHA-256, P-384/SHA-384. Envelope JSON chứa payload và chữ ký dạng Base64 được mã hóa bằng AES-256-GCM. Base64 chỉ là cách biểu diễn dữ liệu, không phải mã hóa bảo mật.</p>
+<figure><svg viewBox="0 0 900 205" role="img" aria-label="Cấu trúc binary office.dat gồm header 38 byte, ciphertext N byte và GCM tag 16 byte">
+<g stroke="white" stroke-width="2"><rect x="10" y="55" width="95" height="85" fill="#dbe9ff"/><rect x="105" y="55" width="80" height="85" fill="#dbe9ff"/><rect x="185" y="55" width="145" height="85" fill="#c6dcfc"/><rect x="330" y="55" width="145" height="85" fill="#c6dcfc"/><rect x="475" y="55" width="110" height="85" fill="#dbe9ff"/><rect x="585" y="55" width="190" height="85" fill="#dff4e9"/><rect x="775" y="55" width="115" height="85" fill="#ffe9c9"/></g>
+<text x="25" y="87">OFFC1</text><text x="25" y="116">5 byte</text><text x="120" y="87">v1</text><text x="120" y="116">1 byte</text><text x="205" y="87">Salt</text><text x="205" y="116">16 byte</text><text x="350" y="87">Nonce</text><text x="350" y="116">12 byte</text><text x="488" y="87">Length N</text><text x="488" y="116">4 byte LE</text><text x="605" y="87">Ciphertext</text><text x="605" y="116">N byte</text><text x="790" y="87">GCM tag</text><text x="790" y="116">16 byte</text>
+<text x="10" y="35">Offset 0</text><text x="185" y="35">6</text><text x="330" y="35">22</text><text x="475" y="35">34</text><text x="585" y="35">38</text><text x="775" y="35">38 + N</text><text x="10" y="178">Tổng kích thước: 54 + N byte. N phải từ 1 đến 65.536. Sơ đồ không theo tỷ lệ byte.</text>
+</svg><figcaption>Hình 3. Bố cục OFFC1 version 1, số nguyên length dùng little-endian.</figcaption></figure>
+<pre><code>info = UTF8("OFFC1|" + ProductId.Trim().ToUpperInvariant()
+                     + "|" + BindingValue.Trim().ToUpperInvariant())
+key  = HKDF-SHA256(ikm = secret32Bytes, salt = salt16Bytes,
+                  info = info, outputLength = 32)
+plaintextJson = AES-256-GCM.Decrypt(key, nonce12Bytes, ciphertext, tag16Bytes)</code></pre>
+<p>Với MAC, <code>BindingValue</code> phải là 12 ký tự hex viết hoa không phân cách. Thư viện tự thử fingerprint, Device ID và các MAC hiện có. Mỗi lần xuất dùng salt và nonce mới nên hai file cùng license có thể khác byte nhưng đều hợp lệ.</p>
+<p>Không chỉnh ngày hết hạn trong JSON đã giải mã. Sửa payload làm chữ ký không còn khớp. Muốn gia hạn phải ký license mới ở máy cấp. Không bao giờ lấy public key từ nội dung license để tự xác nhận chính license đó.</p>
+
+<h2 id="integrate">5. Tích hợp vào project C#</h2>
+<p>Mẫu hoàn chỉnh: <a href="examples/LicenseGate.cs">examples/LicenseGate.cs</a>. Copy vào client, thêm reference <code>LicenseShared</code>. File này được biên dịch cùng self-test để tránh tài liệu chứa mẫu không chạy được.</p>
+<h3>5.1 Đọc dữ liệu tin cậy từ assembly của client</h3>
+<pre><code>using System.IO;
+using System.Reflection;
+using LicenseIntegration;
+
+static string ReadEmbedded(string name)
+{
+    using var stream = Assembly.GetExecutingAssembly()
+        .GetManifestResourceStream(name)
+        ?? throw new InvalidOperationException("Thiếu tài nguyên: " + name);
+    using var reader = new StreamReader(stream);
+    return reader.ReadToEnd();
+}
+
+// Đặt hàm này trong client. Thay bằng Product ID đã sao chép từ Studio.
+static LicenseShared.LicenseValidationResult CheckLicense()
+{
+    const string productId = "YOUR_PRODUCT_ID";
+    string path = Path.Combine(AppContext.BaseDirectory, "office.dat");
+    return LicenseGate.ValidateFile(path, productId,
+        ReadEmbedded("Vendor.PublicKeys"),
+        ReadEmbedded("Vendor.OfficeSecret"));
+}</code></pre>
+<p>Ví dụ đặt <code>office.dat</code> cạnh .exe để đơn giản. Nếu app nằm trong Program Files, hãy dùng thư mục dữ liệu có quyền ghi hoặc để installer đặt file; sửa đường dẫn đọc tương ứng. Không ghi bản giải mã ra log.</p>
+<h3>5.2 WinForms: kiểm tra trước Application.Run</h3>
+<pre><code>[STAThread]
+static void Main()
+{
+    ApplicationConfiguration.Initialize();
+    try
+    {
+        var result = CheckLicense();
+        if (!result.IsValid)
+        {
+            MessageBox.Show(result.Message, "License");
+            return;
+        }
+        Application.Run(new MainForm());
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show("Không thể khởi động: " + ex.Message, "License");
+        // Không chạy MainForm khi cấu hình hoặc kiểm tra gặp lỗi.
+    }
+}</code></pre>
+<h3>5.3 WPF: kiểm tra trước khi tạo MainWindow</h3>
+<pre><code>// Bỏ StartupUri trong App.xaml để WPF không tự mở cửa sổ trước kiểm tra.
+protected override void OnStartup(StartupEventArgs e)
+{
+    base.OnStartup(e);
+    try
+    {
+        var result = CheckLicense();
+        if (!result.IsValid)
+        {
+            MessageBox.Show(result.Message, "License");
+            Shutdown(1);
+            return;
+        }
+        MainWindow = new MainWindow();
+        MainWindow.Show();
+    }
+    catch (Exception ex)
+    {
+        MessageBox.Show(ex.Message, "License");
+        Shutdown(1);
+    }
+}</code></pre>
+<h3>5.4 Kiểm tra lại khi app đang chạy</h3>
+<p>Dùng <code>System.Windows.Forms.Timer</code> cho WinForms hoặc <code>DispatcherTimer</code> cho WPF, ví dụ mỗi 30 phút. Trong callback, gọi lại <code>CheckLicense()</code>. Nếu không hợp lệ hoặc ném exception, khóa các thao tác được bảo vệ và yêu cầu license mới. Đừng chỉ hiện cảnh báo rồi cho chạy tiếp. Kiểm tra thêm ngay trước thao tác có giá trị như bắt đầu phép đo, xuất dữ liệu hoặc thực thi lệnh nghiệp vụ.</p>
+<p>Với máy móc đang hoạt động, đưa hệ thống về trạng thái dừng an toàn theo thiết kế của project; không kết thúc tiến trình đột ngột giữa một thao tác phần cứng. Chu kỳ 30 phút có thể tạo khoảng trễ phát hiện hết hạn đến 30 phút; chọn chu kỳ và điểm kiểm tra phù hợp.</p>
+<h3>5.5 Lấy định danh cho màn hình kích hoạt của client</h3>
+<pre><code>string fingerprint = LicenseShared.MachineFingerprint.GetCurrent();
+string deviceId = LicenseShared.MachineFingerprint.GetShortDeviceId();
+var macAddresses = LicenseShared.MacAddress.GetCurrent();
+// Hiển thị cho người dùng sao chép gửi bên cấp license.</code></pre>
+<p>Mẫu LicenseGate yêu cầu đọc được MachineGuid để bảo vệ trạng thái ClockGuard bằng DPAPI, ngay cả với license MAC. Nếu registry bị chặn, mẫu từ chối và trả DeviceIdentityUnavailable. Đó là yêu cầu của mẫu tích hợp, không phải điều kiện so khớp MAC trong LicenseRules.</p>
+
+<h2 id="operate">6. Vận hành, gia hạn và sao lưu</h2>
+<table><thead><tr><th>Tình huống</th><th>Cách làm</th></tr></thead><tbody>
+<tr><td>Gia hạn cùng máy</td><td>Cấp license mới đúng Product ID và binding, xuất office.dat, thay file cũ rồi chạy kiểm tra lại. Bản cũ vẫn có hiệu lực theo chữ ký của nó cho đến hạn.</td></tr>
+<tr><td>Đổi máy/card mạng</td><td>Lấy lại định danh và cấp license mới. Không chỉnh tay file mã hóa.</td></tr>
+<tr><td>Thêm project mới</td><td>Tạo sản phẩm và key pair riêng, nhúng bundle có public key tương ứng, cố định Product ID đúng. Secret phải khớp kho cấp đang dùng.</td></tr>
+<tr><td>Cập nhật client</td><td>Giữ Product ID, các public key còn cần tin cậy và secret. Nếu thay key pair phải phân phối public key mới trước khi dùng license mới.</td></tr>
+<tr><td>Backup máy cấp</td><td>Sao lưu data và keys dưới <code>%LOCALAPPDATA%\WarehouseLicense</code>, mật khẩu ký và bản export secret ở nơi bảo mật. File office-secret.bin dùng DPAPI theo user/máy nên copy file này sang máy khác chưa đủ khôi phục secret.</td></tr>
+<tr><td>Chuyển máy cấp</td><td>Dự án chưa có wizard nhập lại secret. Cần quy trình migration riêng; không xóa kho cũ trước khi kiểm tra giải mã một file cũ bằng cấu hình mới.</td></tr>
+<tr><td>Kho lưu client</td><td>Mẫu đọc trực tiếp office.dat mỗi lần kiểm tra. Nếu dùng LicenseStore, đó là cache DPAPI riêng tên license.dat; tải cache xong vẫn phải kiểm chữ ký/quy tắc/clock. Không nhầm cache với file giao khách.</td></tr>
+</tbody></table>
+<p><strong>Lưu ý bản cũ:</strong> lỗi lần tạo office secret đầu tiên có thể tạo file bằng mảng khóa đã bị xóa về 0, trong khi secret lưu trong kho là khóa thật. Bản này đã sửa việc dùng chung mảng. Nếu gặp file đầu tiên không mở được, xuất lại từ bản ghi bằng bản đã sửa và nhúng lại secret đúng từ kho hiện có; không thêm cơ chế chấp nhận khóa toàn số 0 vào client.</p>
+
+<h2 id="errors">7. Chẩn đoán lỗi</h2>
+<table><thead><tr><th>Biểu hiện</th><th>Kiểm tra</th></tr></thead><tbody>
+<tr><td>Missing</td><td>File office.dat ở đúng đường dẫn mà client đọc chưa?</td></tr>
+<tr><td>Không giải mã được / GCM thất bại</td><td>Đúng secret, Product ID, định danh máy và file chưa bị sửa? Secret phải decode đúng 32 byte.</td></tr>
+<tr><td>UnknownKey</td><td>Bundle nhúng có đúng Product ID và Key ID của license không? Build lại sau khi cập nhật bundle.</td></tr>
+<tr><td>InvalidSignature</td><td>File bị sửa hoặc không được ký bằng private key tương ứng với public key tin cậy. Xin cấp lại từ đúng kho.</td></tr>
+<tr><td>WrongProduct / WrongMachine</td><td>Đối chiếu Product ID, kiểu binding và định danh thực tế. MAC không phải IP.</td></tr>
+<tr><td>NotYetValid / Expired</td><td>Kiểm tra UTC trong payload, giờ địa phương và ngày cấp; không bù thêm 7 giờ thủ công.</td></tr>
+<tr><td>ClockRollback</td><td>Chỉnh đúng đồng hồ Windows. Không xóa trạng thái clock như một cách gia hạn.</td></tr>
+<tr><td>DeviceIdentityUnavailable</td><td>Kiểm tra quyền đọc MachineGuid và khả năng liệt kê card mạng. Xem yêu cầu của mẫu LicenseGate ở phần 5.5.</td></tr>
+<tr><td>Mở được file nhưng app vẫn chạy khi hết hạn</td><td>Client có gọi LicenseRules.Evaluate, ClockGuard và chặn MainForm/MainWindow khi kết quả lỗi không? Có kiểm tra định kỳ không?</td></tr>
+</tbody></table>
+
+<h2 id="limits">8. Phạm vi bảo vệ và kiểm tra trước khi phát hành</h2>
+<p>Đây là cơ chế cấp quyền offline, không phải hệ thống bảo mật toàn bộ project. Chữ ký ngăn sửa nội dung license và tự phát hành license khi không có private key. AES-GCM bảo vệ file và phát hiện sửa dữ liệu; secret nhúng trong client vẫn có thể bị trích xuất khi reverse engineering. Người biết secret vẫn không tạo được chữ ký hợp lệ nếu không có private key.</p>
+<p>MAC có thể giả mạo/ngẫu nhiên hóa. Fingerprint cũng không phải định danh phần cứng bất biến. Người có quyền can thiệp chương trình có thể patch đoạn kiểm tra. ClockGuard có dung sai 10 phút và không chống được việc xóa/khôi phục trạng thái cục bộ. Nút thu hồi trong Studio chỉ đổi bản ghi tại máy cấp, không thông báo được cho client offline.</p>
+<p>Nếu cần thu hồi từ xa, chống chia sẻ mạnh hơn hoặc quản lý nhiều máy tập trung, phải bổ sung xác thực server hoặc license ngắn hạn được gia hạn có kiểm soát. Không tự coi các chức năng đó là đã có trong dự án.</p>
+<ul><li>Test license đúng, sai sản phẩm, sai máy, sai secret và sai public key.</li><li>Test file thiếu, file bị sửa, license chưa hiệu lực, đã hết hạn và đồng hồ bị lùi.</li><li>Test lần xuất office.dat đầu tiên và sau khi mở lại Studio.</li><li>Test khởi động lại, thay license khi app đang mở và cập nhật bản client.</li><li>Đảm bảo không có private key/mật khẩu ký trong thư mục phát hành.</li></ul>
+<pre><code>dotnet build WpfLicenseGenerator.sln
+dotnet run --project LicenseSelfTest</code></pre>
+<div class="footer"><strong>Nguồn đối chiếu:</strong> OfficeLicenseFile.cs (OFFC1/HKDF/AES), LicenseCrypto.cs (chữ ký), LicenseCodec.cs (payload binary), LicenseRules.cs, ClockGuard.cs, LicenseStore.cs, OfficeSecretStore.cs, IssuerService trong LicenseServices.cs. <a href="office-dat.md">Đặc tả office.dat</a> · <a href="examples/LicenseGate.cs">Mẫu C# hoàn chỉnh</a>.</div>
+</main><section id="extra-experience"><h2>Trải nghiệm thêm sau hạn</h2><p>Chỉ chọn giờ: áp dụng trong 24 giờ sau hạn. Chỉ chọn ngày: dùng cả ngày đã chọn. Chọn cả hai: chỉ dùng vào giờ đã chọn trong ngày đã chọn. Ví dụ hạn 23/10 lúc 16:00, chọn 24/10 và 16–17 thì chỉ mở 24/10 từ 16:00 đến trước 17:00.</p><p>Ngày chạy từ 24/10 đến hết 23/11. Cần cập nhật LicenseShared.dll trên client để đọc lịch đã ký trong payload v2. Vẫn chỉ xuất office.dat.</p><p><a href="Trai-nghiem-them.md">Quy tắc chi tiết và sơ đồ tích hợp</a></p></section></body></html>

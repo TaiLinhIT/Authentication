@@ -6,8 +6,7 @@
 
     <StackPanel Margin="28,24,28,26">
         <TextBlock x:Name="HeaderText" Text="{DynamicResource S_AddNewProduct}" Style="{StaticResource DialogTitle}"/>
-        <TextBlock x:Name="SubHeaderText" Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,7,0,0"
-                   Text="{DynamicResource S_AddProductIntro}"/>
+
 
         <Grid Margin="0,22,0,0">
             <Grid.ColumnDefinitions>
@@ -38,20 +37,9 @@
                       SelectionChanged="KeygenBox_SelectionChanged"/>
         </Grid>
 
-        <Border Style="{StaticResource SubtleCard}" Margin="0,16,0,0" Padding="14,12">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="&#xE946;" FontFamily="{StaticResource IconFont}" FontSize="14"
-                           Foreground="{StaticResource AccentHoverBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
-                <TextBlock x:Name="KeygenHint" Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                           MaxWidth="440" LineHeight="18"/>
-            </StackPanel>
-        </Border>
 
-        <Border x:Name="EditNote" Style="{StaticResource SubtleCard}" Margin="0,10,0,0" Padding="14,12"
-                Visibility="Collapsed" Background="{StaticResource WarningSoftBrush}" BorderBrush="#3A2E15">
-            <TextBlock Style="{StaticResource Muted}" FontSize="11.5" TextWrapping="Wrap"
-                       Text="{DynamicResource S_EditProductNote}"/>
-        </Border>
+
+
 
         <TextBlock x:Name="ErrorText" Foreground="{StaticResource DangerBrush}" FontSize="12" TextWrapping="Wrap"
                    Margin="0,14,0,0" Visibility="Collapsed"/>

@@ -58,8 +58,7 @@
                         <StackPanel>
                             <ContentControl Style="{StaticResource StatusPill}"
                                             Content="{Binding KeyStatusShort}" Tag="{Binding KeyStateKind}"/>
-                            <TextBlock Text="{Binding KeyStatusHint}" Style="{StaticResource Muted}" FontSize="11"
-                                       Margin="0,8,0,0"/>
+
                             <Button Content="{DynamicResource S_UnlockSigningKey}" Style="{StaticResource SecondaryButton}" Height="32"
                                     FontSize="11.5" Margin="0,12,0,0" Command="{Binding UnlockCommand}"
                                     Visibility="{Binding IsUnlocked, Converter={StaticResource InverseBoolToVis}}"/>
@@ -88,7 +87,7 @@
 
                 <StackPanel>
                     <TextBlock Text="{Binding PageTitle}" Style="{StaticResource Display}" FontSize="24"/>
-                    <TextBlock Text="{Binding PageSubtitle}" Style="{StaticResource Muted}" Margin="0,5,0,0"/>
+
                 </StackPanel>
 
                 <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center">

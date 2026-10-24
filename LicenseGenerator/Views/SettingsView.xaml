@@ -20,8 +20,7 @@
                             <ContentControl Style="{StaticResource StatusPill}" Content="{Binding StatusText}"
                                             Tag="{Binding StatusKind}" Margin="12,0,0,0"/>
                         </StackPanel>
-                        <TextBlock Text="{Binding StatusCaption}" Style="{StaticResource Muted}" TextWrapping="Wrap"
-                                   MaxWidth="660" Margin="0,9,0,0" LineHeight="18"/>
+
                         <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
                             <TextBlock Text="{DynamicResource S_KeyMaterial}" Style="{StaticResource Muted}" FontSize="11.5"/>
                             <TextBlock Text="{Binding KeyCountText}" FontSize="11.5" FontWeight="SemiBold"
@@ -41,8 +40,7 @@
                                 </StackPanel>
                                 <TextBlock Text="{Binding StoredKeysInfo}" Style="{StaticResource Muted}" FontSize="11"
                                            TextWrapping="Wrap" LineHeight="17" Margin="0,7,0,0"/>
-                                <TextBlock Text="{DynamicResource S_ResetKeysHint}" Style="{StaticResource Muted}" FontSize="11"
-                                           TextWrapping="Wrap" LineHeight="17" Margin="0,3,0,0"/>
+
                                 <Button Content="{DynamicResource S_ResetKeys}" Style="{StaticResource DangerButton}"
                                         Width="200" HorizontalAlignment="Left" Margin="0,11,0,0"
                                         Command="{Binding ResetIssuerKeysCommand}"
@@ -73,8 +71,7 @@
                 <Border Style="{StaticResource Card}" Padding="24">
                     <StackPanel>
                         <TextBlock Text="{DynamicResource S_ClientDistribution}" Style="{StaticResource H2}"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,9,0,0" LineHeight="18"
-                                   Text="{DynamicResource S_ClientDistributionHint}"/>
+
 
                         <TextBlock Text="{Binding BundleInfo}" FontSize="11.5" Foreground="{StaticResource AccentHoverBrush}"
                                    Margin="0,14,0,0"/>
@@ -90,8 +87,7 @@
                             <StackPanel>
                                 <TextBlock Text="{DynamicResource S_OfficeDatCard}" FontSize="10" FontWeight="SemiBold"
                                            Foreground="{StaticResource TextMutedBrush}"/>
-                                <TextBlock Text="{DynamicResource S_OfficeDatCardHint}" Style="{StaticResource Muted}"
-                                           FontSize="11" TextWrapping="Wrap" Margin="0,6,0,0" LineHeight="17"/>
+
                                 <Button Content="{DynamicResource S_ExportOfficeSecret}" Style="{StaticResource SecondaryButton}"
                                         Width="180" HorizontalAlignment="Left" Margin="0,12,0,0"
                                         Command="{Binding ExportOfficeSecretCommand}"/>
@@ -132,42 +128,6 @@
                 </Border>
             </Grid>
 
-            <!-- security checklist -->
-            <Border Style="{StaticResource Card}" Padding="24" Margin="0,18,0,0">
-                <StackPanel>
-                    <TextBlock Text="{DynamicResource S_SecurityNotes}" Style="{StaticResource H2}"/>
-                    <TextBlock Text="{DynamicResource S_SecurityNotesHint}" Style="{StaticResource Muted}"
-                               FontSize="11" Margin="0,4,0,0"/>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,18,0,0">
-                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
-                                   Text="{DynamicResource S_SecNotePrivateKey}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
-                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
-                                   Text="{DynamicResource S_SecNoteDpapi}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
-                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
-                                   Text="{DynamicResource S_SecNoteOffline}"/>
-                    </StackPanel>
-
-                    <StackPanel Orientation="Horizontal" Margin="0,13,0,0">
-                        <TextBlock Text="&#xE73E;" FontFamily="{StaticResource IconFont}" FontSize="12"
-                                   Foreground="{StaticResource SuccessBrush}" VerticalAlignment="Top" Margin="0,2,10,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" MaxWidth="900" LineHeight="18"
-                                   Text="{DynamicResource S_SecNoteObfuscation}"/>
-                    </StackPanel>
-                </StackPanel>
-            </Border>
         </StackPanel>
     </ScrollViewer>
 </UserControl>

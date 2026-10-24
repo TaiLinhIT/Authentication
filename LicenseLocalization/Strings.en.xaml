@@ -432,4 +432,7 @@
     <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">Enter a valid unicast MAC address: 12 hex digits, optionally separated by - or :.</sys:String>
     <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">Enter a target adapter MAC, e.g. C4-C6-E6-9E-17-5B. Any matching adapter is accepted; no network connection is needed.</sys:String>
     <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC address</sys:String>
+    <sys:String x:Key="S_ExtraExperience">Extra experience</sys:String>
+    <sys:String x:Key="S_ExtraHours">Hours</sys:String>
+    <sys:String x:Key="S_ExtraDays">Days</sys:String>
 </ResourceDictionary>

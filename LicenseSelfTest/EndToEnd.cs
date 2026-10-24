@@ -21,6 +21,12 @@ internal static class EndToEnd
         var records = new LicenseRecordStore(Path.Combine(root, "data", "issued-licenses.json"));
         var keys = new KeyStore(Path.Combine(root, "keys"));
         var issuer = new IssuerService(keys, records);
+        var secretStore = new OfficeSecretStore(Path.Combine(root, "test-office-secret.bin"));
+        byte[] firstSecret = secretStore.LoadOrCreate();
+        check("Office secret first use matches persisted secret",
+            firstSecret.SequenceEqual(secretStore.LoadOrCreate()) && firstSecret.Any(b => b != 0), null);
+        check("Office secret first export matches persisted secret",
+            Convert.FromBase64String(secretStore.ExportBase64()).SequenceEqual(firstSecret), null);
 
         var product = new ProductDefinition
         {
@@ -112,6 +118,26 @@ internal static class EndToEnd
         check("E2E activation code round trips",
             LicenseCodec.TryDecodeActivationCode(code, out var codeEnvelope, out error)
             && VerifyEnvelope(codeEnvelope!, DateTimeOffset.UtcNow).IsValid, error);
+
+        string guideFile = Path.Combine(root, "client", "office.dat");
+        var guideExport = new ExportService(keys);
+        File.WriteAllBytes(guideFile, guideExport.BuildOfficeFile(record, firstSecret));
+        string guideBundle = File.ReadAllText(bundlePath);
+        string guideSecret = secretStore.ExportBase64();
+        var guideResult = LicenseIntegration.LicenseGate.ValidateFile(guideFile, productId, guideBundle, guideSecret);
+        check("Documentation sample opens first-export office.dat and validates signature/rules/clock",
+            guideResult.IsValid, guideResult.Message);
+        check("Documentation sample rejects absent trusted key",
+            LicenseIntegration.LicenseGate.ValidateFile(guideFile, productId, "{\"keys\":[]}", guideSecret).Status == LicenseStatus.UnknownKey, null);
+        check("Documentation sample rejects wrong secret", !LicenseIntegration.LicenseGate.ValidateFile(
+            guideFile, productId, guideBundle, Convert.ToBase64String(OfficeLicenseFile.CreateSecret())).IsValid, null);
+        check("Documentation sample rejects missing file", LicenseIntegration.LicenseGate.ValidateFile(
+            guideFile + ".missing", productId, guideBundle, guideSecret).Status == LicenseStatus.Missing, null);
+        var changedBlob = File.ReadAllBytes(guideFile);
+        changedBlob[^1] ^= 1;
+        File.WriteAllBytes(guideFile, changedBlob);
+        check("Documentation sample rejects modified office.dat", !LicenseIntegration.LicenseGate.ValidateFile(
+            guideFile, productId, guideBundle, guideSecret).IsValid, null);
 
         // Store the license like a client does, then re-check on the next start.
         var store = new LicenseStore(productId, Path.Combine(root, "licenses"));

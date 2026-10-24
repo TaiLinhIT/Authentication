@@ -102,6 +102,7 @@ public sealed class LicensePayload
     public DateTimeOffset IssuedAtUtc { get; set; }
     public DateTimeOffset NotBeforeUtc { get; set; }
     public DateTimeOffset ExpiresAtUtc { get; set; }
+    public List<ExperienceWindow> ExtraWindows { get; set; } = new();
     public string KeyId { get; set; } = "";
 
     [JsonIgnore]
@@ -143,6 +144,7 @@ public sealed class LicenseRecord
     public DateTimeOffset IssuedAtUtc { get; set; }
     public DateTimeOffset NotBeforeUtc { get; set; }
     public DateTimeOffset ExpiresAtUtc { get; set; }
+    public List<ExperienceWindow> ExtraWindows { get; set; } = new();
     public string KeyId { get; set; } = "";
     public string Algorithm { get; set; } = "";
     public string LicenseText { get; set; } = "";

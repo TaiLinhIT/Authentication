@@ -432,4 +432,7 @@
     <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">Nhập MAC card mạng máy đích, ví dụ C4-C6-E6-9E-17-5B. Chỉ cần một card mạng khớp, không cần kết nối mạng.</sys:String>
     <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">Địa chỉ MAC</sys:String>
     <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">Nhập MAC unicast hợp lệ: 12 ký tự hex, có thể phân cách bằng - hoặc :.</sys:String>
+    <sys:String x:Key="S_ExtraExperience">Trải nghiệm thêm</sys:String>
+    <sys:String x:Key="S_ExtraHours">Theo giờ</sys:String>
+    <sys:String x:Key="S_ExtraDays">Theo ngày</sys:String>
 </ResourceDictionary>

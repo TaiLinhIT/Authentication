@@ -26,7 +26,8 @@ public static class LicenseCodec
         using var stream = new MemoryStream(256);
         using (var writer = new BinaryWriter(stream, Encoding.UTF8, leaveOpen: true))
         {
-            writer.Write(PayloadVersion);
+            ExtraExperience.Validate(payload.ExtraWindows, payload.ExpiresAtUtc, payload.IsPerpetual);
+            writer.Write(payload.ExtraWindows.Count == 0 ? PayloadVersion : (byte)2);
             WriteString(writer, payload.LicenseId);
             WriteString(writer, payload.ProductId);
             WriteString(writer, payload.ProductName);
@@ -39,6 +40,11 @@ public static class LicenseCodec
             writer.Write(payload.NotBeforeUtc.UtcTicks);
             writer.Write(payload.ExpiresAtUtc.UtcTicks);
             WriteString(writer, payload.KeyId);
+            if (payload.ExtraWindows.Count > 0)
+            {
+                writer.Write((ushort)payload.ExtraWindows.Count);
+                foreach (var w in payload.ExtraWindows) { writer.Write(w.StartUtc.UtcTicks); writer.Write(w.EndUtc.UtcTicks); }
+            }
         }
 
         return stream.ToArray();
@@ -53,7 +59,7 @@ public static class LicenseCodec
         using var reader = new BinaryReader(stream, Encoding.UTF8);
 
         byte version = reader.ReadByte();
-        if (version != PayloadVersion)
+        if (version != PayloadVersion && version != 2)
             throw new FormatException($"Unsupported license payload version {version}.");
 
         var payload = new LicensePayload
@@ -73,6 +79,13 @@ public static class LicenseCodec
         payload.NotBeforeUtc = new DateTimeOffset(reader.ReadInt64(), TimeSpan.Zero);
         payload.ExpiresAtUtc = new DateTimeOffset(reader.ReadInt64(), TimeSpan.Zero);
         payload.KeyId = ReadString(reader);
+        if (version == 2)
+        {
+            int count = reader.ReadUInt16();
+            if (count == 0 || count > ExtraExperience.MaxWindows) throw new FormatException("Invalid schedule size.");
+            for (int i = 0; i < count; i++) payload.ExtraWindows.Add(new(new DateTimeOffset(reader.ReadInt64(), TimeSpan.Zero), new DateTimeOffset(reader.ReadInt64(), TimeSpan.Zero)));
+            ExtraExperience.Validate(payload.ExtraWindows, payload.ExpiresAtUtc, payload.IsPerpetual);
+        }
 
         if (stream.Position != stream.Length)
             throw new FormatException("License payload contains trailing data.");

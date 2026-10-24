@@ -432,4 +432,7 @@
     <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">请输入有效的单播 MAC 地址（12 个十六进制字符，可用 - 或 : 分隔）。</sys:String>
     <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">输入目标网卡的 MAC 地址，例如 C4-C6-E6-9E-17-5B。任一网卡匹配即可，不要求联网。</sys:String>
     <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC 地址</sys:String>
+    <sys:String x:Key="S_ExtraExperience">延长体验</sys:String>
+    <sys:String x:Key="S_ExtraHours">按小时</sys:String>
+    <sys:String x:Key="S_ExtraDays">按日期</sys:String>
 </ResourceDictionary>

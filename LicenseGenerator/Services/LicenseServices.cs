@@ -304,6 +304,8 @@ public sealed class IssueRequest
     public TimeZoneInfo InputTimeZone { get; set; } = TimeZoneInfo.Utc;
 
     public bool Perpetual { get; set; }
+    public int[] ExtraHours { get; set; } = Array.Empty<int>();
+    public DateOnly[] ExtraDays { get; set; } = Array.Empty<DateOnly>();
 }
 
 public sealed class IssuerService
@@ -362,6 +364,7 @@ public sealed class IssuerService
             LicenseType = request.Perpetual ? LicenseType.Perpetual : request.LicenseType,
             IssuedAtUtc = DateTimeOffset.UtcNow,
             NotBeforeUtc = startUtc,
+            ExtraWindows = request.Perpetual ? new() : ExtraExperience.Build(request.ExpiryDate, request.ExpiryTime, request.InputTimeZone, request.ExtraHours, request.ExtraDays),
             ExpiresAtUtc = expiresUtc
         };
 
@@ -386,6 +389,7 @@ public sealed class IssuerService
             IssuedAtUtc = payload.IssuedAtUtc,
             NotBeforeUtc = payload.NotBeforeUtc,
             ExpiresAtUtc = payload.ExpiresAtUtc,
+            ExtraWindows = payload.ExtraWindows,
             KeyId = envelope.KeyId,
             Algorithm = envelope.Algorithm,
             LicenseText = licenseText

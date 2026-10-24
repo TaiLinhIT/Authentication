@@ -432,4 +432,7 @@
     <sys:String x:Key="S_ErrMacAddress" xml:space="preserve">有効なユニキャスト MAC アドレスを入力してください（16 進数 12 桁、区切りは - または :）。</sys:String>
     <sys:String x:Key="S_BindingMacAddressHint" xml:space="preserve">対象のネットワークアダプターの MAC（例：C4-C6-E6-9E-17-5B）を入力してください。いずれかが一致すればよく、接続は不要です。</sys:String>
     <sys:String x:Key="S_BindingMacAddress" xml:space="preserve">MAC アドレス</sys:String>
+    <sys:String x:Key="S_ExtraExperience">追加体験</sys:String>
+    <sys:String x:Key="S_ExtraHours">時間別</sys:String>
+    <sys:String x:Key="S_ExtraDays">日付別</sys:String>
 </ResourceDictionary>

@@ -4,6 +4,34 @@
         Title="{DynamicResource S_IssueLicenseTitle}" Width="1000" Height="780" MinWidth="920" MinHeight="680"
         Style="{StaticResource DialogWindow}" ShowInTaskbar="False" WindowStartupLocation="CenterOwner" ResizeMode="CanResize">
 
+    <Window.Resources>
+        <Style x:Key="ExperienceToggle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#101827"/>
+            <Setter Property="Foreground" Value="#A7B9D2"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="Padding" Value="8,9"/>
+            <Setter Property="MinWidth" Value="62"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border Background="{TemplateBinding Background}" BorderBrush="#34445E" BorderThickness="1" CornerRadius="7">
+                            <ContentPresenter Margin="{TemplateBinding Padding}" HorizontalAlignment="Center"/>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="IsChecked" Value="True">
+                    <Setter Property="Background" Value="#3065F5"/>
+                    <Setter Property="Foreground" Value="White"/>
+                </Trigger>
+                <Trigger Property="IsKeyboardFocused" Value="True">
+                    <Setter Property="Background" Value="#405B88"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Window.Resources>
     <Grid Margin="28,22,28,26">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
@@ -18,8 +46,7 @@
 
             <StackPanel>
                 <TextBlock Text="{DynamicResource S_IssueLicense}" Style="{StaticResource DialogTitle}"/>
-                <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" Margin="0,6,0,0"
-                           Text="{DynamicResource S_IssueLicenseIntro}"/>
+
             </StackPanel>
 
             <ContentControl Grid.Column="1" Style="{StaticResource StatusPill}" Content="{DynamicResource S_OfflineSigned}"
@@ -66,8 +93,7 @@
                         <TextBlock Text="{DynamicResource S_DeviceBindingU}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
                         <ComboBox ItemsSource="{Binding BindingOptions}" SelectedItem="{Binding SelectedBinding}"
                                   DisplayMemberPath="Label" Style="{StaticResource DarkComboBox}"/>
-                        <TextBlock Text="{Binding DeviceHint}" Style="{StaticResource Muted}" FontSize="11" Margin="0,6,0,0"
-                                   TextWrapping="Wrap"/>
+
 
                         <TextBlock Text="{Binding DeviceLabel}" Style="{StaticResource FieldLabel}" Margin="0,16,0,6"/>
                         <Grid>
@@ -117,9 +143,38 @@
 
                             <TextBlock Grid.Column="2" Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap"
                                        VerticalAlignment="Bottom" Margin="0,0,0,11"
-                                       Text="{Binding DatesHint}"/>
+                                       Text="{Binding InputTimeZoneLabel}"/>
                         </Grid>
 
+                        <StackPanel Margin="0,18,0,0" Visibility="{Binding HasExperienceOptions, Converter={StaticResource BoolToVis}}">
+                            <TextBlock Text="{DynamicResource S_ExtraExperience}" Style="{StaticResource FieldLabel}"/>
+                            <TextBlock Text="{DynamicResource S_ExtraHours}" Style="{StaticResource Muted}" Margin="0,8,0,4"/>
+                            <ItemsControl ItemsSource="{Binding ExtraHours}">
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate><DataTemplate>
+                                    <ToggleButton Style="{StaticResource ExperienceToggle}" IsChecked="{Binding Selected, Mode=TwoWay}"
+                                                  AutomationProperties.Name="{Binding Label}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="&#xE787;" FontFamily="{StaticResource IconFont}" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding Label}" FontSize="11"/>
+                                        </StackPanel>
+                                    </ToggleButton>
+                                </DataTemplate></ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            <TextBlock Text="{DynamicResource S_ExtraDays}" Style="{StaticResource Muted}" Margin="0,12,0,4"/>
+                            <ItemsControl ItemsSource="{Binding ExtraDays}">
+                                <ItemsControl.ItemsPanel><ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate></ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemTemplate><DataTemplate>
+                                    <ToggleButton Style="{StaticResource ExperienceToggle}" IsChecked="{Binding Selected, Mode=TwoWay}"
+                                                  AutomationProperties.Name="{Binding Label}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Text="&#xE787;" FontFamily="{StaticResource IconFont}" Margin="0,0,5,0"/>
+                                            <TextBlock Text="{Binding Label}" FontSize="11"/>
+                                        </StackPanel>
+                                    </ToggleButton>
+                                </DataTemplate></ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
                         <Border Style="{StaticResource SubtleCard}" Margin="0,18,0,0" Padding="14,12"
                                 Background="{StaticResource DangerSoftBrush}" BorderBrush="#3A1C27"
                                 Visibility="{Binding HasError, Converter={StaticResource BoolToVis}}">
@@ -129,8 +184,7 @@
 
                         <Button Content="{DynamicResource S_GenerateSignedLicense}" Style="{StaticResource PrimaryButton}"
                                 Height="44" Margin="0,20,0,0" Command="{Binding GenerateCommand}"/>
-                        <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,10,0,0"
-                                   Text="{DynamicResource S_SignLocalHint}"/>
+
                     </StackPanel>
                 </ScrollViewer>
 
@@ -165,14 +219,7 @@
                         <TextBlock Text="{DynamicResource S_ExpiresU}" FontSize="10" FontWeight="SemiBold" Foreground="{StaticResource TextMutedBrush}" Margin="0,16,0,4"/>
                         <TextBlock Text="{Binding PreviewExpiry}" FontSize="13"/>
 
-                        <Border Style="{StaticResource SubtleCard}" Margin="0,22,0,0" Padding="14,12">
-                            <StackPanel>
-                                <TextBlock Text="{DynamicResource S_Delivery}" FontSize="10" FontWeight="SemiBold"
-                                           Foreground="{StaticResource TextMutedBrush}" Margin="0,0,0,6"/>
-                                <TextBlock Text="{Binding PreviewKeyHint}" Style="{StaticResource Muted}" FontSize="11"
-                                           TextWrapping="Wrap" LineHeight="17"/>
-                            </StackPanel>
-                        </Border>
+
                     </StackPanel>
                 </Border>
             </Grid>
@@ -237,8 +284,7 @@
                                 </Grid>
                             </Border>
 
-                            <TextBlock Style="{StaticResource Muted}" FontSize="11" TextWrapping="Wrap" Margin="0,16,0,0"
-                                       Text="{DynamicResource S_DeliveryResultHint}"/>
+
                         </StackPanel>
                     </ScrollViewer>
 

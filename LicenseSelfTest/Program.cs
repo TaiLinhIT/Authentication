@@ -295,6 +295,16 @@ internal static class Program
                 keyA.Length == 32 && !keyA.SequenceEqual(keyB));
 
             // End-to-end: real issuer services -> real client validator
+            var extraPayload = Clone(payload);
+            extraPayload.ExtraWindows = ExtraExperience.Build(new DateOnly(2027, 1, 19), null, TimeZoneInfo.Utc, new[] { 0, 1 }, Array.Empty<DateOnly>());
+            var extraEnvelope = LicenseCrypto.Sign(extraPayload, rsaPrivate, password, SigningAlgorithm.Rsa);
+            Check("Extra schedule signature verifies", LicenseCrypto.Verify(extraEnvelope, publicPem, out var extraVerified, out _));
+            Check("Extra schedule survives signature roundtrip", extraVerified!.ExtraWindows.SequenceEqual(extraPayload.ExtraWindows));
+            var alteredExtra = Convert.FromBase64String(extraEnvelope.PayloadBase64);
+            alteredExtra[^1] ^= 1;
+            extraEnvelope.PayloadBase64 = Convert.ToBase64String(alteredExtra);
+            Check("Altered extra schedule rejected", !LicenseCrypto.Verify(extraEnvelope, publicPem, out _, out _));
+            ExperienceTests.Run(Check);
             EndToEnd.Run(_root, password, Check);
 
             // WPF theme/dialog resources (compiled BAML)

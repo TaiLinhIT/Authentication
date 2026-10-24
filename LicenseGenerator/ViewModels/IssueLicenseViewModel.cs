@@ -35,6 +35,15 @@ public sealed class LicenseTypeOption
     public string Label { get; }
 }
 
+public sealed class ExperienceChoice : ObservableObject
+{
+    private bool _selected;
+    public int Hour { get; init; }
+    public DateOnly Day { get; init; }
+    public string Label { get; init; } = "";
+    public bool Selected { get => _selected; set => Set(ref _selected, value); }
+}
+
 public sealed class IssueLicenseViewModel : ObservableObject
 {
     private readonly AppServices _services;
@@ -50,13 +59,10 @@ public sealed class IssueLicenseViewModel : ObservableObject
     private string _errorMessage = "";
     private string _resultStatus = "";
     private bool _hasResult;
-    private string _resultCode = "";
     private string _resultSerial = "";
     private string _resultAlgorithm = "";
     private string _resultExpiry = "";
     private string _resultStation = "";
-    private string _resultFileName = "";
-    private int _resultCodeLength;
     private bool _suppressAutoExpiry;
 
     public IssueLicenseViewModel(AppServices services, ProductDefinition? product, LicenseRecord? renewFrom)
@@ -92,8 +98,6 @@ public sealed class IssueLicenseViewModel : ObservableObject
         }
 
         GenerateCommand = new RelayCommand(Generate);
-        CopyResultCommand = new RelayCommand(CopyResult);
-        SaveResultCommand = new RelayCommand(SaveResult);
         SaveOfficeCommand = new RelayCommand(SaveOffice);
         ResetCommand = new RelayCommand(Reset);
         PasteDeviceCommand = new RelayCommand(PasteDevice);
@@ -155,7 +159,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
     public string DeviceLabel => SelectedBinding?.Mode == DeviceBindingMode.MacAddress
         ? L.T("S_BindingMacAddress") : SelectedBinding?.Mode == DeviceBindingMode.ManualDeviceId
             ? L.T("S_BindingDeviceId") : L.T("S_BindingFingerprintLabel");
-    public string DatesHint => L.F("S_DatesHint", TimeZoneInfo.Local.DisplayName);
+    public string InputTimeZoneLabel => TimeZoneInfo.Local.DisplayName;
 
     public LicenseTypeOption? SelectedType
     {
@@ -190,8 +194,28 @@ public sealed class IssueLicenseViewModel : ObservableObject
         get => _expiryDateText;
         set
         {
-            if (Set(ref _expiryDateText, value)) UpdatePreview();
+            if (Set(ref _expiryDateText, value)) { RebuildExperience(); UpdatePreview(); }
         }
+    }
+
+    public ObservableCollection<ExperienceChoice> ExtraHours { get; } = new();
+    public ObservableCollection<ExperienceChoice> ExtraDays { get; } = new();
+    public bool HasExperienceOptions => !IsPerpetual && ExtraDays.Count > 0;
+
+    private void RebuildExperience()
+    {
+        ExtraHours.Clear();
+        ExtraDays.Clear();
+        if (!IsPerpetual && LicenseDateInput.TryParseExpiry(ExpiryDateText, out var date, out var time) && date.Year < 9999)
+        {
+            var anchor = time ?? TimeOnly.MaxValue;
+            string format = anchor.Second != 0 || anchor.Ticks % TimeSpan.TicksPerSecond != 0 ? "HH:mm:ss" : "HH:mm";
+            for (int h = 0; h < 24; h++)
+                ExtraHours.Add(new ExperienceChoice { Hour = h, Label = anchor.AddHours(h).ToString(format) + "–" + anchor.AddHours(h + 1).ToString(format) });
+            for (var day = date.AddDays(1); day <= date.AddMonths(1); day = day.AddDays(1))
+                ExtraDays.Add(new ExperienceChoice { Day = day, Label = day.ToString("dd/MM") });
+        }
+        OnPropertyChanged(nameof(HasExperienceOptions));
     }
 
     public bool IsPerpetual => SelectedType?.Type == LicenseType.Perpetual;
@@ -218,32 +242,17 @@ public sealed class IssueLicenseViewModel : ObservableObject
     public string PreviewDuration => IsPerpetual ? L.T("S_Perpetual") : SelectedType?.Label ?? "—";
     public string PreviewExpiry => IsPerpetual ? L.T("S_NoExpiry") : string.IsNullOrWhiteSpace(ExpiryDateText) ? "—" : ExpiryDateText.Trim();
 
-    public string PreviewKeyHint => SelectedProduct is null
-        ? ""
-        : SelectedProduct.Algorithm == SigningAlgorithm.Ecdsa
-            ? L.T("S_CompactCodeHint")
-            : L.T("S_RsaCodeHint");
-
     // ---------------------------------------------------------------- result
 
     public bool HasResult { get => _hasResult; private set => Set(ref _hasResult, value); }
-    public string ResultCode { get => _resultCode; private set => Set(ref _resultCode, value); }
     public string ResultSerial { get => _resultSerial; private set => Set(ref _resultSerial, value); }
     public string ResultAlgorithm { get => _resultAlgorithm; private set => Set(ref _resultAlgorithm, value); }
     public string ResultExpiry { get => _resultExpiry; private set => Set(ref _resultExpiry, value); }
     public string ResultStation { get => _resultStation; private set => Set(ref _resultStation, value); }
-    public string ResultFileName { get => _resultFileName; private set => Set(ref _resultFileName, value); }
-    public int ResultCodeLength { get => _resultCodeLength; private set => Set(ref _resultCodeLength, value); }
     public string ResultStatus { get => _resultStatus; private set { if (Set(ref _resultStatus, value)) OnPropertyChanged(nameof(HasResultStatus)); } }
     public bool HasResultStatus => !string.IsNullOrWhiteSpace(ResultStatus);
 
-    public string ResultDeliveryHint => ResultCodeLength > 0
-        ? L.F("S_ResultCodeHint", ResultCodeLength)
-        : "";
-
     public ICommand GenerateCommand { get; }
-    public ICommand CopyResultCommand { get; }
-    public ICommand SaveResultCommand { get; }
     public ICommand SaveOfficeCommand { get; }
     public ICommand ResetCommand { get; }
     public ICommand PasteDeviceCommand { get; }
@@ -303,6 +312,8 @@ public sealed class IssueLicenseViewModel : ObservableObject
                 ExpiryDate = expiry,
                 ExpiryTime = expiryTime,
                 InputTimeZone = TimeZoneInfo.Local,
+                ExtraHours = ExtraHours.Where(x => x.Selected).Select(x => x.Hour).ToArray(),
+                ExtraDays = ExtraDays.Where(x => x.Selected).Select(x => x.Day).ToArray(),
                 Perpetual = perpetual
             };
 
@@ -324,50 +335,11 @@ public sealed class IssueLicenseViewModel : ObservableObject
     {
         GeneratedRecord = record;
 
-        string code = "";
-        try
-        {
-            if (LicenseCodec.TryParseLicenseText(record.LicenseText, out var envelope, out string parseError))
-                code = LicenseCodec.CreateActivationCode(envelope!);
-            else
-                SetResultStatus("S_LicenseInvalid");
-        }
-        catch (Exception)
-        {
-            SetResultStatus("S_LicenseInvalid");
-        }
-
         ResultSerial = record.LicenseId;
-        ResultCode = code;
-        ResultCodeLength = code.Length;
         ResultAlgorithm = record.Algorithm;
         ResultExpiry = record.IsPerpetual ? L.T("S_Never") : LicenseFormatting.Expiry(record.ExpiresAtUtc);
         ResultStation = string.IsNullOrWhiteSpace(record.StationName) ? "—" : record.StationName;
-        ResultFileName = $"{LicenseStore.SafeName(record.LicenseId)}.license.json";
-        OnPropertyChanged(nameof(ResultDeliveryHint));
         HasResult = true;
-    }
-
-    private void CopyResult()
-    {
-        if (string.IsNullOrWhiteSpace(ResultCode)) return;
-
-        _services.Dialogs.CopyToClipboard(ResultCode);
-        SetResultStatus("S_CodeCopied");
-    }
-
-    private void SaveResult()
-    {
-        if (GeneratedRecord is null) return;
-
-        string? path = _services.Dialogs.SaveTextFile(
-            L.T("S_SaveSignedLicense"),
-            ResultFileName,
-            L.T("S_FilterLicenseFile"),
-            GeneratedRecord.LicenseText,
-            "license.json");
-
-        if (path is not null) SetResultStatus("S_SavedTo", path);
     }
 
     private void SaveOffice()
@@ -399,18 +371,15 @@ public sealed class IssueLicenseViewModel : ObservableObject
     {
         HasResult = false;
         GeneratedRecord = null;
-        ResultCode = "";
         ResultSerial = "";
         ResultAlgorithm = "";
         ResultExpiry = "";
         ResultStation = "";
-        ResultFileName = "";
-        ResultCodeLength = 0;
         SetResultStatus(null);
         ErrorMessage = "";
         DeviceId = "";
+        RebuildExperience();
         RecomputeExpiry();
-        OnPropertyChanged(nameof(ResultDeliveryHint));
     }
 
     private void PasteDevice()
@@ -484,7 +453,7 @@ public sealed class IssueLicenseViewModel : ObservableObject
         }
         finally { _suppressAutoExpiry = false; }
         UpdateDeviceHint();
-        OnPropertyChanged(nameof(DatesHint));
+        OnPropertyChanged(nameof(InputTimeZoneLabel));
         UpdatePreview();
         if (GeneratedRecord is not null) ShowResult(GeneratedRecord);
     }
@@ -526,7 +495,6 @@ public sealed class IssueLicenseViewModel : ObservableObject
         OnPropertyChanged(nameof(PreviewBinding));
         OnPropertyChanged(nameof(PreviewDuration));
         OnPropertyChanged(nameof(PreviewExpiry));
-        OnPropertyChanged(nameof(PreviewKeyHint));
     }
 
     private static bool TryParseDate(string? text, out DateOnly date)

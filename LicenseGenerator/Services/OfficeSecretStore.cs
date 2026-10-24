@@ -68,7 +68,7 @@ public sealed class OfficeSecretStore
     {
         Directory.CreateDirectory(Path.GetDirectoryName(_path)!);
 
-        byte[] plain = secret;
+        byte[] plain = (byte[])secret.Clone();
         byte[] protectedBlob = Dpapi.Protect(plain, Entropy());
 
         byte[] blob = new byte[Magic.Length + protectedBlob.Length];

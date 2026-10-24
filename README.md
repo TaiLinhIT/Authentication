@@ -30,13 +30,18 @@ dotnet run --project LicenseSelfTest       # headless test suite
 
 ## How it works
 
+Vietnamese illustrated guide: [Hướng dẫn sử dụng và tích hợp](docs/Huong-dan-su-dung-va-tich-hop.html).
+Open this standalone HTML in a browser; it includes printable diagrams and links to the
+compiled/tested [LicenseGate.cs integration example](docs/examples/LicenseGate.cs).
+
 1. The issuer creates **one key pair per product**.
 2. A license is a small JSON envelope containing a binary payload plus a signature.
 3. The client verifies, in order: envelope format → known public key → signature → product id →
    machine binding → start/expiry dates → clock-rollback guard. Only then does it create its
    main window.
-4. Licenses can be delivered either as an **activation code** (`WLC1-XXXXX-…`) or as a
-   `.license.json` file. Both carry the same signed content.
+4. The issuer UI delivers **office.dat only**: an AES-256-GCM encrypted signed envelope.
+   Clients decrypt it, then verify its signature and rules. The shared codec retains support
+   for legacy activation codes/JSON, but those export options are no longer shown in the issuer.
 
 ### Algorithms
 
@@ -127,11 +132,9 @@ Key files:
    issue a replacement if their original expiry was unintended.
    Direct `IssuerService` callers retain UTC by default; set `IssueRequest.InputTimeZone`
    explicitly when supplying local wall-clock dates. Ambiguous or nonexistent DST times are rejected.
-5. Issue. The tool produces:
-   - a serial (`WLC-YYYY-XXXXXX`) recorded in the register,
-   - an activation code (`WLC1-…`) for typed delivery,
-   - a `.license.json` envelope for file delivery.
-6. Send the code or file to the customer. Nothing secret leaves the issuer.
+5. Issue, then select **Save office.dat**. The serial (`WLC-YYYY-XXXXXX`) remains in the register.
+6. Send only office.dat to the customer. The client build must already contain the matching
+   vendor secret and trusted public keys; the private signing key never leaves the issuer.
 
 Renewal works the same way: issue a new license for the same device. The old one stays valid until
 its own expiry and the client keeps whichever license is installed last.

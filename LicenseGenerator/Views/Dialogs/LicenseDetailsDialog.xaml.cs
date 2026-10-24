@@ -11,7 +11,7 @@ public partial class LicenseDetailsDialog : Window
 {
     private readonly AppServices _services;
     private readonly string _licenseText;
-    private string _activationCode = "";
+
 
     public LicenseDetailsDialog(AppServices services, string licenseText)
     {
@@ -32,18 +32,8 @@ public partial class LicenseDetailsDialog : Window
             SignatureNote.Text = error;
             SignatureNote.Foreground = (Brush)FindResource("DangerBrush");
             SerialText.Text = L.T("S_UnrecognizedLicense");
-            CodeValue.Text = _licenseText;
-            return;
-        }
 
-        try
-        {
-            _activationCode = LicenseCodec.CreateActivationCode(envelope!);
-            CodeValue.Text = _activationCode;
-        }
-        catch (Exception ex)
-        {
-            CodeValue.Text = L.F("S_CouldNotRebuildCode", ex.Message);
+            return;
         }
 
         LicensePayload? payload = null;
@@ -94,6 +84,8 @@ public partial class LicenseDetailsDialog : Window
         string status;
         if (now < payload.NotBeforeUtc)
             status = L.F("S_StatusCodeNotActive", payload.NotBeforeUtc.ToString("yyyy-MM-dd HH:mm"));
+        else if (now > payload.ExpiresAtUtc && ExtraExperience.Allows(payload.ExtraWindows, now))
+            status = L.T("S_ExtraExperience");
         else if (!payload.IsPerpetual && now > payload.ExpiresAtUtc)
             status = L.F("S_StatusCodeExpired", payload.ExpiresAtUtc.ToString("yyyy-MM-dd HH:mm"));
         else
@@ -113,6 +105,8 @@ public partial class LicenseDetailsDialog : Window
             // Fingerprint unavailable; keep the date-based status.
         }
 
+        if (payload.ExtraWindows.Count > 0)
+            status += "\n" + L.T("S_ExtraExperience") + ":\n" + string.Join("\n", payload.ExtraWindows.Select(w => w.StartUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss") + " – " + w.EndUtc.ToLocalTime().ToString("yyyy-MM-dd HH:mm:ss")));
         StatusValue.Text = status;
     }
 
@@ -143,9 +137,5 @@ public partial class LicenseDetailsDialog : Window
         SignaturePill.Tag = kind;
     }
 
-    private void Copy_Click(object sender, RoutedEventArgs e)
-    {
-        _services.Dialogs.CopyToClipboard(string.IsNullOrWhiteSpace(_activationCode) ? _licenseText : _activationCode);
-        SignatureNote.Text = L.T("S_CopiedToClipboard");
-    }
+
 }

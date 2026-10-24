@@ -160,9 +160,7 @@
                         </Border>
                         <TextBlock Text="{DynamicResource S_NoLicensesHere}" Style="{StaticResource H2}" FontSize="16"
                                    HorizontalAlignment="Center" Margin="0,16,0,0"/>
-                        <TextBlock Style="{StaticResource Muted}" TextWrapping="Wrap" TextAlignment="Center"
-                                   MaxWidth="420" Margin="0,7,0,0"
-                                   Text="{DynamicResource S_NoLicensesHereHint}"/>
+
                         <Button Content="{DynamicResource S_IssueALicense}" Style="{StaticResource PrimaryButton}" Width="170"
                                 Margin="0,18,0,0" Command="{Binding IssueCommand}"/>
                     </StackPanel>
