@@ -17,6 +17,9 @@ D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Licen
 D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\refint\LicenseLocalization.dll
 D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.pdb
 D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\ref\LicenseLocalization.dll
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.sourcelink.json
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.ja.baml
+D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.zh.baml
 E:\MyProject\HAN\Authentication\LicenseLocalization\bin\Debug\net8.0-windows\LicenseLocalization.deps.json
 E:\MyProject\HAN\Authentication\LicenseLocalization\bin\Debug\net8.0-windows\LicenseLocalization.dll
 E:\MyProject\HAN\Authentication\LicenseLocalization\bin\Debug\net8.0-windows\LicenseLocalization.pdb
@@ -24,7 +27,9 @@ E:\MyProject\HAN\Authentication\LicenseLocalization\bin\Debug\net8.0-windows\Lic
 E:\MyProject\HAN\Authentication\LicenseLocalization\bin\Debug\net8.0-windows\LicenseShared.pdb
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.csproj.AssemblyReference.cache
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.en.baml
+E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.ja.baml
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.vi.baml
+E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.zh.baml
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization_MarkupCompile.cache
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.g.resources
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.GeneratedMSBuildEditorConfig.editorconfig
@@ -37,6 +42,3 @@ E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Lic
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\refint\LicenseLocalization.dll
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.pdb
 E:\MyProject\HAN\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\ref\LicenseLocalization.dll
-D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\LicenseLocalization.sourcelink.json
-D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.ja.baml
-D:\project\Han\Authentication\LicenseLocalization\obj\Debug\net8.0-windows\Strings.zh.baml
